@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hexo</title>
+  
+  
+  <link href="https://hyxiaoge.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://hyxiaoge.github.io/"/>
+  <updated>2025-04-23T05:44:51.440Z</updated>
+  <id>https://hyxiaoge.github.io/</id>
+  
+  <author>
+    <name>John Doe</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>夯实基础了解LLm大语言模型</title>
+    <link href="https://hyxiaoge.github.io/2025/02/27/hang-shi-ji-chu-liao-jie-llm-da-yu-yan-mo-xing/"/>
+    <id>https://hyxiaoge.github.io/2025/02/27/hang-shi-ji-chu-liao-jie-llm-da-yu-yan-mo-xing/</id>
+    <published>2025-02-27T14:48:43.000Z</published>
+    <updated>2025-04-23T05:44:51.440Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;大语言模型(Large Language Model,</summary>
+        
+      
+    
+    
+    
+    <category term="AI" scheme="https://hyxiaoge.github.io/categories/AI/"/>
+    
+    
+    <category term="LLM" scheme="https://hyxiaoge.github.io/tags/LLM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>大模型 RAG 应用开发基础及入门</title>
+    <link href="https://hyxiaoge.github.io/2025/02/12/da-mo-xing-rag-ying-yong-kai-fa-ji-chu-ji-ru-men/"/>
+    <id>https://hyxiaoge.github.io/2025/02/12/da-mo-xing-rag-ying-yong-kai-fa-ji-chu-ji-ru-men/</id>
+    <published>2025-02-12T15:01:12.000Z</published>
+    <updated>2025-04-23T05:45:00.614Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;大语言模型中的幻觉问题-上&quot;&gt;&lt;a href=&quot;#大语言模型中的幻觉问题-上&quot; class=&quot;headerlink&quot; title=&quot;大语言模型中的幻觉问题(上)&quot;&gt;&lt;/a&gt;大语言模型中的幻觉问题(上)&lt;/h1&gt;&lt;h1 id=&quot;什么是大语言模型的幻觉？&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="AI" scheme="https://hyxiaoge.github.io/categories/AI/"/>
+    
+    
+    <category term="RAG" scheme="https://hyxiaoge.github.io/tags/RAG/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LangChain RAG 应用开发优化策略详解</title>
+    <link href="https://hyxiaoge.github.io/2025/02/12/langchain-rag-ying-yong-kai-fa-you-hua-ce-lue-xiang-jie/"/>
+    <id>https://hyxiaoge.github.io/2025/02/12/langchain-rag-ying-yong-kai-fa-you-hua-ce-lue-xiang-jie/</id>
+    <published>2025-02-12T14:43:03.000Z</published>
+    <updated>2025-04-23T05:44:39.569Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;引言：理解RAG及其重要性&quot;&gt;&lt;a href=&quot;#引言：理解RAG及其重要性&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="AI" scheme="https://hyxiaoge.github.io/categories/AI/"/>
+    
+    
+    <category term="Langchain" scheme="https://hyxiaoge.github.io/tags/Langchain/"/>
+    
+    <category term="RAG" scheme="https://hyxiaoge.github.io/tags/RAG/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LangChain初入门</title>
+    <link href="https://hyxiaoge.github.io/2025/02/09/langchain-chu-ru-men/"/>
+    <id>https://hyxiaoge.github.io/2025/02/09/langchain-chu-ru-men/</id>
+    <published>2025-02-09T14:48:33.000Z</published>
+    <updated>2025-04-23T05:45:08.576Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;不同LLM模型之间的输入输出结构存在差异，这些差异会导致开发者需要频繁修改代码，降低代码的可维护性。为了解决这个问题，Langchain应用框架应运而生。&lt;/p&gt;
+&lt;h1 id=&quot;为什么选择LangChain&quot;&gt;&lt;a href=&quot;#为什么选择LangChain&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="AI" scheme="https://hyxiaoge.github.io/categories/AI/"/>
+    
+    
+    <category term="Langchain" scheme="https://hyxiaoge.github.io/tags/Langchain/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LangChain RAG 应用开发组件深度解析</title>
+    <link href="https://hyxiaoge.github.io/2025/02/09/langchain-rag-ying-yong-kai-fa-zu-jian-shen-du-jie-xi/"/>
+    <id>https://hyxiaoge.github.io/2025/02/09/langchain-rag-ying-yong-kai-fa-zu-jian-shen-du-jie-xi/</id>
+    <published>2025-02-09T14:45:43.000Z</published>
+    <updated>2025-04-23T05:45:15.690Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;在当今的AI应用开发中，检索增强生成(Retrieval-Augmented Generation,</summary>
+        
+      
+    
+    
+    
+    <category term="AI" scheme="https://hyxiaoge.github.io/categories/AI/"/>
+    
+    
+    <category term="Langchain" scheme="https://hyxiaoge.github.io/tags/Langchain/"/>
+    
+    <category term="RAG" scheme="https://hyxiaoge.github.io/tags/RAG/"/>
+    
+  </entry>
+  
+</feed>
