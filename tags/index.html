@@ -326,20 +326,11 @@
             <div class="tag-chips">
                 
                 
-                <a href="/tags/Langchain/" title="Langchain: 3">
+                <a href="/tags/Langchain/" title="Langchain: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             data-tagname="Langchain" style="background-color: #F9EBEA;">Langchain
-                        <span class="tag-length">3</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/RAG/" title="RAG: 3">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="RAG" style="background-color: #F5EEF8;">RAG
-                        <span class="tag-length">3</span>
+                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
@@ -347,7 +338,7 @@
                 <a href="/tags/LLM/" title="LLM: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="LLM" style="background-color: #D5F5E3;">LLM
+                            data-tagname="LLM" style="background-color: #F5EEF8;">LLM
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -376,7 +367,7 @@
 <script type="text/javascript">
     
 
-    $('#tag-wordcloud').jQCloud([{"text":"Langchain","weight":3,"link":"/tags/Langchain/"},{"text":"RAG","weight":3,"link":"/tags/RAG/"},{"text":"LLM","weight":1,"link":"/tags/LLM/"}], {
+    $('#tag-wordcloud').jQCloud([{"text":"Langchain","weight":1,"link":"/tags/Langchain/"},{"text":"LLM","weight":1,"link":"/tags/LLM/"}], {
         autoResize: true
     });
 </script>
@@ -387,60 +378,6 @@
 
 
     <footer class="page-footer bg-color">
-    
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="/libs/aplayer/Meting.min.js"></script>
-
     
 
     <div class="container row center-align"
@@ -457,7 +394,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11k</span>
+                        class="white-color">2.8k</span>
             
             
             
@@ -558,10 +495,6 @@
 
 
 
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
 
 </div>
     </div>
@@ -720,6 +653,14 @@ $(function () {
     
 
     <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
     
 
     <!-- 鼠标星星特效 -->
