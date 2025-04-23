@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>HyxiaoGe</title>
   
   
   <link href="https://hyxiaoge.github.io/atom.xml" rel="self"/>
   
   <link href="https://hyxiaoge.github.io/"/>
-  <updated>2025-04-23T12:25:55.236Z</updated>
+  <updated>2025-04-23T12:53:06.734Z</updated>
   <id>https://hyxiaoge.github.io/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>Sean</name>
     
   </author>
   
@@ -21,7 +21,7 @@
     <link href="https://hyxiaoge.github.io/2025/02/27/hang-shi-ji-chu-liao-jie-llm-da-yu-yan-mo-xing/"/>
     <id>https://hyxiaoge.github.io/2025/02/27/hang-shi-ji-chu-liao-jie-llm-da-yu-yan-mo-xing/</id>
     <published>2025-02-27T14:48:43.000Z</published>
-    <updated>2025-04-23T12:25:55.236Z</updated>
+    <updated>2025-04-23T12:53:06.734Z</updated>
     
     
       
