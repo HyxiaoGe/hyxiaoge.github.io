@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="LangChain初入门, HyxiaoGe">
-    <meta name="description" content="不同LLM模型之间的输入输出结构存在差异，这些差异会导致开发者需要频繁修改代码，降低代码的可维护性。为了解决这个问题，Langchain应用框架应运而生。">
+    <meta name="description" content="不同LLM模型之间的输入输出结构存在差异，需要频繁修改代码，降低代码的可维护性。为了解决这个问题，Langchain应用框架应运而生。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -59,8 +59,8 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><link rel="alternate" href="/atom.xml" title="HyxiaoGe" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="HyxiaoGe" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -344,7 +344,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-04-24
+                    2025-04-25
                 </div>
                 
 
@@ -407,9 +407,8 @@
 <li><p><strong>Agents (代理)</strong>：赋予LLM使用工具的能力，支持自主推理和行动决策</p>
 </li>
 </ul>
-<p><img src="http://sv6693ki5.hn-bkt.clouddn.com/blog/LangChain%E5%88%9D%E5%85%A5%E9%97%A8/image1.png" alt="image"></p>
-<p><strong>Prompts组件介绍</strong></p>
-<p><strong>概念与作用</strong></p>
+<p><img src="/medias/featureimages/11.jpg" alt="image"></p>
+<h4 id="Prompts组件"><a href="#Prompts组件" class="headerlink" title="Prompts组件"></a>Prompts组件</h4><p><strong>概念与作用</strong></p>
 <p>在LLM应用开发中,我们通常不会直接将用户输入传递给大模型,而是会将用户输入添加到一个更大的文本片段中,这个文本片段被称为Prompt。Prompt为大模型提供了任务相关的上下文和指令,帮助模型更好地理解和执行任务。</p>
 <p>LangChain中的Prompts组件提供了一系列工具来管理和优化这些提示模板。主要包含两大类:</p>
 <ul>
@@ -483,8 +482,7 @@
 <li><p>避免不必要的模板拼接操作</p>
 </li>
 </ol>
-<p><strong>Model组件详解</strong></p>
-<p><strong>基本概念</strong></p>
+<h4 id="Model组件"><a href="#Model组件" class="headerlink" title="Model组件"></a>Model组件</h4><p><strong>基本概念</strong></p>
 <p>Models是LangChain的核心组件，提供了一个标准接口来封装不同类型的LLM进行交互，LangChain本身不提供LLM,而是提供了接口来集成各种模型。</p>
 <p>LangChain支持两种类型的模型:</p>
 <ul>
@@ -510,8 +508,7 @@
 </ul>
 </li>
 </ul>
-<p>Message组件类型:</p>
-<ul>
+<h4 id="Message组件"><a href="#Message组件" class="headerlink" title="Message组件"></a>Message组件</h4><ul>
 <li><p>SystemMessage: 系统消息</p>
 </li>
 <li><p>HumanMessage: 人类消息</p>
@@ -672,8 +669,7 @@
 </ul>
 </li>
 </ol>
-<p><strong>LCEL表达式与Runnable协议</strong></p>
-<p><strong>为什么需要LCEL</strong></p>
+<h4 id="LCEL表达式与Runnable协议"><a href="#LCEL表达式与Runnable协议" class="headerlink" title="LCEL表达式与Runnable协议"></a>LCEL表达式与Runnable协议</h4><p><strong>为什么需要LCEL</strong></p>
 <p>传统的链式调用方式存在嵌套问题：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">content = parser.invoke(</span><br><span class="line">    llm.invoke(</span><br><span class="line">        prompt.invoke(</span><br><span class="line">            &#123;<span class="string">&quot;query&quot;</span>: req.query.data&#125;</span><br><span class="line">        )</span><br><span class="line">    )</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
@@ -826,7 +822,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            不同LLM模型之间的输入输出结构存在差异，这些差异会导致开发者需要频繁修改代码，降低代码的可维护性。为了解决这个问题，Langchain应用框架应运而生。
+                            不同LLM模型之间的输入输出结构存在差异，需要频繁修改代码，降低代码的可维护性。为了解决这个问题，Langchain应用框架应运而生。
                         
                     </div>
                     <div class="publish-info">
@@ -880,7 +876,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            不同LLM模型之间的输入输出结构存在差异，这些差异会导致开发者需要频繁修改代码，降低代码的可维护性。为了解决这个问题，Langchain应用框架应运而生。
+                            不同LLM模型之间的输入输出结构存在差异，需要频繁修改代码，降低代码的可维护性。为了解决这个问题，Langchain应用框架应运而生。
                         
                     </div>
                     <div class="publish-info">
