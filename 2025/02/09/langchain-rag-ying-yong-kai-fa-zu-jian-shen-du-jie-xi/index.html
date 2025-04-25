@@ -1,0 +1,1159 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="LangChain RAG 应用开发组件深度解析, HyxiaoGe">
+    <meta name="description" content="前言在当今的AI应用开发中，检索增强生成(Retrieval-Augmented Generation, RAG)已经成为一种重要的技术范式。它通过将大语言模型与外部知识库结合，极大地提升了AI系统的知识获取能力和输出质量。而LangCha">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>LangChain RAG 应用开发组件深度解析 | HyxiaoGe</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(http://sv6693ki5.hn-bkt.clouddn.com/background/bg.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="HyxiaoGe" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">HyxiaoGe</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">HyxiaoGe</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">LangChain RAG 应用开发组件深度解析</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Langchain/">
+                                <span class="chip bg-color">Langchain</span>
+                            </a>
+                        
+                            <a href="/tags/RAG/">
+                                <span class="chip bg-color">RAG</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/AI/" class="post-category">
+                                AI
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-02-09
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-04-26
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    1.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    6 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在当今的AI应用开发中，检索增强生成(Retrieval-Augmented Generation, RAG)已经成为一种重要的技术范式。它通过将大语言模型与外部知识库结合，极大地提升了AI系统的知识获取能力和输出质量。而LangChain作为一个强大的框架，为RAG应用的开发提供了丰富的组件支持。本文将深入剖析LangChain中RAG应用开发的核心组件，帮助你更好地理解和使用这些工具。</p>
+<h2 id="核心组件概览"><a href="#核心组件概览" class="headerlink" title="核心组件概览"></a>核心组件概览</h2><p>在开始深入学习之前,我们先来了解LangChain中RAG应用开发涉及的主要组件:</p>
+<ol>
+<li>Document组件与文档加载器 - 负责文档的加载和基础处理</li>
+<li>文档转换器与分割器 - 处理文档转换和分块</li>
+<li>VectorStore组件 - 实现向量存储和检索</li>
+<li>Blob相关组件 - 处理二进制大对象数据</li>
+</ol>
+<h3 id="Document-组件与文档加载器详解"><a href="#Document-组件与文档加载器详解" class="headerlink" title="Document 组件与文档加载器详解"></a>Document 组件与文档加载器详解</h3><h4 id="Document-组件基础"><a href="#Document-组件基础" class="headerlink" title="Document 组件基础"></a>Document 组件基础</h4><p>Document 是 LangChain 的核心组件之一，它定义了一个通用的文档结构，包含两个基本要素：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Document = page_content(页面内容) + metadata(元数据)</span><br></pre></td></tr></table></figure>
+
+<p>这种结构允许我们统一处理各种类型的文档，同时保留文档的元信息。</p>
+<h4 id="文档加载器类型"><a href="#文档加载器类型" class="headerlink" title="文档加载器类型"></a>文档加载器类型</h4><p>LangChain 提供了多种文档加载器：</p>
+<ol>
+<li>通用文本加载器</li>
+<li>CSV文件加载器</li>
+<li>HTML网页加载器</li>
+<li>PDF文档加载器</li>
+<li>Markdown文档加载器</li>
+</ol>
+<p><img src="/medias/featureimages/blog/langchain-rag-ying-yong-kai-fa-zu-jian-shen-du-jie-xi/image1.png" alt="image"></p>
+<p>每种加载器都专门处理特定类型的文档，但它们都会将文档转换成统一的Document格式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_community.document_loaders <span class="keyword">import</span> TextLoader</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载文本文件示例</span></span><br><span class="line">loader = TextLoader(<span class="string">&quot;./data.txt&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line">documents = loader.load()</span><br></pre></td></tr></table></figure>
+
+<h4 id="异步加载支持"><a href="#异步加载支持" class="headerlink" title="异步加载支持"></a>异步加载支持</h4><p>对于大型文档，LangChain提供了异步加载方式：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">load_documents</span>():</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">with</span> aiofiles.<span class="built_in">open</span>(file_path, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="comment"># 异步处理文档</span></span><br><span class="line">        <span class="keyword">yield</span> Document(</span><br><span class="line">            page_content=line,</span><br><span class="line">            metadata=&#123;<span class="string">&quot;source&quot;</span>: file_path&#125;</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+
+<h3 id="文档转换器与分割器"><a href="#文档转换器与分割器" class="headerlink" title="文档转换器与分割器"></a>文档转换器与分割器</h3><h4 id="DocumentTransformer-组件"><a href="#DocumentTransformer-组件" class="headerlink" title="DocumentTransformer 组件"></a>DocumentTransformer 组件</h4><p>文档转换器用于处理以下常见问题：</p>
+<ol>
+<li>文档太大导致的性能问题</li>
+<li>原始文档格式不符合要求</li>
+<li>文档内容需要标准化处理</li>
+</ol>
+<h4 id="文档转换器的工作原理"><a href="#文档转换器的工作原理" class="headerlink" title="文档转换器的工作原理"></a>文档转换器的工作原理</h4><p>DocumentTransformer组件的主要职责是对文档进行各种转换操作，包括：</p>
+<ol>
+<li>文档切割</li>
+<li>文档层级提取</li>
+<li>文档翻译</li>
+<li>HTML标签处理</li>
+<li>重排等多个功能</li>
+</ol>
+<p>在LangChain中，所有文档转换器都继承自BaseDocumentTransformer基类，它提供了两个核心方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BaseDocumentTransformer</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">transform_documents</span>(<span class="params">self</span>): </span><br><span class="line">        <span class="comment"># 转换文档列表</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">atransform_documents</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># 异步转换处理</span></span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="文档分割器详解"><a href="#文档分割器详解" class="headerlink" title="文档分割器详解"></a>文档分割器详解</h3><h4 id="字符分割器（CharacterTextSplitter）"><a href="#字符分割器（CharacterTextSplitter）" class="headerlink" title="字符分割器（CharacterTextSplitter）"></a>字符分割器（CharacterTextSplitter）</h4><p>CharacterTextSplitter 是基础的分割器，它有以下重要参数：</p>
+<ol>
+<li><code>separator</code>: 分割符,默认为’\n\n’</li>
+<li><code>chunk_size</code>: 每块文本的最大大小,默认4000</li>
+<li><code>chunk_overlap</code>: 块与块之间的重叠大小,默认200</li>
+<li><code>length_function</code>: 计算文本长度的函数,默认len</li>
+<li><code>keep_separator</code>: 是否在分割的块中保留分隔符</li>
+</ol>
+<p>使用示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_text_splitters <span class="keyword">import</span> CharacterTextSplitter</span><br><span class="line"></span><br><span class="line">text_splitter = CharacterTextSplitter(</span><br><span class="line">    separator=<span class="string">&quot;\n\n&quot;</span>,</span><br><span class="line">    chunk_size=<span class="number">500</span>,</span><br><span class="line">    chunk_overlap=<span class="number">50</span>,</span><br><span class="line">    add_start_index=<span class="literal">True</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用分割器处理文档</span></span><br><span class="line">splits = text_splitter.split_documents(documents)</span><br></pre></td></tr></table></figure>
+
+<h4 id="实践建议"><a href="#实践建议" class="headerlink" title="实践建议"></a>实践建议</h4><p>在实际应用中，有以下几点建议：</p>
+<ol>
+<li>选择合适的chunk_size<ul>
+<li>太大会影响处理效率</li>
+<li>太小可能破坏语义完整性</li>
+<li>建议根据实际需求在400-1000之间调整</li>
+</ul>
+</li>
+<li>合理设置overlap<ul>
+<li>设置适当的重叠可以保持上下文连贯</li>
+<li>通常设置为chunk_size的10%-20%</li>
+</ul>
+</li>
+<li>注意分隔符的选择<ul>
+<li>根据文档类型选择合适的分隔符</li>
+<li>可以使用多级分隔符策略</li>
+</ul>
+</li>
+</ol>
+<h3 id="VectorStore组件与检索器"><a href="#VectorStore组件与检索器" class="headerlink" title="VectorStore组件与检索器"></a>VectorStore组件与检索器</h3><h4 id="VectorStore基础概念"><a href="#VectorStore基础概念" class="headerlink" title="VectorStore基础概念"></a>VectorStore基础概念</h4><p>VectorStore组件负责：</p>
+<ol>
+<li>存储文档的向量表示</li>
+<li>提供相似性检索功能</li>
+<li>支持不同的向量检索策略</li>
+</ol>
+<h4 id="检索器的使用"><a href="#检索器的使用" class="headerlink" title="检索器的使用"></a>检索器的使用</h4><p>LangChain 提供了多种检索策略：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain <span class="keyword">import</span> VectorStore</span><br><span class="line"></span><br><span class="line"><span class="comment"># 基础相似性检索</span></span><br><span class="line">results = vectorstore.similarity_search(query)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 带相似度分数的检索</span></span><br><span class="line">results = vectorstore.similarity_search_with_score(query)</span><br><span class="line"></span><br><span class="line"><span class="comment"># MMR检索策略</span></span><br><span class="line">results = vectorstore.max_marginal_relevance_search(query)</span><br></pre></td></tr></table></figure>
+
+<h3 id="VectorStore实现细节"><a href="#VectorStore实现细节" class="headerlink" title="VectorStore实现细节"></a>VectorStore实现细节</h3><h4 id="支持的向量数据库"><a href="#支持的向量数据库" class="headerlink" title="支持的向量数据库"></a>支持的向量数据库</h4><ul>
+<li>Chroma</li>
+<li>FAISS</li>
+<li>Pinecone</li>
+<li>Milvus</li>
+</ul>
+<h4 id="检索策略详解"><a href="#检索策略详解" class="headerlink" title="检索策略详解"></a>检索策略详解</h4><ol>
+<li>相似度检索(Similarity Search)<ul>
+<li>基于余弦相似度</li>
+<li>支持Top-K检索</li>
+</ul>
+</li>
+<li>MMR检索(Maximum Marginal Relevance)<ul>
+<li>平衡相关性和多样性</li>
+<li>可配置lambda参数调整权重</li>
+</ul>
+</li>
+<li>混合检索策略<ul>
+<li>关键词+语义检索</li>
+<li>支持自定义评分函数</li>
+</ul>
+</li>
+</ol>
+<h3 id="Blob与BlobParser组件"><a href="#Blob与BlobParser组件" class="headerlink" title="Blob与BlobParser组件"></a>Blob与BlobParser组件</h3><h4 id="Blob方案介绍"><a href="#Blob方案介绍" class="headerlink" title="Blob方案介绍"></a>Blob方案介绍</h4><p>Blob是LangChain处理二进制数据的解决方案，它具有以下特点：</p>
+<ol>
+<li>支持存储字节流数据</li>
+<li>提供统一的数据访问接口</li>
+<li>灵活的元数据管理</li>
+</ol>
+<p>基本使用示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_core.document_loaders <span class="keyword">import</span> Blob</span><br><span class="line"><span class="keyword">from</span> langchain_core.document_loaders.base <span class="keyword">import</span> BaseBlobParser</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建Blob对象</span></span><br><span class="line">blob = Blob.from_path(<span class="string">&quot;./data.txt&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用解析器</span></span><br><span class="line">parser = CustomParser()</span><br><span class="line">documents = <span class="built_in">list</span>(parser.lazy_parse(blob))</span><br></pre></td></tr></table></figure>
+
+<h4 id="Blob数据存储类详解"><a href="#Blob数据存储类详解" class="headerlink" title="Blob数据存储类详解"></a>Blob数据存储类详解</h4><p>LangChain中的Blob数据存储提供了丰富的属性和方法，让我们详细了解一下：</p>
+<p><strong>核心属性</strong></p>
+<ol>
+<li><strong>data</strong>: 原始数据，支持存储字节，字符串数据</li>
+<li><strong>mimetype</strong>: 文件的mimetype类型</li>
+<li><strong>encoding</strong>: 文件的编码，默认utf-8</li>
+<li><strong>path</strong>: 文件的原始路径</li>
+<li><strong>metadata</strong>: 存储的元数据，通常包含source字段</li>
+</ol>
+<p><strong>常用方法</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字符串转换</span></span><br><span class="line">as_string(): <span class="comment"># 将数据转换为字符串</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 字节转换</span></span><br><span class="line">as_bytes(): <span class="comment"># 将数据转换为字节数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 字节流操作</span></span><br><span class="line">as_bytes_io(): <span class="comment"># 将数据转换为字节流</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从路径加载</span></span><br><span class="line">from_path(): <span class="comment"># 从文件路径加载Blob数据</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 从原始数据加载</span></span><br><span class="line">from_data(): <span class="comment"># 从原始数据加载Blob数据</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="BlobLoader实现"><a href="#BlobLoader实现" class="headerlink" title="BlobLoader实现"></a>BlobLoader实现</h4><p>BlobLoader是一个抽象接口，用于实现二进制数据的加载。以下是一个自定义BlobLoader的示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_core.document_loaders <span class="keyword">import</span> Blob</span><br><span class="line"><span class="keyword">from</span> langchain_core.document_loaders.base <span class="keyword">import</span> BaseBlobParser</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CustomBlobLoader</span>(<span class="title class_ inherited__">ABC</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;自定义Blob加载器实现&quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">yield_blobs</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">    </span>) -&gt; Iterable[Blob]:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;加载并返回Blob数据流&quot;&quot;&quot;</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, file_path: <span class="built_in">str</span></span>):</span><br><span class="line">        <span class="variable language_">self</span>.file_path = file_path</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">lazy_load</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;延迟加载实现&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">for</span> blob <span class="keyword">in</span> <span class="variable language_">self</span>.yield_blobs():</span><br><span class="line">            <span class="keyword">yield</span> Document(</span><br><span class="line">                page_content=blob.as_string(),</span><br><span class="line">                metadata=&#123;<span class="string">&quot;source&quot;</span>: blob.source&#125;</span><br><span class="line">            )</span><br></pre></td></tr></table></figure>
+
+<h4 id="通用加载器使用最佳实践"><a href="#通用加载器使用最佳实践" class="headerlink" title="通用加载器使用最佳实践"></a>通用加载器使用最佳实践</h4><p>GenericLoader是LangChain提供的一个通用加载器，它结合了BlobLoader和BaseBlobParser的功能：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain_community.document_loaders.generic <span class="keyword">import</span> GenericLoader</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建通用加载器</span></span><br><span class="line">loader = GenericLoader.from_filesystem(</span><br><span class="line">    <span class="string">&quot;./&quot;</span>,  <span class="comment"># 文件系统路径</span></span><br><span class="line">    glob=<span class="string">&quot;*.txt&quot;</span>,  <span class="comment"># 文件匹配模式</span></span><br><span class="line">    show_progress=<span class="literal">True</span>  <span class="comment"># 显示进度</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用加载器</span></span><br><span class="line"><span class="keyword">for</span> idx, doc <span class="keyword">in</span> <span class="built_in">enumerate</span>(loader.lazy_load()):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;当前加载第<span class="subst">&#123;idx + <span class="number">1</span>&#125;</span>个文件, 文件信息:<span class="subst">&#123;doc.metadata&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="性能优化建议"><a href="#性能优化建议" class="headerlink" title="性能优化建议"></a>性能优化建议</h4><ol>
+<li>使用延迟加载<ul>
+<li>对于大文件优先使用lazy_load()</li>
+<li>避免一次性加载全部内容</li>
+</ul>
+</li>
+<li>合理配置缓存<ul>
+<li>利用缓存减少重复加载</li>
+<li>及时清理不需要的缓存</li>
+</ul>
+</li>
+<li>错误处理<ul>
+<li>实现适当的错误处理机制</li>
+<li>记录加载过程中的异常</li>
+</ul>
+</li>
+<li>进度监控<ul>
+<li>对大规模数据处理添加进度显示</li>
+<li>实现断点续传机制</li>
+</ul>
+</li>
+</ol>
+
+                
+            </div>
+            <hr/>
+
+            
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Langchain/">
+                                    <span class="chip bg-color">Langchain</span>
+                                </a>
+                            
+                                <a href="/tags/RAG/">
+                                    <span class="chip bg-color">RAG</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/02/09/langchain-chu-ru-men/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="LangChain初入门">
+                        
+                        <span class="card-title">LangChain初入门</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            不同LLM模型之间的输入输出结构存在差异，需要频繁修改代码，降低代码的可维护性。为了解决这个问题，Langchain应用框架应运而生。
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-09
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/AI/" class="post-category">
+                                    AI
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Langchain/">
+                        <span class="chip bg-color">Langchain</span>
+                    </a>
+                    
+                    <a href="/tags/LLM/">
+                        <span class="chip bg-color">LLM</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/02/09/langchain-rag-ying-yong-kai-fa-zu-jian-shen-du-jie-xi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="LangChain RAG 应用开发组件深度解析">
+                        
+                        <span class="card-title">LangChain RAG 应用开发组件深度解析</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-09
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/AI/" class="post-category">
+                                    AI
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Langchain/">
+                        <span class="chip bg-color">Langchain</span>
+                    </a>
+                    
+                    <a href="/tags/RAG/">
+                        <span class="chip bg-color">RAG</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023-2025</span>
+            
+            <a href="/about" target="_blank">Sean</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">10.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2023";
+                        var startMonth = "7";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/HyxiaoGe" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:hyxiao97@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

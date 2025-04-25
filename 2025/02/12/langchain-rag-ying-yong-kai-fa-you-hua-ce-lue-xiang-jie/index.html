@@ -1,0 +1,1285 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="LangChain RAG 应用开发优化策略详解, HyxiaoGe">
+    <meta name="description" content="引言：理解RAG及其重要性在大语言模型（LLM）应用开发中，检索增强生成（Retrival-Augmented Generation, RAG）已经成为提升模型输出质量的关键技术。本文将深入探讨在LangChain框架中如何优化RAG应用，">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>LangChain RAG 应用开发优化策略详解 | HyxiaoGe</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(http://sv6693ki5.hn-bkt.clouddn.com/background/bg.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="HyxiaoGe" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">HyxiaoGe</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">HyxiaoGe</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">LangChain RAG 应用开发优化策略详解</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Langchain/">
+                                <span class="chip bg-color">Langchain</span>
+                            </a>
+                        
+                            <a href="/tags/RAG/">
+                                <span class="chip bg-color">RAG</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/AI/" class="post-category">
+                                AI
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-02-12
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-04-26
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    10 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="引言：理解RAG及其重要性"><a href="#引言：理解RAG及其重要性" class="headerlink" title="引言：理解RAG及其重要性"></a>引言：理解RAG及其重要性</h2><p>在大语言模型（LLM）应用开发中，检索增强生成（Retrival-Augmented Generation, RAG）已经成为提升模型输出质量的关键技术。本文将深入探讨在LangChain框架中如何优化RAG应用，帮助开发者构建更智能、更准确的AI应用。</p>
+<h2 id="RAG的基本概念"><a href="#RAG的基本概念" class="headerlink" title="RAG的基本概念"></a>RAG的基本概念</h2><blockquote>
+<p>📌 什么是RAG?<br>RAG是一种将外部知识检索与语言模型生成相结合的技术架构。它通过检索相关信息来增强LLM的知识储备，从而产生更准确、更可靠的输出。</p>
+</blockquote>
+<h3 id="为什么需要优化RAG？"><a href="#为什么需要优化RAG？" class="headerlink" title="为什么需要优化RAG？"></a>为什么需要优化RAG？</h3><p>在实际应用中，基础的RAG实现往往会遇到以下挑战：</p>
+<ol>
+<li>检索准确性不足</li>
+<li>复杂问题处理能力有限</li>
+<li>知识关联不够紧密</li>
+<li>响应质量不够稳定</li>
+</ol>
+<p>这些问题促使我们需要采用多种优化策略来提升RAG的性能。</p>
+<h3 id="第一部分：多查询检索优化策略"><a href="#第一部分：多查询检索优化策略" class="headerlink" title="第一部分：多查询检索优化策略"></a>第一部分：多查询检索优化策略</h3><h4 id="理解多查询检索的必要性"><a href="#理解多查询检索的必要性" class="headerlink" title="理解多查询检索的必要性"></a>理解多查询检索的必要性</h4><p>在RAG应用中，单一查询往往无法完整捕捉用户问题的所有方面。例如，当用户问”Python如何实现多线程并发控制？“时，我们可能需要同时检索：</p>
+<ul>
+<li>Python线程基础知识</li>
+<li>并发控制机制</li>
+<li>线程安全实现方法</li>
+</ul>
+<h4 id="多查询检索的工作原理"><a href="#多查询检索的工作原理" class="headerlink" title="多查询检索的工作原理"></a>多查询检索的工作原理</h4><blockquote>
+<p>🔍 核心思路：利用LLM的理解能力，将一个复杂查询拆分或重写为多个相关查询，然后通过融合算法整合检索结果。</p>
+</blockquote>
+<p><strong>工作流程</strong>：</p>
+<ol>
+<li><strong>查询重写</strong>：LLM将原始查询转换为多个相关查询</li>
+<li><strong>并行检索</strong>：对每个查询进行独立检索</li>
+<li><strong>结果融合</strong>：使用RRF（Reciprocal Rank Fusion）算法融合检索结果</li>
+<li><strong>内容生成</strong>：将融合后的结果输入LLM生成最终答案</li>
+</ol>
+<h3 id="代码实现示例"><a href="#代码实现示例" class="headerlink" title="代码实现示例"></a>代码实现示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.retrievers <span class="keyword">import</span> MultiQueryRetriever</span><br><span class="line"><span class="keyword">from</span> langchain.chains <span class="keyword">import</span> LLMChain</span><br><span class="line"><span class="keyword">from</span> langchain.prompts <span class="keyword">import</span> PromptTemplate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 创建多查询检索器</span></span><br><span class="line">retriever = MultiQueryRetriever(</span><br><span class="line">    retriever=base_retriever,</span><br><span class="line">    llm=ChatOpenAI(model=<span class="string">&quot;gpt-3.5-turbo-16k&quot;</span>, temperature=<span class="number">0</span>),</span><br><span class="line">    prompt_template=<span class="string">&quot;&quot;&quot;基于用户的问题，生成3个不同的相关查询：</span></span><br><span class="line"><span class="string">    原始问题: &#123;question&#125;</span></span><br><span class="line"><span class="string">    生成的查询应该探索问题的不同方面。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 使用RRF算法融合结果</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rrf_fusion</span>(<span class="params">results, k=<span class="number">60</span></span>):</span><br><span class="line">    fused_scores = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> rank, doc <span class="keyword">in</span> <span class="built_in">enumerate</span>(results):</span><br><span class="line">        doc_str = doc.page_content</span><br><span class="line">        <span class="keyword">if</span> doc_str <span class="keyword">not</span> <span class="keyword">in</span> fused_scores:</span><br><span class="line">            fused_scores[doc_str] = <span class="number">1.0</span> / (k + rank + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            fused_scores[doc_str] += <span class="number">1.0</span> / (k + rank + <span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 排序并返回结果</span></span><br><span class="line">    sorted_results = <span class="built_in">sorted</span>(fused_scores.items(), </span><br><span class="line">                          key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>], </span><br><span class="line">                          reverse=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">return</span> sorted_results</span><br></pre></td></tr></table></figure>
+
+<p>RRF 算法原理如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">RRF (Reciprocal Rank Fusion) 算法的核心公式：</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">RRFscore(d ∈ D) = ∑ 1/(k + r(d))</span></span><br><span class="line"><span class="string">其中：</span></span><br><span class="line"><span class="string">- d 是文档</span></span><br><span class="line"><span class="string">- D 是所有文档集合</span></span><br><span class="line"><span class="string">- k 是一个常数(通常取60)</span></span><br><span class="line"><span class="string">- r(d)是文档d在排序中的位置</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">这个公式的特点：</span></span><br><span class="line"><span class="string">1. 对排名靠前的文档给予更高的权重</span></span><br><span class="line"><span class="string">2. k参数可以调节排名的影响程度</span></span><br><span class="line"><span class="string">3. 适合融合不同来源的排序结果</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="优化效果分析"><a href="#优化效果分析" class="headerlink" title="优化效果分析"></a>优化效果分析</h4><p>多查询检索策略带来的主要优势：</p>
+<ol>
+<li><strong>提升召回率</strong><ul>
+<li>通过多角度查询提高相关文档的覆盖率</li>
+<li>减少因单一查询表达不当导致的漏检</li>
+</ul>
+</li>
+<li><strong>提高准确性</strong><ul>
+<li>RRF融合算法可以突出高质量的共同结果</li>
+<li>降低单个查询的噪声影响</li>
+</ul>
+</li>
+<li><strong>增强鲁棒性</strong><ul>
+<li>对查询表达的变化更不敏感</li>
+<li>能更好地处理复杂或模糊的问题</li>
+</ul>
+</li>
+</ol>
+<h4 id="实践建议"><a href="#实践建议" class="headerlink" title="实践建议"></a>实践建议</h4><p>在实际应用中，需要注意以下几点：</p>
+<ul>
+<li><strong>查询数量选择</strong>：通常生成3-5个查询即可，过多查询可能引入噪声</li>
+<li><strong>相似度阈值设置</strong>：建议在RRF融合时设置合适的相似度阈值，过滤低相关性结果</li>
+<li><strong>资源消耗考虑</strong>：多查询会增加API调用和计算资源，需要在效果和成本间权衡</li>
+</ul>
+<blockquote>
+<p>💡 实践小贴士：可以通过监控检索结果的diversity和relevance指标，来调整多查询策略的参数。</p>
+</blockquote>
+<h3 id="第二部分：问题分解策略优化"><a href="#第二部分：问题分解策略优化" class="headerlink" title="第二部分：问题分解策略优化"></a>第二部分：问题分解策略优化</h3><h4 id="复杂问题的分解处理"><a href="#复杂问题的分解处理" class="headerlink" title="复杂问题的分解处理"></a>复杂问题的分解处理</h4><p>在实际应用中，我们经常遇到复杂的多层次问题。例如：”请分析特斯拉近五年的财务状况，并评估其在电动汽车市场的竞争优势。”这类问题需要：</p>
+<ul>
+<li>处理大量相关信息</li>
+<li>分析多个维度</li>
+<li>综合多方面结论</li>
+</ul>
+<p><strong>并行分解模式</strong></p>
+<blockquote>
+<p>🔄 并行模式：将问题同时分解为多个独立子问题，分别获取答案后合并。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 并行分解示例</span></span><br><span class="line">decomposition_chain = &#123;</span><br><span class="line">    <span class="string">&quot;question&quot;</span>: RunnablePassthrough(),</span><br><span class="line">    | decomposition_prompt    <span class="comment"># 分解问题</span></span><br><span class="line">    | ChatOpenAI(temperature=<span class="number">0</span>)</span><br><span class="line">    | StrOutputParser()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 并行处理子问题</span></span><br><span class="line">sub_questions = decomposition_chain.invoke(question)</span><br><span class="line">answers = <span class="keyword">await</span> asyncio.gather(*[</span><br><span class="line">    process_subquestion(q) <span class="keyword">for</span> q <span class="keyword">in</span> sub_questions</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p><strong>串行分解模式</strong></p>
+<blockquote>
+<p>⛓️ 串行模式：按照逻辑顺序依次处理子问题，后面的问题依赖前面的答案。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 串行分解示例</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">StepBackRetriever</span>(<span class="title class_ inherited__">BaseRetriever</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_get_relevant_documents</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self, query: <span class="built_in">str</span>, *, run_manager: CallbackManagerForRetrieverRun</span></span><br><span class="line"><span class="params">    </span>) -&gt; <span class="type">List</span>[Document]:</span><br><span class="line">        <span class="comment"># 1. 生成中间查询</span></span><br><span class="line">        intermediate_query = <span class="variable language_">self</span>.llm.predict(</span><br><span class="line">            <span class="string">f&quot;为了回答&#x27;<span class="subst">&#123;query&#125;</span>&#x27;，我们需要先了解什么？&quot;</span></span><br><span class="line">        )</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 2. 检索中间知识</span></span><br><span class="line">        intermediate_docs = <span class="variable language_">self</span>.retriever.get_relevant_documents(</span><br><span class="line">            intermediate_query</span><br><span class="line">        )</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 3. 基于中间知识检索最终答案</span></span><br><span class="line">        final_docs = <span class="variable language_">self</span>.retriever.get_relevant_documents(query)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> intermediate_docs + final_docs</span><br></pre></td></tr></table></figure>
+
+<h4 id="Step-Back-策略实现"><a href="#Step-Back-策略实现" class="headerlink" title="Step-Back 策略实现"></a>Step-Back 策略实现</h4><p>Step-Back策略是一种特殊的串行分解方法，它通过“后退一步”来获取更基础的知识背景。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">示例：用户问题&quot;量子计算机如何影响现代密码学？&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Step-Back分解：</span></span><br><span class="line"><span class="string">1. 基础知识查询：</span></span><br><span class="line"><span class="string">   - 什么是量子计算机的基本原理？</span></span><br><span class="line"><span class="string">   - 现代密码学的核心技术有哪些？</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">2. 关联分析：</span></span><br><span class="line"><span class="string">   - 量子计算对RSA等算法的影响</span></span><br><span class="line"><span class="string">   - 后量子密码学的发展</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">3. 最终综合：</span></span><br><span class="line"><span class="string">   基于以上知识形成完整答案</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>工作流程</strong>：</p>
+<ol>
+<li>分析原始问题</li>
+<li>生成更基础的前置问题</li>
+<li>获取基础知识</li>
+<li>结合基础知识回答原问题</li>
+</ol>
+<h4 id="Step-Back-代码实现"><a href="#Step-Back-代码实现" class="headerlink" title="Step-Back 代码实现"></a>Step-Back 代码实现</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># </span></span><br><span class="line">system_prompt = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">你是一位专业的助手，需要：</span></span><br><span class="line"><span class="string">1. 理解用户的具体问题</span></span><br><span class="line"><span class="string">2. 思考需要哪些基础知识</span></span><br><span class="line"><span class="string">3. 生成相关的基础问题</span></span><br><span class="line"><span class="string">4. 基于基础知识回答原问题</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">few_shot_prompt = FewShotChatMessagePromptTemplate(</span><br><span class="line">    example_prompt=example_prompt,</span><br><span class="line">    examples=examples,</span><br><span class="line">    suffix=<span class="string">&quot;现在，请帮我回答：&#123;question&#125;&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h4 id="优化效果对比"><a href="#优化效果对比" class="headerlink" title="优化效果对比"></a>优化效果对比</h4><table>
+<thead>
+<tr>
+<th>分解策略</th>
+<th>适用场景</th>
+<th>优势</th>
+<th>劣势</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>并行分解</td>
+<td>独立子问题</td>
+<td>处理速度快，资源利用高</td>
+<td>结果整合可能不够连贯</td>
+</tr>
+<tr>
+<td>串行分解</td>
+<td>逻辑依赖性强</td>
+<td>答案更连贯，逻辑性强</td>
+<td>处理时间较长</td>
+</tr>
+<tr>
+<td>Step-Back</td>
+<td>需要深入理解</td>
+<td>回答更全面，准确度高</td>
+<td>资源消耗较大</td>
+</tr>
+</tbody></table>
+<h4 id="实践建议-1"><a href="#实践建议-1" class="headerlink" title="实践建议"></a>实践建议</h4><ol>
+<li>选择策略时考虑因素: <ul>
+<li>问题的复杂度</li>
+<li>子问题间的依赖关系</li>
+<li>响应时间要求</li>
+<li>资源限制</li>
+</ul>
+</li>
+<li>优化建议：<ul>
+<li>对于并行模式，注意结果融合的质量</li>
+<li>串行模式要控制分解的层级深度</li>
+<li>Step-Back策略要平衡基础知识的范围</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>🌟 最佳实践：可以根据问题类型动态选择分解策略，甚至组合使用多种策略。</p>
+</blockquote>
+<h3 id="第三部分：混合检索策略实现"><a href="#第三部分：混合检索策略实现" class="headerlink" title="第三部分：混合检索策略实现"></a>第三部分：混合检索策略实现</h3><h4 id="理解混合检索的价值"><a href="#理解混合检索的价值" class="headerlink" title="理解混合检索的价值"></a>理解混合检索的价值</h4><p>在实际应用中，单一的检索方法往往难以应对所有场景。例如：</p>
+<ul>
+<li>语义检索擅长理解上下文，但可能错过关键词</li>
+<li>关键词检索准确度高，但缺乏语义理解</li>
+<li>密集检索和稀疏检索各有优势</li>
+</ul>
+<p>因此，将多种检索方法结合起来，可以取长补短，提升整体检索效果。</p>
+<h4 id="混合检索器的架构设计"><a href="#混合检索器的架构设计" class="headerlink" title="混合检索器的架构设计"></a>混合检索器的架构设计</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> langchain.retrievers <span class="keyword">import</span> EnsembleRetriever</span><br><span class="line"><span class="keyword">from</span> langchain_community.retrievers <span class="keyword">import</span> BM25Retriever</span><br><span class="line"><span class="keyword">from</span> langchain_community.vectorstores <span class="keyword">import</span> FAISS</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 创建不同类型的检索器</span></span><br><span class="line"><span class="comment"># BM25检索器（基于关键词）</span></span><br><span class="line">bm25_retriever = BM25Retriever.from_documents(</span><br><span class="line">    documents, k=<span class="number">4</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># FAISS检索器（基于向量）</span></span><br><span class="line">faiss_retriever = FAISS.from_documents(</span><br><span class="line">    documents,</span><br><span class="line">    embedding=OpenAIEmbeddings(model=<span class="string">&quot;text-embedding-3-small&quot;</span>)</span><br><span class="line">).as_retriever(search_kwargs=&#123;<span class="string">&quot;k&quot;</span>: <span class="number">4</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 创建集成检索器</span></span><br><span class="line">ensemble_retriever = EnsembleRetriever(</span><br><span class="line">    retrievers=[bm25_retriever, faiss_retriever],</span><br><span class="line">    weights=[<span class="number">0.5</span>, <span class="number">0.5</span>]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h4 id="主要检索方法的特点"><a href="#主要检索方法的特点" class="headerlink" title="主要检索方法的特点"></a>主要检索方法的特点</h4><p>下面是几种常用检索方法的对比：</p>
+<table>
+<thead>
+<tr>
+<th>检索方法</th>
+<th>优势</th>
+<th>适用场景</th>
+<th>注意事项</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BM25</td>
+<td>精确匹配，速度快</td>
+<td>关键词搜索</td>
+<td>不理解语义变化</td>
+</tr>
+<tr>
+<td>向量检索</td>
+<td>理解语义相似</td>
+<td>概念搜索</td>
+<td>计算资源消耗大</td>
+</tr>
+<tr>
+<td>混合检索</td>
+<td>综合优势</td>
+<td>复杂查询</td>
+<td>需要调整权重</td>
+</tr>
+</tbody></table>
+<h4 id="实现细节和优化"><a href="#实现细节和优化" class="headerlink" title="实现细节和优化"></a>实现细节和优化</h4><p><strong>检索器配置</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置检索参数</span></span><br><span class="line">faiss_retriever = faiss_db.as_retriever(</span><br><span class="line">    search_kwargs=&#123;<span class="string">&quot;k&quot;</span>: <span class="number">4</span>&#125;</span><br><span class="line">).configurable_fields(</span><br><span class="line">    search_kwargs=ConfigurableField(</span><br><span class="line">        <span class="built_in">id</span>=<span class="string">&quot;search_kwargs_faiss&quot;</span>,</span><br><span class="line">        name=<span class="string">&quot;检索参数&quot;</span>,</span><br><span class="line">        description=<span class="string">&quot;设置检索的参数&quot;</span></span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置运行时配置</span></span><br><span class="line">config = &#123;<span class="string">&quot;configurable&quot;</span>: &#123;<span class="string">&quot;search_kwargs_faiss&quot;</span>: &#123;<span class="string">&quot;k&quot;</span>: <span class="number">4</span>&#125;&#125;&#125;</span><br><span class="line">docs = ensemble_retriever.invoke(<span class="string">&quot;查询&quot;</span>, config=config)</span><br></pre></td></tr></table></figure>
+
+<p><strong>权重调整策略</strong></p>
+<ol>
+<li><strong>初始设置</strong>：开始时可以给各检索器相同权重</li>
+<li><strong>动态调整</strong>：根据查询类型动态调整权重</li>
+<li><strong>性能监控</strong>：跟踪各检索器的表现，定期优化权重</li>
+<li><strong>场景适配</strong>：针对不同领域调整最优权重组合</li>
+</ol>
+<h4 id="应用效果优化"><a href="#应用效果优化" class="headerlink" title="应用效果优化"></a>应用效果优化</h4><p>为了获得最佳检索效果，建议：</p>
+<ol>
+<li>检索器选择<ul>
+<li>根据数据特点选择合适的检索器组合</li>
+<li>考虑计算资源和响应时间的平衡</li>
+<li>评估检索器的互补性</li>
+</ul>
+</li>
+<li>参数优化<ul>
+<li>使用验证集调整检索参数</li>
+<li>监控检索质量指标</li>
+<li>定期更新检索模型</li>
+</ul>
+</li>
+<li>结果融合<ul>
+<li>采用多样化的融合策略</li>
+<li>考虑结果的去重和排序</li>
+<li>平衡相关性和多样性</li>
+</ul>
+</li>
+</ol>
+<h4 id="性能监控与改进"><a href="#性能监控与改进" class="headerlink" title="性能监控与改进"></a>性能监控与改进</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 性能监控示例</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">evaluate_retrieval</span>(<span class="params">retriever, test_queries, ground_truth</span>):</span><br><span class="line">    metrics = &#123;</span><br><span class="line">        <span class="string">&#x27;precision&#x27;</span>: [],</span><br><span class="line">        <span class="string">&#x27;recall&#x27;</span>: [],</span><br><span class="line">        <span class="string">&#x27;latency&#x27;</span>: []</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> query, truth <span class="keyword">in</span> <span class="built_in">zip</span>(test_queries, ground_truth):</span><br><span class="line">        start_time = time.time()</span><br><span class="line">        results = retriever.get_relevant_documents(query)</span><br><span class="line">        latency = time.time() - start_time</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 计算评估指标</span></span><br><span class="line">        metrics[<span class="string">&#x27;latency&#x27;</span>].append(latency)</span><br><span class="line">        <span class="comment"># ... 计算precision和recall</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> metrics</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结：RAG优化策略的实践指南"><a href="#总结：RAG优化策略的实践指南" class="headerlink" title="总结：RAG优化策略的实践指南"></a>总结：RAG优化策略的实践指南</h3><h4 id="优化策略的综合比较"><a href="#优化策略的综合比较" class="headerlink" title="优化策略的综合比较"></a>优化策略的综合比较</h4><p>以下是我们讨论过的主要优化策略的特点对比：</p>
+<table>
+<thead>
+<tr>
+<th>优化策略</th>
+<th>主要优势</th>
+<th>实现复杂度</th>
+<th>资源消耗</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>多查询检索</td>
+<td>提高召回率</td>
+<td>中等</td>
+<td>中等</td>
+<td>复杂查询、模糊问题</td>
+</tr>
+<tr>
+<td>问题分解</td>
+<td>提升理解深度</td>
+<td>较高</td>
+<td>较高</td>
+<td>多维度分析问题</td>
+</tr>
+<tr>
+<td>Step-Back</td>
+<td>增强理解准确性</td>
+<td>高</td>
+<td>高</td>
+<td>需要深入理解的问题</td>
+</tr>
+<tr>
+<td>混合检索</td>
+<td>综合性能提升</td>
+<td>中等</td>
+<td>较高</td>
+<td>通用场景</td>
+</tr>
+</tbody></table>
+<h4 id="优化路径建议"><a href="#优化路径建议" class="headerlink" title="优化路径建议"></a>优化路径建议</h4><ol>
+<li><strong>基础阶段</strong><ul>
+<li>实现基本的RAG流程</li>
+<li>优化向量检索参数</li>
+<li>改进提示词设计</li>
+</ul>
+</li>
+<li><strong>进阶阶段</strong><ul>
+<li>引入多查询策略</li>
+<li>实现基本的问题分解</li>
+<li>尝试混合检索方法</li>
+</ul>
+</li>
+<li><strong>高级阶段</strong><ul>
+<li>实现完整的Step-Back策略</li>
+<li>优化多检索器集成</li>
+<li>构建自适应检索系统</li>
+</ul>
+</li>
+</ol>
+<p><strong>场景选择指南</strong></p>
+<p>根据不同的应用场景，推荐以下优化组合：</p>
+<ol>
+<li><strong>知识问答系统</strong><ul>
+<li>多查询检索 + 混合检索</li>
+<li>重点优化检索准确性</li>
+</ul>
+</li>
+<li><strong>文档分析系统</strong><ul>
+<li>问题分解 + Step-Back</li>
+<li>强化深度理解能力</li>
+</ul>
+</li>
+<li><strong>通用对话系统</strong><ul>
+<li>混合检索 + 多查询</li>
+<li>平衡效率和准确性</li>
+</ul>
+</li>
+</ol>
+
+                
+            </div>
+            <hr/>
+
+            
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Langchain/">
+                                    <span class="chip bg-color">Langchain</span>
+                                </a>
+                            
+                                <a href="/tags/RAG/">
+                                    <span class="chip bg-color">RAG</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/02/12/da-mo-xing-rag-ying-yong-kai-fa-ji-chu-ji-ru-men/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="大模型 RAG 应用开发基础及入门">
+                        
+                        <span class="card-title">大模型 RAG 应用开发基础及入门</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-12
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/AI/" class="post-category">
+                                    AI
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/RAG/">
+                        <span class="chip bg-color">RAG</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/02/09/langchain-chu-ru-men/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="LangChain初入门">
+                        
+                        <span class="card-title">LangChain初入门</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            不同LLM模型之间的输入输出结构存在差异，需要频繁修改代码，降低代码的可维护性。为了解决这个问题，Langchain应用框架应运而生。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-09
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/AI/" class="post-category">
+                                    AI
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Langchain/">
+                        <span class="chip bg-color">Langchain</span>
+                    </a>
+                    
+                    <a href="/tags/LLM/">
+                        <span class="chip bg-color">LLM</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023-2025</span>
+            
+            <a href="/about" target="_blank">Sean</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">10.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2023";
+                        var startMonth = "7";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/HyxiaoGe" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:hyxiao97@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
