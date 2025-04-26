@@ -413,7 +413,8 @@
 <li><strong>结果融合</strong>：使用RRF（Reciprocal Rank Fusion）算法融合检索结果</li>
 <li><strong>内容生成</strong>：将融合后的结果输入LLM生成最终答案</li>
 </ol>
-<h3 id="代码实现示例"><a href="#代码实现示例" class="headerlink" title="代码实现示例"></a>代码实现示例</h3><pre class="line-numbers language-language-python"><code class="language-language-python">from langchain.retrievers import MultiQueryRetriever
+<h3 id="代码实现示例"><a href="#代码实现示例" class="headerlink" title="代码实现示例"></a>代码实现示例</h3><pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain.retrievers import MultiQueryRetriever
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 
@@ -442,9 +443,10 @@ def rrf_fusion(results, k=60):
                           key=lambda x: x[1], 
                           reverse=True)
     return sorted_results
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>RRF 算法原理如下</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">"""
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+"""
 RRF (Reciprocal Rank Fusion) 算法的核心公式：
 
 RRFscore(d ∈ D) = ∑ 1/(k + r(d))
@@ -459,7 +461,7 @@ RRFscore(d ∈ D) = ∑ 1/(k + r(d))
 2. k参数可以调节排名的影响程度
 3. 适合融合不同来源的排序结果
 """
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="优化效果分析"><a href="#优化效果分析" class="headerlink" title="优化效果分析"></a>优化效果分析</h4><p>多查询检索策略带来的主要优势：</p>
 <ol>
 <li><strong>提升召回率</strong><ul>
@@ -497,7 +499,8 @@ RRFscore(d ∈ D) = ∑ 1/(k + r(d))
 <blockquote>
 <p>🔄 并行模式：将问题同时分解为多个独立子问题，分别获取答案后合并。</p>
 </blockquote>
-<pre class="line-numbers language-language-python"><code class="language-language-python"># 并行分解示例
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+# 并行分解示例
 decomposition_chain = &#123;
     "question": RunnablePassthrough(),
     | decomposition_prompt    # 分解问题
@@ -510,12 +513,13 @@ sub_questions = decomposition_chain.invoke(question)
 answers = await asyncio.gather(*[
     process_subquestion(q) for q in sub_questions
 ])
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>串行分解模式</strong>:</p>
 <blockquote>
 <p>⛓️ 串行模式：按照逻辑顺序依次处理子问题，后面的问题依赖前面的答案。</p>
 </blockquote>
-<pre class="line-numbers language-language-python"><code class="language-language-python"># 串行分解示例
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+# 串行分解示例
 class StepBackRetriever(BaseRetriever):
     def _get_relevant_documents(
         self, query: str, *, run_manager: CallbackManagerForRetrieverRun
@@ -534,9 +538,10 @@ class StepBackRetriever(BaseRetriever):
         final_docs = self.retriever.get_relevant_documents(query)
         
         return intermediate_docs + final_docs
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="Step-Back-策略实现"><a href="#Step-Back-策略实现" class="headerlink" title="Step-Back 策略实现"></a>Step-Back 策略实现</h4><p>Step-Back策略是一种特殊的串行分解方法，它通过“后退一步”来获取更基础的知识背景。</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">"""
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+"""
 示例：用户问题"量子计算机如何影响现代密码学？"
 
 Step-Back分解：
@@ -551,7 +556,7 @@ Step-Back分解：
 3. 最终综合：
    基于以上知识形成完整答案
 """
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>工作流程</strong>：</p>
 <ol>
 <li>分析原始问题</li>
@@ -559,7 +564,7 @@ Step-Back分解：
 <li>获取基础知识</li>
 <li>结合基础知识回答原问题</li>
 </ol>
-<h4 id="Step-Back-代码实现"><a href="#Step-Back-代码实现" class="headerlink" title="Step-Back 代码实现"></a>Step-Back 代码实现</h4><pre class="line-numbers language-language-python"><code class="language-language-python"># 
+<h4 id="Step-Back-代码实现"><a href="#Step-Back-代码实现" class="headerlink" title="Step-Back 代码实现"></a>Step-Back 代码实现</h4><pre class="line-numbers language-language-python"><code class="language-language-python">
 system_prompt = """
 你是一位专业的助手，需要：
 1. 理解用户的具体问题
@@ -602,7 +607,7 @@ few_shot_prompt = FewShotChatMessagePromptTemplate(
 <td>资源消耗较大</td>
 </tr>
 </tbody></table>
-<h4 id="实践建议-1"><a href="#实践建议-1" class="headerlink" title="实践建议"></a>实践建议</h4><ol>
+<h4 id="优化建议"><a href="#优化建议" class="headerlink" title="优化建议"></a>优化建议</h4><ol>
 <li>选择策略时考虑因素:<ul>
 <li>问题的复杂度</li>
 <li>子问题间的依赖关系</li>
@@ -627,7 +632,8 @@ few_shot_prompt = FewShotChatMessagePromptTemplate(
 <li>密集检索和稀疏检索各有优势</li>
 </ul>
 <p>因此，将多种检索方法结合起来，可以取长补短，提升整体检索效果。</p>
-<h4 id="混合检索器的架构设计"><a href="#混合检索器的架构设计" class="headerlink" title="混合检索器的架构设计"></a>混合检索器的架构设计</h4><pre class="line-numbers language-language-python"><code class="language-language-python">from langchain.retrievers import EnsembleRetriever
+<h4 id="混合检索器的架构设计"><a href="#混合检索器的架构设计" class="headerlink" title="混合检索器的架构设计"></a>混合检索器的架构设计</h4><pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain.retrievers import EnsembleRetriever
 from langchain_community.retrievers import BM25Retriever
 from langchain_community.vectorstores import FAISS
 
@@ -648,7 +654,7 @@ ensemble_retriever = EnsembleRetriever(
     retrievers=[bm25_retriever, faiss_retriever],
     weights=[0.5, 0.5]
 )
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="主要检索方法的特点"><a href="#主要检索方法的特点" class="headerlink" title="主要检索方法的特点"></a>主要检索方法的特点</h4><p>下面是几种常用检索方法的对比：</p>
 <table>
 <thead>
@@ -679,7 +685,8 @@ ensemble_retriever = EnsembleRetriever(
 </tr>
 </tbody></table>
 <h4 id="实现细节和优化"><a href="#实现细节和优化" class="headerlink" title="实现细节和优化"></a>实现细节和优化</h4><p><strong>检索器配置</strong>:</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python"># 配置检索参数
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+# 配置检索参数
 faiss_retriever = faiss_db.as_retriever(
     search_kwargs=&#123;"k": 4&#125;
 ).configurable_fields(
@@ -693,7 +700,7 @@ faiss_retriever = faiss_db.as_retriever(
 # 设置运行时配置
 config = &#123;"configurable": &#123;"search_kwargs_faiss": &#123;"k": 4&#125;&#125;&#125;
 docs = ensemble_retriever.invoke("查询", config=config)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>权重调整策略</strong>:</p>
 <ol>
 <li><strong>初始设置</strong>：开始时可以给各检索器相同权重</li>
@@ -722,7 +729,8 @@ docs = ensemble_retriever.invoke("查询", config=config)
 </ul>
 </li>
 </ol>
-<h4 id="性能监控与改进"><a href="#性能监控与改进" class="headerlink" title="性能监控与改进"></a>性能监控与改进</h4><pre class="line-numbers language-language-python"><code class="language-language-python"># 性能监控示例
+<h4 id="性能监控与改进"><a href="#性能监控与改进" class="headerlink" title="性能监控与改进"></a>性能监控与改进</h4><pre class="line-numbers language-language-python"><code class="language-language-python">
+# 性能监控示例
 def evaluate_retrieval(retriever, test_queries, ground_truth):
     metrics = &#123;
         'precision': [],
@@ -740,7 +748,8 @@ def evaluate_retrieval(retriever, test_queries, ground_truth):
         # ... 计算precision和recall
         
     return metrics
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="总结：RAG优化策略的实践指南"><a href="#总结：RAG优化策略的实践指南" class="headerlink" title="总结：RAG优化策略的实践指南"></a>总结：RAG优化策略的实践指南</h3><h4 id="优化策略的综合比较"><a href="#优化策略的综合比较" class="headerlink" title="优化策略的综合比较"></a>优化策略的综合比较</h4><p>以下是我们讨论过的主要优化策略的特点对比：</p>
 <table>
 <thead>
@@ -1118,7 +1127,7 @@ def evaluate_retrieval(retriever, test_queries, ground_truth):
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11.6k</span>
+                        class="white-color">10.5k</span>
             
             
             

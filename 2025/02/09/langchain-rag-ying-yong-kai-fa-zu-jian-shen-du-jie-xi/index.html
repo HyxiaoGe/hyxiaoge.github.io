@@ -394,8 +394,9 @@
 <li>Blob相关组件 - 处理二进制大对象数据</li>
 </ol>
 <h3 id="Document-组件与文档加载器详解"><a href="#Document-组件与文档加载器详解" class="headerlink" title="Document 组件与文档加载器详解"></a>Document 组件与文档加载器详解</h3><h4 id="Document-组件基础"><a href="#Document-组件基础" class="headerlink" title="Document 组件基础"></a>Document 组件基础</h4><p>Document 是 LangChain 的核心组件之一，它定义了一个通用的文档结构，包含两个基本要素：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">Document = page_content(页面内容) + metadata(元数据)
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+Document = page_content(页面内容) + metadata(元数据)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>这种结构允许我们统一处理各种类型的文档，同时保留文档的元信息。</p>
 <h4 id="文档加载器类型"><a href="#文档加载器类型" class="headerlink" title="文档加载器类型"></a>文档加载器类型</h4><p>LangChain 提供了多种文档加载器：</p>
 <ol>
@@ -407,21 +408,23 @@
 </ol>
 <p><img src="/medias/featureimages/blog/langchain-rag-ying-yong-kai-fa-zu-jian-shen-du-jie-xi/image1.png" alt="image"></p>
 <p>每种加载器都专门处理特定类型的文档，但它们都会将文档转换成统一的Document格式。</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">from langchain_community.document_loaders import TextLoader
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain_community.document_loaders import TextLoader
 
 # 加载文本文件示例
 loader = TextLoader("./data.txt", encoding="utf-8")
 documents = loader.load()
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="异步加载支持"><a href="#异步加载支持" class="headerlink" title="异步加载支持"></a>异步加载支持</h4><p>对于大型文档，LangChain提供了异步加载方式：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">async def load_documents():
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+async def load_documents():
     async with aiofiles.open(file_path, encoding="utf-8") as f:
         # 异步处理文档
         yield Document(
             page_content=line,
             metadata=&#123;"source": file_path&#125;
         )
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="文档转换器与分割器"><a href="#文档转换器与分割器" class="headerlink" title="文档转换器与分割器"></a>文档转换器与分割器</h3><h4 id="DocumentTransformer-组件"><a href="#DocumentTransformer-组件" class="headerlink" title="DocumentTransformer 组件"></a>DocumentTransformer 组件</h4><p>文档转换器用于处理以下常见问题：</p>
 <ol>
 <li>文档太大导致的性能问题</li>
@@ -437,7 +440,8 @@ documents = loader.load()
 <li>重排等多个功能</li>
 </ol>
 <p>在LangChain中，所有文档转换器都继承自BaseDocumentTransformer基类，它提供了两个核心方法：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">class BaseDocumentTransformer:
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+class BaseDocumentTransformer:
     def transform_documents(self): 
         # 转换文档列表
         pass
@@ -445,7 +449,7 @@ documents = loader.load()
     async def atransform_documents(self):
         # 异步转换处理
         pass
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="文档分割器详解"><a href="#文档分割器详解" class="headerlink" title="文档分割器详解"></a>文档分割器详解</h3><h4 id="字符分割器（CharacterTextSplitter）"><a href="#字符分割器（CharacterTextSplitter）" class="headerlink" title="字符分割器（CharacterTextSplitter）"></a>字符分割器（CharacterTextSplitter）</h4><p>CharacterTextSplitter 是基础的分割器，它有以下重要参数：</p>
 <ol>
 <li><code>separator</code>: 分割符,默认为’\n\n’</li>
@@ -455,7 +459,8 @@ documents = loader.load()
 <li><code>keep_separator</code>: 是否在分割的块中保留分隔符</li>
 </ol>
 <p>使用示例：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">from langchain_text_splitters import CharacterTextSplitter
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain_text_splitters import CharacterTextSplitter
 
 text_splitter = CharacterTextSplitter(
     separator="\n\n",
@@ -466,7 +471,7 @@ text_splitter = CharacterTextSplitter(
 
 # 使用分割器处理文档
 splits = text_splitter.split_documents(documents)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="实践建议"><a href="#实践建议" class="headerlink" title="实践建议"></a>实践建议</h4><p>在实际应用中，有以下几点建议：</p>
 <ol>
 <li>选择合适的chunk_size<ul>
@@ -493,7 +498,8 @@ splits = text_splitter.split_documents(documents)
 <li>支持不同的向量检索策略</li>
 </ol>
 <h4 id="检索器的使用"><a href="#检索器的使用" class="headerlink" title="检索器的使用"></a>检索器的使用</h4><p>LangChain 提供了多种检索策略：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">from langchain import VectorStore
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain import VectorStore
 
 # 基础相似性检索
 results = vectorstore.similarity_search(query)
@@ -503,7 +509,7 @@ results = vectorstore.similarity_search_with_score(query)
 
 # MMR检索策略
 results = vectorstore.max_marginal_relevance_search(query)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="VectorStore实现细节"><a href="#VectorStore实现细节" class="headerlink" title="VectorStore实现细节"></a>VectorStore实现细节</h3><h4 id="支持的向量数据库"><a href="#支持的向量数据库" class="headerlink" title="支持的向量数据库"></a>支持的向量数据库</h4><ul>
 <li>Chroma</li>
 <li>FAISS</li>
@@ -534,7 +540,8 @@ results = vectorstore.max_marginal_relevance_search(query)
 <li>灵活的元数据管理</li>
 </ol>
 <p>基本使用示例：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">from langchain_core.document_loaders import Blob
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain_core.document_loaders import Blob
 from langchain_core.document_loaders.base import BaseBlobParser
 
 # 创建Blob对象
@@ -543,9 +550,9 @@ blob = Blob.from_path("./data.txt")
 # 使用解析器
 parser = CustomParser()
 documents = list(parser.lazy_parse(blob))
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="Blob数据存储类详解"><a href="#Blob数据存储类详解" class="headerlink" title="Blob数据存储类详解"></a>Blob数据存储类详解</h4><p>LangChain中的Blob数据存储提供了丰富的属性和方法，让我们详细了解一下：</p>
-<p><strong>核心属性</strong></p>
+<p>核心属性</p>
 <ol>
 <li><strong>data</strong>: 原始数据，支持存储字节，字符串数据</li>
 <li><strong>mimetype</strong>: 文件的mimetype类型</li>
@@ -553,8 +560,9 @@ documents = list(parser.lazy_parse(blob))
 <li><strong>path</strong>: 文件的原始路径</li>
 <li><strong>metadata</strong>: 存储的元数据，通常包含source字段</li>
 </ol>
-<p><strong>常用方法</strong></p>
-<pre class="line-numbers language-language-python"><code class="language-language-python"># 字符串转换
+<p>常用方法</p>
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+# 字符串转换
 as_string(): # 将数据转换为字符串
 
 # 字节转换
@@ -568,9 +576,10 @@ from_path(): # 从文件路径加载Blob数据
 
 # 从原始数据加载
 from_data(): # 从原始数据加载Blob数据
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="BlobLoader实现"><a href="#BlobLoader实现" class="headerlink" title="BlobLoader实现"></a>BlobLoader实现</h4><p>BlobLoader是一个抽象接口，用于实现二进制数据的加载。以下是一个自定义BlobLoader的示例：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">from langchain_core.document_loaders import Blob
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain_core.document_loaders import Blob
 from langchain_core.document_loaders.base import BaseBlobParser
 
 class CustomBlobLoader(ABC):
@@ -592,9 +601,10 @@ class CustomBlobLoader(ABC):
                 page_content=blob.as_string(),
                 metadata=&#123;"source": blob.source&#125;
             )
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="通用加载器使用最佳实践"><a href="#通用加载器使用最佳实践" class="headerlink" title="通用加载器使用最佳实践"></a>通用加载器使用最佳实践</h4><p>GenericLoader是LangChain提供的一个通用加载器，它结合了BlobLoader和BaseBlobParser的功能：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">from langchain_community.document_loaders.generic import GenericLoader
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain_community.document_loaders.generic import GenericLoader
 
 # 创建通用加载器
 loader = GenericLoader.from_filesystem(
@@ -606,7 +616,7 @@ loader = GenericLoader.from_filesystem(
 # 使用加载器
 for idx, doc in enumerate(loader.lazy_load()):
     print(f"当前加载第&#123;idx + 1&#125;个文件, 文件信息:&#123;doc.metadata&#125;")
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="性能优化建议"><a href="#性能优化建议" class="headerlink" title="性能优化建议"></a>性能优化建议</h4><ol>
 <li>使用延迟加载<ul>
 <li>对于大文件优先使用lazy_load()</li>
@@ -932,7 +942,7 @@ for idx, doc in enumerate(loader.lazy_load()):
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11.6k</span>
+                        class="white-color">10.5k</span>
             
             
             

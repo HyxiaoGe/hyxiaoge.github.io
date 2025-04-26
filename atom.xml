@@ -6,7 +6,7 @@
   <link href="https://hyxiaoge.github.io/atom.xml" rel="self"/>
   
   <link href="https://hyxiaoge.github.io/"/>
-  <updated>2025-04-25T17:07:52.324Z</updated>
+  <updated>2025-04-26T00:22:45.411Z</updated>
   <id>https://hyxiaoge.github.io/</id>
   
   <author>
@@ -17,45 +17,18 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Markdown代码样式测试文件</title>
-    <link href="https://hyxiaoge.github.io/2025/04/26/demo/"/>
-    <id>https://hyxiaoge.github.io/2025/04/26/demo/</id>
-    <published>2025-04-26T04:00:00.000Z</published>
-    <updated>2025-04-25T17:07:52.324Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Markdown代码样式测试文件&quot;&gt;&lt;a href=&quot;#Markdown代码样式测试文件&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="测试" scheme="https://hyxiaoge.github.io/categories/%E6%B5%8B%E8%AF%95/"/>
-    
-    
-    <category term="Markdown" scheme="https://hyxiaoge.github.io/tags/Markdown/"/>
-    
-    <category term="测试" scheme="https://hyxiaoge.github.io/tags/%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>大模型 RAG 应用开发基础及入门</title>
     <link href="https://hyxiaoge.github.io/2025/02/12/da-mo-xing-rag-ying-yong-kai-fa-ji-chu-ji-ru-men/"/>
     <id>https://hyxiaoge.github.io/2025/02/12/da-mo-xing-rag-ying-yong-kai-fa-ji-chu-ji-ru-men/</id>
     <published>2025-02-12T14:48:43.000Z</published>
-    <updated>2025-04-25T17:17:12.273Z</updated>
+    <updated>2025-04-26T00:22:45.411Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;大语言模型中的幻觉问题-上&quot;&gt;&lt;a href=&quot;#大语言模型中的幻觉问题-上&quot; class=&quot;headerlink&quot; title=&quot;大语言模型中的幻觉问题(上)&quot;&gt;&lt;/a&gt;大语言模型中的幻觉问题(上)&lt;/h1&gt;&lt;h2 id=&quot;什么是大语言模型的幻觉？&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;h2 id=&quot;什么是大语言模型的幻觉？&quot;&gt;&lt;a href=&quot;#什么是大语言模型的幻觉？&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -73,7 +46,7 @@
     <link href="https://hyxiaoge.github.io/2025/02/12/langchain-rag-ying-yong-kai-fa-you-hua-ce-lue-xiang-jie/"/>
     <id>https://hyxiaoge.github.io/2025/02/12/langchain-rag-ying-yong-kai-fa-you-hua-ce-lue-xiang-jie/</id>
     <published>2025-02-12T14:43:03.000Z</published>
-    <updated>2025-04-25T17:16:47.666Z</updated>
+    <updated>2025-04-26T00:16:08.070Z</updated>
     
     
       
@@ -100,7 +73,7 @@
     <link href="https://hyxiaoge.github.io/2025/02/09/langchain-chu-ru-men/"/>
     <id>https://hyxiaoge.github.io/2025/02/09/langchain-chu-ru-men/</id>
     <published>2025-02-09T14:48:33.000Z</published>
-    <updated>2025-04-25T17:22:27.834Z</updated>
+    <updated>2025-04-26T00:19:45.980Z</updated>
     
     
       
@@ -127,7 +100,7 @@
     <link href="https://hyxiaoge.github.io/2025/02/09/langchain-rag-ying-yong-kai-fa-zu-jian-shen-du-jie-xi/"/>
     <id>https://hyxiaoge.github.io/2025/02/09/langchain-rag-ying-yong-kai-fa-zu-jian-shen-du-jie-xi/</id>
     <published>2025-02-09T14:45:43.000Z</published>
-    <updated>2025-04-25T16:32:51.156Z</updated>
+    <updated>2025-04-26T00:13:32.030Z</updated>
     
     
       

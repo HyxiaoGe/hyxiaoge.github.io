@@ -443,7 +443,8 @@
 </ul>
 <p><strong>关键操作</strong>:</p>
 <p>格式化LangChain支持两种格式化方式</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python"># f-string方式
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+# f-string方式
 prompt = PromptTemplate.from_template("请将一个关于&#123;subject&#125;的笑话")
 
 # jinja2方式
@@ -451,9 +452,10 @@ prompt = PromptTemplate.from_template(
     "请将一个关于&#123;&#123;subject&#125;&#125;的笑话",
     template_format="jinja2"
 )
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>提示模板拼接</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python"># 字符串提示拼接
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+# 字符串提示拼接
 prompt = (
     PromptTemplate.from_template("请将一个关于&#123;subject&#125;的冷笑话")
     + "，让我开心下"
@@ -468,10 +470,11 @@ human_prompt = ChatPromptTemplate.from_messages([
     ("human", "&#123;query&#125;")
 ])
 prompt = system_prompt + human_prompt
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>模板复用</strong>:</p>
 <p>对于复杂的提示模板,LangChain提供了PipelinePromptTemplate来实现模板的复用:</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python"># 描述提示模板
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+# 描述提示模板
 instruction_template = "你正在模拟&#123;person&#125;。"
 instruction_prompt = PromptTemplate.from_template(instruction_template)
 
@@ -496,7 +499,7 @@ pipeline_prompt = PipelinePromptTemplate(
         ("start", start_prompt),
     ]
 )
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>最佳实践</strong>:</p>
 <p>选择合适的格式化方式</p>
 <ol>
@@ -557,29 +560,33 @@ pipeline_prompt = PipelinePromptTemplate(
 <p><strong>核心办法</strong>:</p>
 <p>Models组件提供了几个关键方法:</p>
 <p>invoke&#x2F;invoke_sync: 调用模型生成内容</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python"># 基本调用
+<pre class="line-numbers language-language-python"><code class="language-language-python">
 llm = ChatOpenAI(model="gpt-3.5-turbo-16k")
 response = llm.invoke("你好!")
 
 # 异步调用
 async def generate():
     response = await llm.ainvoke("你好!")
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>batch&#x2F;abatch: 批量调用处理多个输入</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">messages = [
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+messages = [
     "请讲一个关于程序员的笑话",
     "请讲一个关于Python的笑话"
 ]
 responses = llm.batch(messages)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>stream&#x2F;astream: 流式返回生成内容</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">response = llm.stream("请介绍下LLM和LLMOps")
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+response = llm.stream("请介绍下LLM和LLMOps")
 for chunk in response:
     print(chunk.content, end="")
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>Message组件使用</strong>:</p>
 <p>消息组件用于构建与聊天模型的交互:</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 
 # 创建消息
 system_msg = SystemMessage(content="你是一个AI助手")
@@ -591,10 +598,11 @@ messages = [system_msg, human_msg, ai_msg]
 
 # 使用消息与模型交互
 response = chat_model.invoke(messages)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>实践示例</strong>:</p>
 <p>基本对话示例：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">from langchain_openai import ChatOpenAI
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 
 # 创建聊天模型
@@ -613,9 +621,9 @@ response = chat.invoke(
         query="什么是装饰器?"
     )
 )
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>流式输出示例：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python"># 创建提示模板
+<pre class="line-numbers language-language-python"><code class="language-language-python">
 prompt = ChatPromptTemplate.from_template("&#123;subject&#125;的发展历史是什么?")
 
 # 创建模型
@@ -662,7 +670,8 @@ for chunk in response:
 <p><strong>OutputParser 解析器组件</strong>:</p>
 <p>为什么需要输出解析器</p>
 <p>在使用大模型时,我们经常会遇到输出解析的问题。比如:</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">llm = ChatOpenAI()
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+llm = ChatOpenAI()
 
 # 示例1: 返回的是自然语言
 llm.invoke("1+1等于几?")  # 输出: 1 + 1 等于 2。
@@ -672,7 +681,7 @@ llm.invoke("告诉我3个动物的名字。")  # 输出: 好的，这里有三�
 
 # 示例3: 格式不统一
 llm.invoke("给我一个json数据,键为a和b")  # 输出: &#123;\n "a": 10,\n "b": 20\n&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>OutputParser就是为了解决这些问题而设计的。它通过:</p>
 <ol>
 <li><p>预设提示 - 告诉LLM需要的输出格式</p>
@@ -708,7 +717,8 @@ llm.invoke("给我一个json数据,键为a和b")  # 输出: &#123;\n "a": 10,\n 
 <ol>
 <li>StrOutputParser使用：</li>
 </ol>
-<pre class="line-numbers language-language-python"><code class="language-language-python">from langchain_core.output_parsers import StrOutputParser
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
@@ -721,9 +731,10 @@ chain = (
 
 # 调用
 response = chain.invoke(&#123;"query": "你好!"&#125;)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>2.JsonOutputParser使用：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">from langchain_core.output_parsers import JsonOutputParser
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
 
 # 定义输出结构
@@ -747,10 +758,11 @@ chain = prompt | ChatOpenAI() | parser
 
 # 使用
 response = chain.invoke(&#123;"query": "请讲一个关于程序员的冷笑话"&#125;)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>错误处理</strong>:</p>
 <p>1.解析失败的处理：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">from langchain_core.output_parsers import OutputParserException
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain_core.output_parsers import OutputParserException
 
 try:
     result = parser.parse(llm_output)
@@ -758,15 +770,16 @@ except OutputParserException as e:
     # 处理解析错误
     print(f"解析错误: &#123;e&#125;")
     # 可以选择重试或使用默认值
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>2.使用重试机制：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python"># 可以配置回调来处理重试
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+# 可以配置回调来处理重试
 from langchain_core.callbacks import BaseCallbackHandler
 
 class RetryHandler(BaseCallbackHandler):
     def on_retry(self, retry_state):
         print(f"重试次数: &#123;retry_state.attempt_number&#125;")
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>最佳实践</strong>:</p>
 <ol>
 <li><p>选择合适的Parser</p>
@@ -798,18 +811,20 @@ class RetryHandler(BaseCallbackHandler):
 </ol>
 <h4 id="LCEL表达式与Runnable协议"><a href="#LCEL表达式与Runnable协议" class="headerlink" title="LCEL表达式与Runnable协议"></a>LCEL表达式与Runnable协议</h4><p><strong>为什么需要LCEL</strong>:</p>
 <p>传统的链式调用方式存在嵌套问题：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">content = parser.invoke(
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+content = parser.invoke(
     llm.invoke(
         prompt.invoke(
             &#123;"query": req.query.data&#125;
         )
     )
 )
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>LCEL 提供了更优雅的方式：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">chain = prompt | llm | parser
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+chain = prompt | llm | parser
 content = chain.invoke(&#123;"query": req.query.data&#125;)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><strong>Runnable协议核心方法</strong>:</p>
 <ul>
 <li><p>invoke&#x2F;ainvoke: 调用组件</p>
@@ -825,7 +840,8 @@ content = chain.invoke(&#123;"query": req.query.data&#125;)
 <ol>
 <li>RunnableParallel - 并行执行多个Runnable</li>
 </ol>
-<pre class="line-numbers language-language-python"><code class="language-language-python">from langchain_core.runnables import RunnableParallel
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain_core.runnables import RunnableParallel
 
 # 并行执行多个链
 chain = RunnableParallel(
@@ -833,9 +849,10 @@ chain = RunnableParallel(
     poem=poem_chain
 )
 resp = chain.invoke(&#123;"subject": "程序员"&#125;)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>2.RunnablePassthrough - 传递数据</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">from langchain_core.runnables import RunnablePassthrough
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain_core.runnables import RunnablePassthrough
 
 # 构建检索链
 chain = (
@@ -846,12 +863,13 @@ chain = (
     | llm 
     | parser
 )
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>实践示例</strong>:</p>
 <ol>
 <li>基础链构建：</li>
 </ol>
-<pre class="line-numbers language-language-python"><code class="language-language-python">from langchain_core.prompts import ChatPromptTemplate
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
 
@@ -865,9 +883,10 @@ chain = prompt | llm | parser
 
 # 执行
 response = chain.invoke(&#123;"input": "Hello!"&#125;)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>2.带检索的链：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">def retrieval(query: str) -> str:
+<pre class="line-numbers language-language-python"><code class="language-language-python">
+def retrieval(query: str) -> str:
     return "相关文档内容..."
 
 # 构建链
@@ -883,7 +902,7 @@ chain = (
 
 # 执行
 response = chain.invoke("问题")
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>最佳实践</strong>:</p>
 <ol>
 <li><p>链的设计</p>
@@ -1214,7 +1233,7 @@ response = chain.invoke("问题")
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11.6k</span>
+                        class="white-color">10.5k</span>
             
             
             
