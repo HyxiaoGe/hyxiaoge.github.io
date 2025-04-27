@@ -6,7 +6,7 @@
   <link href="https://hyxiaoge.github.io/atom.xml" rel="self"/>
   
   <link href="https://hyxiaoge.github.io/"/>
-  <updated>2025-04-26T00:22:45.411Z</updated>
+  <updated>2025-04-25T17:07:52.324Z</updated>
   <id>https://hyxiaoge.github.io/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Markdown代码样式测试文件</title>
+    <link href="https://hyxiaoge.github.io/2025/04/26/demo/"/>
+    <id>https://hyxiaoge.github.io/2025/04/26/demo/</id>
+    <published>2025-04-26T04:00:00.000Z</published>
+    <updated>2025-04-25T17:07:52.324Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Markdown代码样式测试文件&quot;&gt;&lt;a href=&quot;#Markdown代码样式测试文件&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="测试" scheme="https://hyxiaoge.github.io/categories/%E6%B5%8B%E8%AF%95/"/>
+    
+    
+    <category term="Markdown" scheme="https://hyxiaoge.github.io/tags/Markdown/"/>
+    
+    <category term="测试" scheme="https://hyxiaoge.github.io/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kakfa 整理</title>
+    <link href="https://hyxiaoge.github.io/2025/02/26/kafka-bi-ji/"/>
+    <id>https://hyxiaoge.github.io/2025/02/26/kafka-bi-ji/</id>
+    <published>2025-02-26T07:40:13.000Z</published>
+    <updated>2025-04-27T01:38:05.593Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;📌 引言&lt;/p&gt;
+&lt;p&gt;在使用 Kafka 进行消息消费时，Offset 机制是一个核心概念。Offset 决定了消费者从哪里读取数据，并影响消费的可靠性与一致性。本篇文章将深入剖析 Kafka Offset 的工作原理，以及</summary>
+        
+      
+    
+    
+    
+    <category term="中间件" scheme="https://hyxiaoge.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+    
+    <category term="Kafka" scheme="https://hyxiaoge.github.io/tags/Kafka/"/>
+    
+  </entry>
   
   <entry>
     <title>大模型 RAG 应用开发基础及入门</title>
@@ -119,6 +172,83 @@
     <category term="Langchain" scheme="https://hyxiaoge.github.io/tags/Langchain/"/>
     
     <category term="RAG" scheme="https://hyxiaoge.github.io/tags/RAG/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git 命令完整笔记</title>
+    <link href="https://hyxiaoge.github.io/2024/08/23/git-bi-ji/"/>
+    <id>https://hyxiaoge.github.io/2024/08/23/git-bi-ji/</id>
+    <published>2024-08-23T12:33:16.000Z</published>
+    <updated>2025-04-27T01:36:51.364Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、Git-配置&quot;&gt;&lt;a href=&quot;#一、Git-配置&quot; class=&quot;headerlink&quot; title=&quot;一、Git 配置&quot;&gt;&lt;/a&gt;一、Git 配置&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;配置用户信息&lt;/strong&gt;&lt;/p&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="笔记" scheme="https://hyxiaoge.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Git" scheme="https://hyxiaoge.github.io/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux常用命令</title>
+    <link href="https://hyxiaoge.github.io/2024/08/10/linux-bi-ji/"/>
+    <id>https://hyxiaoge.github.io/2024/08/10/linux-bi-ji/</id>
+    <published>2024-08-09T16:05:22.000Z</published>
+    <updated>2025-04-27T01:36:00.717Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、文件与目录操作&quot;&gt;&lt;a href=&quot;#一、文件与目录操作&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="笔记" scheme="https://hyxiaoge.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Linux" scheme="https://hyxiaoge.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker 命令完整笔记</title>
+    <link href="https://hyxiaoge.github.io/2024/07/15/docker-bi-ji/"/>
+    <id>https://hyxiaoge.github.io/2024/07/15/docker-bi-ji/</id>
+    <published>2024-07-15T14:48:43.000Z</published>
+    <updated>2025-04-27T01:34:06.677Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;一、Docker-基础配置&quot;&gt;&lt;a href=&quot;#一、Docker-基础配置&quot; class=&quot;headerlink&quot; title=&quot;一、Docker 基础配置&quot;&gt;&lt;/a&gt;一、Docker</summary>
+        
+      
+    
+    
+    
+    <category term="笔记" scheme="https://hyxiaoge.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="Docker" scheme="https://hyxiaoge.github.io/tags/Docker/"/>
     
   </entry>
   

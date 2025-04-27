@@ -1,0 +1,2486 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Linux常用命令, HyxiaoGe">
+    <meta name="description" content="一、文件与目录操作
+列出目录内容
+
+ls：列出当前目录
+ls -l：显示详细信息（权限、拥有者、大小、修改时间）
+ls -a：包括隐藏文件（. 开头）
+ls -lh：人性化显示文件大小（K, M, G）
+ls -lt：按修改时间排序，最新在">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Linux常用命令 | HyxiaoGe</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(http://sv6693ki5.hn-bkt.clouddn.com/background/bg.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="HyxiaoGe" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><script src="/js/prism.js"></script>
+<script src="/js/prism-line-numbers.min.js"></script></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">HyxiaoGe</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">HyxiaoGe</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Linux常用命令</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E7%AC%94%E8%AE%B0/" class="post-category">
+                                笔记
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-08-10
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-04-27
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    10.4k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    42 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="一、文件与目录操作"><a href="#一、文件与目录操作" class="headerlink" title="一、文件与目录操作"></a>一、文件与目录操作</h2><ol>
+<li><p><strong>列出目录内容</strong></p>
+<ul>
+<li><code>ls</code>：列出当前目录</li>
+<li><code>ls -l</code>：显示详细信息（权限、拥有者、大小、修改时间）</li>
+<li><code>ls -a</code>：包括隐藏文件（<code>.</code> 开头）</li>
+<li><code>ls -lh</code>：人性化显示文件大小（K, M, G）</li>
+<li><code>ls -lt</code>：按修改时间排序，最新在前</li>
+<li><code>ls -lS</code>：按文件大小排序，最大在前</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">ls -la /etc          # 列出 /etc 目录的所有文件（包括隐藏文件）
+ls -lh ~/Downloads   # 显示下载目录文件，以人性化方式显示大小
+ls -lt *.log         # 按时间排序显示所有日志文件
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>目录切换与查看</strong></p>
+<ul>
+<li><code>pwd</code>：显示当前所在目录的完整路径</li>
+<li><code>cd 目录</code>：切换目录</li>
+<li><code>cd ..</code>：返回上级目录</li>
+<li><code>cd -</code>：返回上次所在目录</li>
+<li><code>cd ~</code>：切换到用户主目录</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">pwd                  # 显示当前工作目录
+cd /var/log          # 切换到系统日志目录
+cd ../..             # 返回上两级目录
+cd -                 # 快速返回上一个访问的目录
+cd ~/Documents       # 切换到用户文档目录
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>复制&#x2F;移动&#x2F;删除</strong></p>
+<ul>
+<li><code>cp 源 目标</code>：复制文件或目录（加 <code>-r</code> 递归）</li>
+<li><code>cp -i</code>：覆盖前询问</li>
+<li><code>cp -p</code>：保留源文件属性（时间戳、权限等）</li>
+<li><code>mv 源 目标</code>：移动或重命名</li>
+<li><code>mv -i</code>：覆盖前询问</li>
+<li><code>rm 文件</code>：删除文件；<code>rm -r 目录</code>：递归删除目录</li>
+<li><code>rm -i</code>：删除前询问确认</li>
+<li><code>rm -f</code>：强制删除，不询问</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">cp file1.txt file2.txt              # 复制文件
+cp -r dir1/ dir2/                   # 递归复制目录
+cp -ip old.conf new.conf            # 复制文件并保留属性，覆盖前询问
+mv oldname.txt newname.txt          # 重命名文件
+mv *.jpg ~/Pictures/                # 移动所有图片到目录
+rm -rf temp/                        # 强制删除目录及内容（慎用）
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>创建文件与目录</strong></p>
+<ul>
+<li><code>mkdir 目录名</code>：创建目录</li>
+<li><code>mkdir -p 路径/目录</code>：创建多级目录</li>
+<li><code>touch 文件名</code>：创建空文件或更新时间戳</li>
+<li><code>rmdir 目录名</code>：删除空目录</li>
+<li><code>tree</code>：以树状图显示目录结构（若未安装可 <code>sudo apt install tree</code>）</li>
+</ul>
+</li>
+<li><p><strong>链接操作</strong></p>
+<ul>
+<li><code>ln -s 源文件 软链接</code>：创建软链接（符号链接）</li>
+<li><code>ln 源文件 硬链接</code>：创建硬链接</li>
+<li><code>readlink 链接</code>：查看链接指向的实际路径</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">ln -s /usr/bin/python3 ~/bin/python           # 创建 Python 软链接
+ln important.txt backup_hard_link.txt         # 创建硬链接
+readlink /bin/sh                              # 查看链接指向的实际文件
+ls -l /bin | grep '^l'                        # 查看所有符号链接
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>查看文件内容</strong></p>
+<ul>
+<li><code>cat 文件</code>：一次性显示全文</li>
+<li><code>cat -n</code>：显示行号</li>
+<li><code>more/less 文件</code>：分页查看，<code>/ + 关键字</code> 搜索，<code>n</code> 跳到下一个匹配</li>
+<li><code>head -n 10 文件</code>：查看前 10 行；<code>tail -n 10 文件</code>：后 10 行</li>
+<li><code>tail -f 文件</code>：实时追踪文件新增内容，常用于日志监控</li>
+<li><code>file 文件</code>：查看文件类型</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="二、文本处理与过滤"><a href="#二、文本处理与过滤" class="headerlink" title="二、文本处理与过滤"></a>二、文本处理与过滤</h2><ol>
+<li><p><strong>过滤与查找</strong></p>
+<ul>
+<li><code>grep 模式 文件</code>：查找匹配行；<code>-i</code> 忽略大小写；<code>-n</code> 显示行号；<code>-v</code> 反向查找</li>
+<li><code>grep -r 模式 目录</code>：递归搜索目录</li>
+<li><code>grep -E &#39;正则表达式&#39;</code>：使用扩展正则表达式</li>
+<li><code>egrep</code>：等同于 <code>grep -E</code></li>
+<li><code>awk &#39;&#123;print $1,$3&#125;&#39; 文件</code>：按空格分列，打印第 1、3 列</li>
+<li><code>cut -d&#39;:&#39; -f1 /etc/passwd</code>：以 <code>:</code> 分割，取第一列</li>
+<li><code>sed &#39;s/old/new/g&#39; 文件</code>：替换（默认只输出到标准输出）；加 <code>-i</code> 直接修改文件</li>
+<li><code>sed -n &#39;1,10p&#39; 文件</code>：只显示第 1-10 行</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">grep -n "ERROR" server.log                    # 查找错误日志，显示行号
+grep -r "TODO" ./src                          # 递归搜索源代码中的 TODO
+grep -E '^[0-9]&#123;3&#125;-[0-9]&#123;4&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>排序与去重</strong></p>
+<ul>
+<li><code>sort 文件</code>：排序；<code>sort -n</code> 数值排序；<code>-r</code> 逆序；<code>-k n</code> 指定第 n 列排序</li>
+<li><code>uniq 文件</code>：去除相邻重复；<code>uniq -c</code> 统计次数；常与 <code>sort</code> 管道配合：<pre class="line-numbers language-language-bash"><code class="language-language-bash">sort abc.txt | uniq -c
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><code>comm 文件1 文件2</code>：比较两个已排序文件的异同</li>
+</ul>
+</li>
+<li><p><strong>统计与比较</strong></p>
+<ul>
+<li><code>wc -l 文件</code>：统计行数；<code>-m</code> 字符数；<code>-c</code> 字节数；<code>-L</code> 最长行长度；<code>-w</code> 单词数</li>
+<li><code>diff 文件1 文件2</code>：比较文件差异</li>
+<li><code>diff -u</code>：以统一格式显示差异</li>
+<li><code>cmp 文件1 文件2</code>：二进制比较文件</li>
+</ul>
+</li>
+<li><p><strong>字符转换</strong></p>
+<ul>
+<li><code>tr &#39;a-z&#39; &#39;A-Z&#39; &lt; 文件</code>：小写转大写</li>
+<li><code>tr -d &#39;0-9&#39;</code>：删除所有数字</li>
+<li><code>tr -s &#39; &#39;</code>：压缩连续空格为单个空格</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">echo "hello world" | tr 'a-z' 'A-Z'          # 转换为大写: HELLO WORLD
+echo "user123pass456" | tr -d '0-9'          # 删除数字: userpass
+echo "too    many    spaces" | tr -s ' '      # 压缩空格: too many spaces
+cat file.txt | tr '\n' ' '                    # 将换行符替换为空格
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<hr>
+<h2 id="三、权限与拥有者"><a href="#三、权限与拥有者" class="headerlink" title="三、权限与拥有者"></a>三、权限与拥有者</h2><ol>
+<li><p><strong>查看权限</strong></p>
+<ul>
+<li><code>ls -l</code> 第一列如 <code>-rwxr-xr--</code>：分别是文件类型、用户&#x2F;组&#x2F;其他用户的读(r)&#x2F;写(w)&#x2F;执行(x) 权限</li>
+<li><code>stat 文件</code>：查看文件详细状态信息</li>
+</ul>
+</li>
+<li><p><strong>修改权限</strong></p>
+<ul>
+<li><code>chmod u+rw 文件</code>：用户添加读写权限；也可用数字模式，如 <code>chmod 755 文件</code></li>
+<li><code>chmod g-w 文件</code>：组移除写权限</li>
+<li><code>chmod o+x 文件</code>：其他用户添加执行权限</li>
+<li><code>chmod -R 755 目录</code>：递归修改目录及子目录权限</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">chmod 644 file.txt                   # 设置 rw-r--r-- 权限
+chmod u+x script.sh                  # 给所有者添加执行权限
+chmod -R 755 /var/www/html          # 递归设置 web 目录权限
+chmod a-x sensitive.dat             # 移除所有用户的执行权限
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>修改拥有者&#x2F;所属组</strong></p>
+<ul>
+<li><code>chown user:group 文件</code>：同时修改用户与组</li>
+<li><code>chown user 文件</code> 或 <code>chown :group 文件</code></li>
+<li><code>chown -R user:group 目录</code>：递归修改目录权限</li>
+</ul>
+</li>
+<li><p><strong>特殊权限</strong></p>
+<ul>
+<li><code>chmod u+s 文件</code>：设置 SUID 权限</li>
+<li><code>chmod g+s 目录</code>：设置 SGID 权限</li>
+<li><code>chmod +t 目录</code>：设置粘滞位</li>
+<li><code>umask</code>：查看默认权限掩码</li>
+<li><code>umask 022</code>：设置默认权限掩码</li>
+</ul>
+</li>
+<li><p><strong>文件属性</strong></p>
+<ul>
+<li><code>lsattr 文件</code>：查看文件特殊属性</li>
+<li><code>chattr +i 文件</code>：设置不可修改属性</li>
+<li><code>chattr +a 文件</code>：设置只能追加属性</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">chattr +i /etc/resolv.conf           # 防止文件被修改
+chattr +a /var/log/secure           # 只允许追加内容
+lsattr /etc/resolv.conf             # 查看文件属性
+chattr -i /etc/resolv.conf          # 移除不可修改属性
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<hr>
+<h2 id="四、进程与作业管理"><a href="#四、进程与作业管理" class="headerlink" title="四、进程与作业管理"></a>四、进程与作业管理</h2><ol>
+<li><p><strong>查看进程</strong></p>
+<ul>
+<li><code>ps -ef</code>：列出所有进程；常与 <code>grep</code> 结合过滤</li>
+<li><code>ps aux</code>：显示详细进程信息</li>
+<li><code>pstree</code>：以树状图显示进程关系</li>
+<li><code>top</code> &#x2F; <code>htop</code>：动态监控 CPU&#x2F;内存&#x2F;进程（按 q 退出）</li>
+<li><code>pgrep 进程名</code>：按名称查找进程 ID</li>
+</ul>
+</li>
+<li><p><strong>杀死进程</strong></p>
+<ul>
+<li><code>kill PID</code>：温和终止（发送 SIGTERM 信号）</li>
+<li><code>kill -9 PID</code>：强制终止（发送 SIGKILL 信号）</li>
+<li><code>kill -l</code>：列出所有信号</li>
+<li><code>pkill 进程名</code> &#x2F; <code>killall 进程名</code>：按名杀死</li>
+<li><code>killall -u 用户名</code>：杀死指定用户的所有进程</li>
+</ul>
+</li>
+<li><p><strong>进程优先级</strong></p>
+<ul>
+<li><code>nice -n 10 命令</code>：以较低优先级运行命令</li>
+<li><code>renice +10 -p PID</code>：调整运行中进程的优先级</li>
+</ul>
+</li>
+<li><p><strong>后台与作业控制</strong></p>
+<ul>
+<li><code>command &amp;</code>：后台运行</li>
+<li><code>jobs</code>：查看后台作业，<code>fg %1</code> 将第 1 个作业拉到前台，<code>bg %1</code> 让其后台运行</li>
+<li><code>nohup command &amp;</code>：后台运行且忽略挂断信号（退出终端后继续运行）</li>
+<li><code>Ctrl+Z</code>：挂起当前进程</li>
+<li><code>Ctrl+C</code>：终止当前进程</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="五、网络与远程操作"><a href="#五、网络与远程操作" class="headerlink" title="五、网络与远程操作"></a>五、网络与远程操作</h2><ol>
+<li><p><strong>网络诊断</strong></p>
+<ul>
+<li><code>ping 主机</code>：连通性测试</li>
+<li><code>ping -c 4</code>：只发送 4 个数据包</li>
+<li><code>traceroute 主机</code>：路由追踪</li>
+<li><code>mtr 主机</code>：结合 ping 和 traceroute 功能</li>
+<li><code>netstat -anp</code>：查看端口、连接；常与 <code>grep</code> 结合</li>
+<li><code>ss -tulnp</code>：更现代的端口查看工具</li>
+<li><code>nmap 主机</code>：端口扫描（需要安装）</li>
+</ul>
+</li>
+<li><p><strong>DNS 查询</strong></p>
+<ul>
+<li><code>nslookup 域名</code>：查询 DNS 记录</li>
+<li><code>dig 域名</code>：详细 DNS 查询</li>
+<li><code>host 域名</code>：简单 DNS 查询</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">nslookup google.com                  # 查询域名的 IP 地址
+dig @8.8.8.8 example.com            # 使用指定 DNS 服务器查询
+dig example.com MX                   # 查询邮件服务器记录
+host -t AAAA ipv6.google.com        # 查询 IPv6 地址
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>网络配置</strong></p>
+<ul>
+<li><code>ifconfig</code>：查看网络接口（较旧）</li>
+<li><code>ip addr show</code>：查看 IP 地址（现代替代 ifconfig）</li>
+<li><code>ip route show</code>：查看路由表</li>
+<li><code>hostname</code>：显示主机名</li>
+<li><code>hostname -I</code>：显示所有 IP 地址</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">ip addr show eth0                    # 显示特定网卡信息
+ip route add 192.168.1.0/24 via 192.168.1.1  # 添加静态路由
+ip link set eth0 up                  # 启用网卡
+ifconfig eth0 192.168.1.100         # 设置 IP 地址（旧方式）
+sudo hostnamectl set-hostname newname  # 修改主机名
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>文件传输与远程登录</strong></p>
+<ul>
+<li><code>ssh user@host</code>：远程登录</li>
+<li><code>ssh -p 端口 user@host</code>：指定端口登录</li>
+<li><code>scp 本地 远端</code> &#x2F; <code>scp user@host:远端 本地</code>：安全复制</li>
+<li><code>sftp user@host</code>：安全文件传输</li>
+<li><code>rsync -avz 源 目标</code>：增量同步</li>
+<li><code>rsync -avz --delete 源 目标</code>：同步并删除目标中源没有的文件</li>
+</ul>
+</li>
+<li><p><strong>下载工具</strong></p>
+<ul>
+<li><code>wget URL</code>：下载文件</li>
+<li><code>wget -c URL</code>：断点续传</li>
+<li><code>curl URL</code>：发送网络请求</li>
+<li><code>curl -O URL</code>：下载文件</li>
+<li><code>curl -H &quot;Header: Value&quot; URL</code>：添加请求头</li>
+</ul>
+</li>
+<li><p><strong>查看公网 IP</strong></p>
+<ul>
+<li><code>curl -4 ifconfig.co</code> 或 <code>curl ipinfo.io/ip</code></li>
+<li><code>curl icanhazip.com</code></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="六、磁盘与存储"><a href="#六、磁盘与存储" class="headerlink" title="六、磁盘与存储"></a>六、磁盘与存储</h2><ol>
+<li><p><strong>磁盘使用情况</strong></p>
+<ul>
+<li><code>df -h</code>：查看各分区总量与剩余空间</li>
+<li><code>df -i</code>：查看 inode 使用情况</li>
+<li><code>du -sh 目录</code>：查看目录总占用；<code>du -h --max-depth=1</code> 查看子目录分布</li>
+<li><code>du -h | sort -h</code>：按大小排序显示</li>
+<li><code>ncdu</code>：交互式磁盘使用分析（需要安装）</li>
+</ul>
+</li>
+<li><p><strong>块设备管理</strong></p>
+<ul>
+<li><code>lsblk</code>：列出块设备信息</li>
+<li><code>blkid</code>：显示块设备属性</li>
+<li><code>fdisk -l</code>：列出磁盘分区信息</li>
+<li><code>parted -l</code>：列出分区信息（支持 GPT）</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">lsblk -f                             # 显示文件系统类型
+blkid /dev/sda1                      # 显示分区 UUID 和类型
+sudo fdisk -l /dev/sda               # 查看磁盘分区表
+sudo parted /dev/sda print           # 显示分区信息
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>文件系统操作</strong></p>
+<ul>
+<li><code>mount 设备 挂载点</code>：挂载文件系统</li>
+<li><code>umount 设备/挂载点</code>：卸载文件系统</li>
+<li><code>mount -o remount,rw /</code>：重新挂载为读写模式</li>
+<li><code>fsck 设备</code>：文件系统检查和修复</li>
+<li><code>mkfs.ext4 设备</code>：创建 ext4 文件系统</li>
+</ul>
+</li>
+<li><p><strong>打包压缩</strong></p>
+<ul>
+<li><code>tar -czvf archive.tar.gz 目录/文件</code>：打包并 gzip 压缩</li>
+<li><code>tar -xzvf archive.tar.gz</code>：解压</li>
+<li><code>tar -tf archive.tar</code>：查看压缩包内容而不解压</li>
+<li><code>zip -r archive.zip 目录</code> &#x2F; <code>unzip archive.zip</code></li>
+<li><code>gzip 文件</code> &#x2F; <code>gunzip 文件.gz</code></li>
+<li><code>bzip2 文件</code> &#x2F; <code>bunzip2 文件.bz2</code></li>
+<li><code>xz 文件</code> &#x2F; <code>unxz 文件.xz</code></li>
+</ul>
+</li>
+<li><p><strong>数据复制与备份</strong></p>
+<ul>
+<li><code>dd if=源 of=目标 bs=块大小</code>：数据复制</li>
+<li><code>dd if=/dev/zero of=file bs=1M count=100</code>：创建100M空文件</li>
+<li><code>cp --sparse=always 文件 目标</code>：复制稀疏文件</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="七、查找与批处理"><a href="#七、查找与批处理" class="headerlink" title="七、查找与批处理"></a>七、查找与批处理</h2><ol>
+<li><p><strong>查找文件</strong></p>
+<ul>
+<li><code>find . -name &#39;*.log&#39;</code>：当前目录及子目录查找</li>
+<li><code>find /path -type f -mtime -7</code>：查找 7 天内修改的文件</li>
+<li><code>find . -type f -name &#39;xiaohub.log.2024-06*&#39; -delete</code>：批量删除</li>
+<li><code>find . -size +100M</code>：查找大于 100M 的文件</li>
+<li><code>find . -empty</code>：查找空文件或空目录</li>
+<li><code>find . -perm 777</code>：查找权限为 777 的文件</li>
+</ul>
+</li>
+<li><p><strong>快速定位</strong></p>
+<ul>
+<li><code>locate 文件名</code>：快速查找文件（基于数据库）</li>
+<li><code>updatedb</code>：更新 locate 数据库</li>
+<li><code>which 命令</code>：查找命令的完整路径</li>
+<li><code>whereis 命令</code>：查找二进制、源代码和手册页位置</li>
+<li><code>type 命令</code>：显示命令类型（别名、内置、外部命令）</li>
+</ul>
+</li>
+<li><p><strong>批量执行</strong></p>
+<ul>
+<li>与 <code>find</code> + <code>-exec</code>：<pre class="line-numbers language-language-bash"><code class="language-language-bash">find . -name '*.sh' -exec chmod +x &#123;&#125; \;
+find /var/log -name '*.log' -exec cp &#123;&#125; &#123;&#125;.bak \;
+find . -type f -exec md5sum &#123;&#125; \; > checksums.txt
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><code>xargs</code>：<pre class="line-numbers language-language-bash"><code class="language-language-bash">find . -name '*.txt' | xargs grep '关键字'
+find . -name '*.tmp' | xargs rm -f
+ls *.jpg | xargs -I &#123;&#125; convert &#123;&#125; &#123;&#125;.png
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><code>parallel</code>：并行执行命令（需要安装）<pre class="line-numbers language-language-bash"><code class="language-language-bash">find . -name '*.jpg' | parallel convert &#123;&#125; &#123;.&#125;.png
+cat urls.txt | parallel wget &#123;&#125;
+seq 1 10 | parallel -j4 'echo "Process &#123;&#125;"'
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="八、Shell-环境与脚本"><a href="#八、Shell-环境与脚本" class="headerlink" title="八、Shell 环境与脚本"></a>八、Shell 环境与脚本</h2><ol>
+<li><p><strong>环境变量</strong></p>
+<ul>
+<li><code>export VAR=value</code>：临时设置；写入 <code>~/.bashrc</code> 或 <code>~/.profile</code> 实现持久</li>
+<li><code>echo $VAR</code>：显示变量值</li>
+<li><code>env</code>：显示所有环境变量</li>
+<li><code>set</code>：显示所有变量（包括局部变量）</li>
+<li><code>unset VAR</code>：删除变量</li>
+<li><code>source 文件</code> 或 <code>.</code>：重新加载配置</li>
+</ul>
+</li>
+<li><p><strong>Shell 配置</strong></p>
+<ul>
+<li><code>~/.bashrc</code>：bash shell 配置文件</li>
+<li><code>~/.bash_profile</code>：登录 shell 配置文件</li>
+<li><code>~/.bash_history</code>：命令历史记录</li>
+</ul>
+</li>
+<li><p><strong>常见提示</strong></p>
+<ul>
+<li><code>history</code>：查看历史命令；<code>!n</code> 重复第 n 条，<code>!!</code> 重复上一条</li>
+<li><code>history -c</code>：清除历史记录</li>
+<li><code>Ctrl+R</code>：反向搜索历史命令</li>
+<li>Tab 自动补全</li>
+<li><code>alias ll=&#39;ls -l&#39;</code>：自定义快捷命令，写入 <code>~/.bashrc</code> 生效</li>
+<li><code>unalias 别名</code>：删除别名</li>
+</ul>
+</li>
+<li><p><strong>目录操作</strong></p>
+<ul>
+<li><code>pushd 目录</code>：将目录压入堆栈并切换</li>
+<li><code>popd</code>：从堆栈弹出目录并切换</li>
+<li><code>dirs</code>：显示目录堆栈</li>
+</ul>
+</li>
+<li><p><strong>脚本规范</strong></p>
+<ul>
+<li>首行 <code>#!/bin/bash</code> 或 <code>#!/usr/bin/env bash</code></li>
+<li>脚本执行前加执行权限：<code>chmod +x script.sh</code></li>
+<li>参数获取：<code>$1,$2,…</code>；循环 <code>for arg in &quot;$@&quot;; do …; done</code></li>
+<li><code>$0</code>：脚本名称</li>
+<li><code>$#</code>：参数个数</li>
+<li><code>$?</code>：上个命令的退出状态</li>
+<li><code>test</code> 或 <code>[ ]</code>：条件测试</li>
+<li><code>[[ ]]</code>：扩展的条件测试（支持正则）</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="九、系统管理"><a href="#九、系统管理" class="headerlink" title="九、系统管理"></a>九、系统管理</h2><ol>
+<li><p><strong>服务与日志</strong></p>
+<ul>
+<li><code>systemctl status 服务名</code>：查看服务状态</li>
+<li><code>systemctl start/stop/restart 服务名</code>：启停服务</li>
+<li><code>systemctl enable/disable 服务名</code>：开机自启设置</li>
+<li><code>journalctl -u 服务名</code>：查看 systemd 日志</li>
+<li><code>journalctl -f</code>：实时查看系统日志</li>
+</ul>
+</li>
+<li><p><strong>定时任务</strong></p>
+<ul>
+<li><code>crontab -e</code>：编辑当前用户 crontab</li>
+<li><code>crontab -l</code>：列出当前用户的定时任务</li>
+<li>格式：<code>* * * * * command</code>（分 时 日 月 周）</li>
+<li><code>/etc/crontab</code>：系统级定时任务</li>
+</ul>
+</li>
+<li><p><strong>用户与组管理</strong></p>
+<ul>
+<li><code>useradd 用户名</code> &#x2F; <code>usermod -aG group 用户名</code> &#x2F; <code>userdel 用户名</code></li>
+<li><code>passwd 用户名</code>：设置用户密码</li>
+<li><code>groups 用户名</code>：查看用户所属组</li>
+<li><code>id 用户名</code>：显示用户和组 ID</li>
+<li><code>su - 用户名</code>：切换用户</li>
+<li><code>sudo 命令</code>：以 root 权限执行命令</li>
+</ul>
+</li>
+<li><p><strong>系统监控</strong></p>
+<ul>
+<li><code>free -h</code>：查看内存使用情况</li>
+<li><code>uptime</code>：系统运行时间和负载</li>
+<li><code>dmesg</code>：查看内核消息</li>
+<li><code>lsof</code>：列出打开的文件</li>
+<li><code>lsof -i :端口</code>：查看端口占用情况</li>
+<li><code>vmstat</code>：虚拟内存统计</li>
+<li><code>iostat</code>：IO 统计</li>
+<li><code>sar</code>：系统活动报告（需要安装 sysstat）</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">free -h                              # 显示人性化的内存使用信息
+uptime                               # 显示运行时间和负载
+dmesg | tail -20                     # 查看最近的内核消息
+lsof -i :80                          # 查看 80 端口占用
+lsof -p 1234                         # 查看进程 1234 打开的文件
+vmstat 2 5                           # 每 2 秒更新一次，共 5 次
+iostat -x 1                          # 每秒显示详细 IO 统计
+sar -u 1 5                           # CPU 使用率，每秒更新，共 5 次
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<hr>
+<h2 id="十、软件包管理"><a href="#十、软件包管理" class="headerlink" title="十、软件包管理"></a>十、软件包管理</h2><ol>
+<li><p><strong>Debian&#x2F;Ubuntu（APT）</strong></p>
+<ul>
+<li><code>apt update</code>：更新软件包列表</li>
+<li><code>apt upgrade</code>：升级已安装软件包</li>
+<li><code>apt install 软件包</code>：安装软件</li>
+<li><code>apt remove 软件包</code>：删除软件</li>
+<li><code>apt search 关键字</code>：搜索软件包</li>
+<li><code>apt show 软件包</code>：显示软件包信息</li>
+<li><code>apt autoremove</code>：删除不需要的依赖包</li>
+</ul>
+</li>
+<li><p><strong>RHEL&#x2F;CentOS（YUM&#x2F;DNF）</strong></p>
+<ul>
+<li><code>yum update</code>：更新软件包</li>
+<li><code>yum install 软件包</code>：安装软件</li>
+<li><code>yum remove 软件包</code>：删除软件</li>
+<li><code>yum search 关键字</code>：搜索软件包</li>
+<li><code>yum info 软件包</code>：显示软件包信息</li>
+<li><code>dnf</code>：新版本的 Fedora&#x2F;RHEL 使用 dnf 替代 yum</li>
+</ul>
+</li>
+<li><p><strong>常用工具安装</strong></p>
+<ul>
+<li><code>apt install net-tools</code>：安装传统网络工具（ifconfig 等）</li>
+<li><code>apt install vim</code>：安装 vim 编辑器</li>
+<li><code>apt install htop</code>：安装 htop 进程监控工具</li>
+<li><code>apt install ncdu</code>：安装磁盘使用分析工具</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="十一、快捷键与技巧"><a href="#十一、快捷键与技巧" class="headerlink" title="十一、快捷键与技巧"></a>十一、快捷键与技巧</h2><ol>
+<li><p><strong>终端快捷键</strong></p>
+<ul>
+<li><code>Ctrl+A</code>：移到行首</li>
+<li><code>Ctrl+E</code>：移到行尾</li>
+<li><code>Ctrl+U</code>：删除光标前的内容</li>
+<li><code>Ctrl+K</code>：删除光标后的内容</li>
+<li><code>Ctrl+W</code>：删除光标前的单词</li>
+<li><code>Ctrl+L</code>：清屏（等同于 clear）</li>
+<li><code>Ctrl+D</code>：退出当前 shell</li>
+</ul>
+</li>
+<li><p><strong>命令行技巧</strong></p>
+<ul>
+<li><code>!!</code>：重复执行上一条命令</li>
+<li>&#96;!## 一、文件与目录操作</li>
+</ul>
+</li>
+<li><p><strong>列出目录内容</strong></p>
+<ul>
+<li><code>ls</code>：列出当前目录</li>
+<li><code>ls -l</code>：显示详细信息（权限、拥有者、大小、修改时间）</li>
+<li><code>ls -a</code>：包括隐藏文件（<code>.</code> 开头）</li>
+<li><code>ls -lh</code>：人性化显示文件大小（K, M, G）</li>
+<li><code>ls -lt</code>：按修改时间排序，最新在前</li>
+<li><code>ls -lS</code>：按文件大小排序，最大在前</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">ls -la /etc          # 列出 /etc 目录的所有文件（包括隐藏文件）
+ls -lh ~/Downloads   # 显示下载目录文件，以人性化方式显示大小
+ls -lt *.log         # 按时间排序显示所有日志文件
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>目录切换与查看</strong></p>
+<ul>
+<li><code>pwd</code>：显示当前所在目录的完整路径</li>
+<li><code>cd 目录</code>：切换目录</li>
+<li><code>cd ..</code>：返回上级目录</li>
+<li><code>cd -</code>：返回上次所在目录</li>
+<li><code>cd ~</code>：切换到用户主目录</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">pwd                  # 显示当前工作目录
+cd /var/log          # 切换到系统日志目录
+cd ../..             # 返回上两级目录
+cd -                 # 快速返回上一个访问的目录
+cd ~/Documents       # 切换到用户文档目录
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>复制&#x2F;移动&#x2F;删除</strong></p>
+<ul>
+<li><code>cp 源 目标</code>：复制文件或目录（加 <code>-r</code> 递归）</li>
+<li><code>cp -i</code>：覆盖前询问</li>
+<li><code>cp -p</code>：保留源文件属性（时间戳、权限等）</li>
+<li><code>mv 源 目标</code>：移动或重命名</li>
+<li><code>mv -i</code>：覆盖前询问</li>
+<li><code>rm 文件</code>：删除文件；<code>rm -r 目录</code>：递归删除目录</li>
+<li><code>rm -i</code>：删除前询问确认</li>
+<li><code>rm -f</code>：强制删除，不询问</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">cp file1.txt file2.txt              # 复制文件
+cp -r dir1/ dir2/                   # 递归复制目录
+cp -ip old.conf new.conf            # 复制文件并保留属性，覆盖前询问
+mv oldname.txt newname.txt          # 重命名文件
+mv *.jpg ~/Pictures/                # 移动所有图片到目录
+rm -rf temp/                        # 强制删除目录及内容（慎用）
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>创建文件与目录</strong></p>
+<ul>
+<li><code>mkdir 目录名</code>：创建目录</li>
+<li><code>mkdir -p 路径/目录</code>：创建多级目录</li>
+<li><code>touch 文件名</code>：创建空文件或更新时间戳</li>
+<li><code>rmdir 目录名</code>：删除空目录</li>
+<li><code>tree</code>：以树状图显示目录结构（若未安装可 <code>sudo apt install tree</code>）</li>
+</ul>
+</li>
+<li><p><strong>链接操作</strong></p>
+<ul>
+<li><code>ln -s 源文件 软链接</code>：创建软链接（符号链接）</li>
+<li><code>ln 源文件 硬链接</code>：创建硬链接</li>
+<li><code>readlink 链接</code>：查看链接指向的实际路径</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">ln -s /usr/bin/python3 ~/bin/python           # 创建 Python 软链接
+ln important.txt backup_hard_link.txt         # 创建硬链接
+readlink /bin/sh                              # 查看链接指向的实际文件
+ls -l /bin | grep '^l'                        # 查看所有符号链接
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>查看文件内容</strong></p>
+<ul>
+<li><code>cat 文件</code>：一次性显示全文</li>
+<li><code>cat -n</code>：显示行号</li>
+<li><code>more/less 文件</code>：分页查看，<code>/ + 关键字</code> 搜索，<code>n</code> 跳到下一个匹配</li>
+<li><code>head -n 10 文件</code>：查看前 10 行；<code>tail -n 10 文件</code>：后 10 行</li>
+<li><code>tail -f 文件</code>：实时追踪文件新增内容，常用于日志监控</li>
+<li><code>file 文件</code>：查看文件类型</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="二、文本处理与过滤-1"><a href="#二、文本处理与过滤-1" class="headerlink" title="二、文本处理与过滤"></a>二、文本处理与过滤</h2><ol>
+<li><p><strong>过滤与查找</strong></p>
+<ul>
+<li><code>grep 模式 文件</code>：查找匹配行；<code>-i</code> 忽略大小写；<code>-n</code> 显示行号；<code>-v</code> 反向查找</li>
+<li><code>grep -r 模式 目录</code>：递归搜索目录</li>
+<li><code>grep -E &#39;正则表达式&#39;</code>：使用扩展正则表达式</li>
+<li><code>egrep</code>：等同于 <code>grep -E</code></li>
+<li><code>awk &#39;&#123;print $1,$3&#125;&#39; 文件</code>：按空格分列，打印第 1、3 列</li>
+<li><code>cut -d&#39;:&#39; -f1 /etc/passwd</code>：以 <code>:</code> 分割，取第一列</li>
+<li><code>sed &#39;s/old/new/g&#39; 文件</code>：替换（默认只输出到标准输出）；加 <code>-i</code> 直接修改文件</li>
+<li><code>sed -n &#39;1,10p&#39; 文件</code>：只显示第 1-10 行</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">grep -n "ERROR" server.log                    # 查找错误日志，显示行号
+grep -r "TODO" ./src                          # 递归搜索源代码中的 TODO
+grep -E '^[0-9]&#123;3&#125;-[0-9]&#123;4&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>排序与去重</strong></p>
+<ul>
+<li><code>sort 文件</code>：排序；<code>sort -n</code> 数值排序；<code>-r</code> 逆序；<code>-k n</code> 指定第 n 列排序</li>
+<li><code>uniq 文件</code>：去除相邻重复；<code>uniq -c</code> 统计次数；常与 <code>sort</code> 管道配合：<pre class="line-numbers language-language-bash"><code class="language-language-bash">sort abc.txt | uniq -c
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><code>comm 文件1 文件2</code>：比较两个已排序文件的异同</li>
+</ul>
+</li>
+<li><p><strong>统计与比较</strong></p>
+<ul>
+<li><code>wc -l 文件</code>：统计行数；<code>-m</code> 字符数；<code>-c</code> 字节数；<code>-L</code> 最长行长度；<code>-w</code> 单词数</li>
+<li><code>diff 文件1 文件2</code>：比较文件差异</li>
+<li><code>diff -u</code>：以统一格式显示差异</li>
+<li><code>cmp 文件1 文件2</code>：二进制比较文件</li>
+</ul>
+</li>
+<li><p><strong>字符转换</strong></p>
+<ul>
+<li><code>tr &#39;a-z&#39; &#39;A-Z&#39; &lt; 文件</code>：小写转大写</li>
+<li><code>tr -d &#39;0-9&#39;</code>：删除所有数字</li>
+<li><code>tr -s &#39; &#39;</code>：压缩连续空格为单个空格</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">echo "hello world" | tr 'a-z' 'A-Z'          # 转换为大写: HELLO WORLD
+echo "user123pass456" | tr -d '0-9'          # 删除数字: userpass
+echo "too    many    spaces" | tr -s ' '      # 压缩空格: too many spaces
+cat file.txt | tr '\n' ' '                    # 将换行符替换为空格
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<hr>
+<h2 id="三、权限与拥有者-1"><a href="#三、权限与拥有者-1" class="headerlink" title="三、权限与拥有者"></a>三、权限与拥有者</h2><ol>
+<li><p><strong>查看权限</strong></p>
+<ul>
+<li><code>ls -l</code> 第一列如 <code>-rwxr-xr--</code>：分别是文件类型、用户&#x2F;组&#x2F;其他用户的读(r)&#x2F;写(w)&#x2F;执行(x) 权限</li>
+<li><code>stat 文件</code>：查看文件详细状态信息</li>
+</ul>
+</li>
+<li><p><strong>修改权限</strong></p>
+<ul>
+<li><code>chmod u+rw 文件</code>：用户添加读写权限；也可用数字模式，如 <code>chmod 755 文件</code></li>
+<li><code>chmod g-w 文件</code>：组移除写权限</li>
+<li><code>chmod o+x 文件</code>：其他用户添加执行权限</li>
+<li><code>chmod -R 755 目录</code>：递归修改目录及子目录权限</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">chmod 644 file.txt                   # 设置 rw-r--r-- 权限
+chmod u+x script.sh                  # 给所有者添加执行权限
+chmod -R 755 /var/www/html          # 递归设置 web 目录权限
+chmod a-x sensitive.dat             # 移除所有用户的执行权限
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>修改拥有者&#x2F;所属组</strong></p>
+<ul>
+<li><code>chown user:group 文件</code>：同时修改用户与组</li>
+<li><code>chown user 文件</code> 或 <code>chown :group 文件</code></li>
+<li><code>chown -R user:group 目录</code>：递归修改目录权限</li>
+</ul>
+</li>
+<li><p><strong>特殊权限</strong></p>
+<ul>
+<li><code>chmod u+s 文件</code>：设置 SUID 权限</li>
+<li><code>chmod g+s 目录</code>：设置 SGID 权限</li>
+<li><code>chmod +t 目录</code>：设置粘滞位</li>
+<li><code>umask</code>：查看默认权限掩码</li>
+<li><code>umask 022</code>：设置默认权限掩码</li>
+</ul>
+</li>
+<li><p><strong>文件属性</strong></p>
+<ul>
+<li><code>lsattr 文件</code>：查看文件特殊属性</li>
+<li><code>chattr +i 文件</code>：设置不可修改属性</li>
+<li><code>chattr +a 文件</code>：设置只能追加属性</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">chattr +i /etc/resolv.conf           # 防止文件被修改
+chattr +a /var/log/secure           # 只允许追加内容
+lsattr /etc/resolv.conf             # 查看文件属性
+chattr -i /etc/resolv.conf          # 移除不可修改属性
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<hr>
+<h2 id="四、进程与作业管理-1"><a href="#四、进程与作业管理-1" class="headerlink" title="四、进程与作业管理"></a>四、进程与作业管理</h2><ol>
+<li><p><strong>查看进程</strong></p>
+<ul>
+<li><code>ps -ef</code>：列出所有进程；常与 <code>grep</code> 结合过滤</li>
+<li><code>ps aux</code>：显示详细进程信息</li>
+<li><code>pstree</code>：以树状图显示进程关系</li>
+<li><code>top</code> &#x2F; <code>htop</code>：动态监控 CPU&#x2F;内存&#x2F;进程（按 q 退出）</li>
+<li><code>pgrep 进程名</code>：按名称查找进程 ID</li>
+</ul>
+</li>
+<li><p><strong>杀死进程</strong></p>
+<ul>
+<li><code>kill PID</code>：温和终止（发送 SIGTERM 信号）</li>
+<li><code>kill -9 PID</code>：强制终止（发送 SIGKILL 信号）</li>
+<li><code>kill -l</code>：列出所有信号</li>
+<li><code>pkill 进程名</code> &#x2F; <code>killall 进程名</code>：按名杀死</li>
+<li><code>killall -u 用户名</code>：杀死指定用户的所有进程</li>
+</ul>
+</li>
+<li><p><strong>进程优先级</strong></p>
+<ul>
+<li><code>nice -n 10 命令</code>：以较低优先级运行命令</li>
+<li><code>renice +10 -p PID</code>：调整运行中进程的优先级</li>
+</ul>
+</li>
+<li><p><strong>后台与作业控制</strong></p>
+<ul>
+<li><code>command &amp;</code>：后台运行</li>
+<li><code>jobs</code>：查看后台作业，<code>fg %1</code> 将第 1 个作业拉到前台，<code>bg %1</code> 让其后台运行</li>
+<li><code>nohup command &amp;</code>：后台运行且忽略挂断信号（退出终端后继续运行）</li>
+<li><code>Ctrl+Z</code>：挂起当前进程</li>
+<li><code>Ctrl+C</code>：终止当前进程</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="五、网络与远程操作-1"><a href="#五、网络与远程操作-1" class="headerlink" title="五、网络与远程操作"></a>五、网络与远程操作</h2><ol>
+<li><p><strong>网络诊断</strong></p>
+<ul>
+<li><code>ping 主机</code>：连通性测试</li>
+<li><code>ping -c 4</code>：只发送 4 个数据包</li>
+<li><code>traceroute 主机</code>：路由追踪</li>
+<li><code>mtr 主机</code>：结合 ping 和 traceroute 功能</li>
+<li><code>netstat -anp</code>：查看端口、连接；常与 <code>grep</code> 结合</li>
+<li><code>ss -tulnp</code>：更现代的端口查看工具</li>
+<li><code>nmap 主机</code>：端口扫描（需要安装）</li>
+</ul>
+</li>
+<li><p><strong>DNS 查询</strong></p>
+<ul>
+<li><code>nslookup 域名</code>：查询 DNS 记录</li>
+<li><code>dig 域名</code>：详细 DNS 查询</li>
+<li><code>host 域名</code>：简单 DNS 查询</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">nslookup google.com                  # 查询域名的 IP 地址
+dig @8.8.8.8 example.com            # 使用指定 DNS 服务器查询
+dig example.com MX                   # 查询邮件服务器记录
+host -t AAAA ipv6.google.com        # 查询 IPv6 地址
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>网络配置</strong></p>
+<ul>
+<li><code>ifconfig</code>：查看网络接口（较旧）</li>
+<li><code>ip addr show</code>：查看 IP 地址（现代替代 ifconfig）</li>
+<li><code>ip route show</code>：查看路由表</li>
+<li><code>hostname</code>：显示主机名</li>
+<li><code>hostname -I</code>：显示所有 IP 地址</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">ip addr show eth0                    # 显示特定网卡信息
+ip route add 192.168.1.0/24 via 192.168.1.1  # 添加静态路由
+ip link set eth0 up                  # 启用网卡
+ifconfig eth0 192.168.1.100         # 设置 IP 地址（旧方式）
+sudo hostnamectl set-hostname newname  # 修改主机名
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>文件传输与远程登录</strong></p>
+<ul>
+<li><code>ssh user@host</code>：远程登录</li>
+<li><code>ssh -p 端口 user@host</code>：指定端口登录</li>
+<li><code>scp 本地 远端</code> &#x2F; <code>scp user@host:远端 本地</code>：安全复制</li>
+<li><code>sftp user@host</code>：安全文件传输</li>
+<li><code>rsync -avz 源 目标</code>：增量同步</li>
+<li><code>rsync -avz --delete 源 目标</code>：同步并删除目标中源没有的文件</li>
+</ul>
+</li>
+<li><p><strong>下载工具</strong></p>
+<ul>
+<li><code>wget URL</code>：下载文件</li>
+<li><code>wget -c URL</code>：断点续传</li>
+<li><code>curl URL</code>：发送网络请求</li>
+<li><code>curl -O URL</code>：下载文件</li>
+<li><code>curl -H &quot;Header: Value&quot; URL</code>：添加请求头</li>
+</ul>
+</li>
+<li><p><strong>查看公网 IP</strong></p>
+<ul>
+<li><code>curl -4 ifconfig.co</code> 或 <code>curl ipinfo.io/ip</code></li>
+<li><code>curl icanhazip.com</code></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="六、磁盘与存储-1"><a href="#六、磁盘与存储-1" class="headerlink" title="六、磁盘与存储"></a>六、磁盘与存储</h2><ol>
+<li><p><strong>磁盘使用情况</strong></p>
+<ul>
+<li><code>df -h</code>：查看各分区总量与剩余空间</li>
+<li><code>df -i</code>：查看 inode 使用情况</li>
+<li><code>du -sh 目录</code>：查看目录总占用；<code>du -h --max-depth=1</code> 查看子目录分布</li>
+<li><code>du -h | sort -h</code>：按大小排序显示</li>
+<li><code>ncdu</code>：交互式磁盘使用分析（需要安装）</li>
+</ul>
+</li>
+<li><p><strong>块设备管理</strong></p>
+<ul>
+<li><code>lsblk</code>：列出块设备信息</li>
+<li><code>blkid</code>：显示块设备属性</li>
+<li><code>fdisk -l</code>：列出磁盘分区信息</li>
+<li><code>parted -l</code>：列出分区信息（支持 GPT）</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">lsblk -f                             # 显示文件系统类型
+blkid /dev/sda1                      # 显示分区 UUID 和类型
+sudo fdisk -l /dev/sda               # 查看磁盘分区表
+sudo parted /dev/sda print           # 显示分区信息
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>文件系统操作</strong></p>
+<ul>
+<li><code>mount 设备 挂载点</code>：挂载文件系统</li>
+<li><code>umount 设备/挂载点</code>：卸载文件系统</li>
+<li><code>mount -o remount,rw /</code>：重新挂载为读写模式</li>
+<li><code>fsck 设备</code>：文件系统检查和修复</li>
+<li><code>mkfs.ext4 设备</code>：创建 ext4 文件系统</li>
+</ul>
+</li>
+<li><p><strong>打包压缩</strong></p>
+<ul>
+<li><code>tar -czvf archive.tar.gz 目录/文件</code>：打包并 gzip 压缩</li>
+<li><code>tar -xzvf archive.tar.gz</code>：解压</li>
+<li><code>tar -tf archive.tar</code>：查看压缩包内容而不解压</li>
+<li><code>zip -r archive.zip 目录</code> &#x2F; <code>unzip archive.zip</code></li>
+<li><code>gzip 文件</code> &#x2F; <code>gunzip 文件.gz</code></li>
+<li><code>bzip2 文件</code> &#x2F; <code>bunzip2 文件.bz2</code></li>
+<li><code>xz 文件</code> &#x2F; <code>unxz 文件.xz</code></li>
+</ul>
+</li>
+<li><p><strong>数据复制与备份</strong></p>
+<ul>
+<li><code>dd if=源 of=目标 bs=块大小</code>：数据复制</li>
+<li><code>dd if=/dev/zero of=file bs=1M count=100</code>：创建100M空文件</li>
+<li><code>cp --sparse=always 文件 目标</code>：复制稀疏文件</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="七、查找与批处理-1"><a href="#七、查找与批处理-1" class="headerlink" title="七、查找与批处理"></a>七、查找与批处理</h2><ol>
+<li><p><strong>查找文件</strong></p>
+<ul>
+<li><code>find . -name &#39;*.log&#39;</code>：当前目录及子目录查找</li>
+<li><code>find /path -type f -mtime -7</code>：查找 7 天内修改的文件</li>
+<li><code>find . -type f -name &#39;xiaohub.log.2024-06*&#39; -delete</code>：批量删除</li>
+<li><code>find . -size +100M</code>：查找大于 100M 的文件</li>
+<li><code>find . -empty</code>：查找空文件或空目录</li>
+<li><code>find . -perm 777</code>：查找权限为 777 的文件</li>
+</ul>
+</li>
+<li><p><strong>快速定位</strong></p>
+<ul>
+<li><code>locate 文件名</code>：快速查找文件（基于数据库）</li>
+<li><code>updatedb</code>：更新 locate 数据库</li>
+<li><code>which 命令</code>：查找命令的完整路径</li>
+<li><code>whereis 命令</code>：查找二进制、源代码和手册页位置</li>
+<li><code>type 命令</code>：显示命令类型（别名、内置、外部命令）</li>
+</ul>
+</li>
+<li><p><strong>批量执行</strong></p>
+<ul>
+<li>与 <code>find</code> + <code>-exec</code>：<pre class="line-numbers language-language-bash"><code class="language-language-bash">find . -name '*.sh' -exec chmod +x &#123;&#125; \;
+find /var/log -name '*.log' -exec cp &#123;&#125; &#123;&#125;.bak \;
+find . -type f -exec md5sum &#123;&#125; \; > checksums.txt
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><code>xargs</code>：<pre class="line-numbers language-language-bash"><code class="language-language-bash">find . -name '*.txt' | xargs grep '关键字'
+find . -name '*.tmp' | xargs rm -f
+ls *.jpg | xargs -I &#123;&#125; convert &#123;&#125; &#123;&#125;.png
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><code>parallel</code>：并行执行命令（需要安装）<pre class="line-numbers language-language-bash"><code class="language-language-bash">find . -name '*.jpg' | parallel convert &#123;&#125; &#123;.&#125;.png
+cat urls.txt | parallel wget &#123;&#125;
+seq 1 10 | parallel -j4 'echo "Process &#123;&#125;"'
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="八、Shell-环境与脚本-1"><a href="#八、Shell-环境与脚本-1" class="headerlink" title="八、Shell 环境与脚本"></a>八、Shell 环境与脚本</h2><ol>
+<li><p><strong>环境变量</strong></p>
+<ul>
+<li><code>export VAR=value</code>：临时设置；写入 <code>~/.bashrc</code> 或 <code>~/.profile</code> 实现持久</li>
+<li><code>echo $VAR</code>：显示变量值</li>
+<li><code>env</code>：显示所有环境变量</li>
+<li><code>set</code>：显示所有变量（包括局部变量）</li>
+<li><code>unset VAR</code>：删除变量</li>
+<li><code>source 文件</code> 或 <code>.</code>：重新加载配置</li>
+</ul>
+</li>
+<li><p><strong>Shell 配置</strong></p>
+<ul>
+<li><code>~/.bashrc</code>：bash shell 配置文件</li>
+<li><code>~/.bash_profile</code>：登录 shell 配置文件</li>
+<li><code>~/.bash_history</code>：命令历史记录</li>
+</ul>
+</li>
+<li><p><strong>常见提示</strong></p>
+<ul>
+<li><code>history</code>：查看历史命令；<code>!n</code> 重复第 n 条，<code>!!</code> 重复上一条</li>
+<li><code>history -c</code>：清除历史记录</li>
+<li><code>Ctrl+R</code>：反向搜索历史命令</li>
+<li>Tab 自动补全</li>
+<li><code>alias ll=&#39;ls -l&#39;</code>：自定义快捷命令，写入 <code>~/.bashrc</code> 生效</li>
+<li><code>unalias 别名</code>：删除别名</li>
+</ul>
+</li>
+<li><p><strong>目录操作</strong></p>
+<ul>
+<li><code>pushd 目录</code>：将目录压入堆栈并切换</li>
+<li><code>popd</code>：从堆栈弹出目录并切换</li>
+<li><code>dirs</code>：显示目录堆栈</li>
+</ul>
+</li>
+<li><p><strong>脚本规范</strong></p>
+<ul>
+<li>首行 <code>#!/bin/bash</code> 或 <code>#!/usr/bin/env bash</code></li>
+<li>脚本执行前加执行权限：<code>chmod +x script.sh</code></li>
+<li>参数获取：<code>$1,$2,…</code>；循环 <code>for arg in &quot;$@&quot;; do …; done</code></li>
+<li><code>$0</code>：脚本名称</li>
+<li><code>$#</code>：参数个数</li>
+<li><code>$?</code>：上个命令的退出状态</li>
+<li><code>test</code> 或 <code>[ ]</code>：条件测试</li>
+<li><code>[[ ]]</code>：扩展的条件测试（支持正则）</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="九、系统管理-1"><a href="#九、系统管理-1" class="headerlink" title="九、系统管理"></a>九、系统管理</h2><ol>
+<li><p><strong>服务与日志</strong></p>
+<ul>
+<li><code>systemctl status 服务名</code>：查看服务状态</li>
+<li><code>systemctl start/stop/restart 服务名</code>：启停服务</li>
+<li><code>systemctl enable/disable 服务名</code>：开机自启设置</li>
+<li><code>journalctl -u 服务名</code>：查看 systemd 日志</li>
+<li><code>journalctl -f</code>：实时查看系统日志</li>
+</ul>
+</li>
+<li><p><strong>定时任务</strong></p>
+<ul>
+<li><code>crontab -e</code>：编辑当前用户 crontab</li>
+<li><code>crontab -l</code>：列出当前用户的定时任务</li>
+<li>格式：<code>* * * * * command</code>（分 时 日 月 周）</li>
+<li><code>/etc/crontab</code>：系统级定时任务</li>
+</ul>
+</li>
+<li><p><strong>用户与组管理</strong></p>
+<ul>
+<li><code>useradd 用户名</code> &#x2F; <code>usermod -aG group 用户名</code> &#x2F; <code>userdel 用户名</code></li>
+<li><code>passwd 用户名</code>：设置用户密码</li>
+<li><code>groups 用户名</code>：查看用户所属组</li>
+<li><code>id 用户名</code>：显示用户和组 ID</li>
+<li><code>su - 用户名</code>：切换用户</li>
+<li><code>sudo 命令</code>：以 root 权限执行命令</li>
+</ul>
+</li>
+<li><p><strong>系统监控</strong></p>
+<ul>
+<li><code>free -h</code>：查看内存使用情况</li>
+<li><code>uptime</code>：系统运行时间和负载</li>
+<li><code>dmesg</code>：查看内核消息</li>
+<li><code>lsof</code>：列出打开的文件</li>
+<li><code>lsof -i :端口</code>：查看端口占用情况</li>
+<li><code>vmstat</code>：虚拟内存统计</li>
+<li><code>iostat</code>：IO 统计</li>
+<li><code>sar</code>：系统活动报告（需要安装 sysstat）</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">free -h                              # 显示人性化的内存使用信息
+uptime                               # 显示运行时间和负载
+dmesg | tail -20                     # 查看最近的内核消息
+lsof -i :80                          # 查看 80 端口占用
+lsof -p 1234                         # 查看进程 1234 打开的文件
+vmstat 2 5                           # 每 2 秒更新一次，共 5 次
+iostat -x 1                          # 每秒显示详细 IO 统计
+sar -u 1 5                           # CPU 使用率，每秒更新，共 5 次
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<hr>
+<h2 id="十、软件包管理-1"><a href="#十、软件包管理-1" class="headerlink" title="十、软件包管理"></a>十、软件包管理</h2><ol>
+<li><p><strong>Debian&#x2F;Ubuntu（APT）</strong></p>
+<ul>
+<li><code>apt update</code>：更新软件包列表</li>
+<li><code>apt upgrade</code>：升级已安装软件包</li>
+<li><code>apt install 软件包</code>：安装软件</li>
+<li><code>apt remove 软件包</code>：删除软件</li>
+<li><code>apt search 关键字</code>：搜索软件包</li>
+<li><code>apt show 软件包</code>：显示软件包信息</li>
+<li><code>apt autoremove</code>：删除不需要的依赖包</li>
+</ul>
+</li>
+<li><p><strong>RHEL&#x2F;CentOS（YUM&#x2F;DNF）</strong></p>
+<ul>
+<li><code>yum update</code>：更新软件包</li>
+<li><code>yum install 软件包</code>：安装软件</li>
+<li><code>yum remove 软件包</code>：删除软件</li>
+<li><code>yum search 关键字</code>：搜索软件包</li>
+<li><code>yum info 软件包</code>：显示软件包信息</li>
+<li><code>dnf</code>：新版本的 Fedora&#x2F;RHEL 使用 dnf 替代 yum</li>
+</ul>
+</li>
+<li><p><strong>常用工具安装</strong></p>
+<ul>
+<li><code>apt install net-tools</code>：安装传统网络工具（ifconfig 等）</li>
+<li><code>apt install vim</code>：安装 vim 编辑器</li>
+<li><code>apt install htop</code>：安装 htop 进程监控工具</li>
+<li><code>apt install ncdu</code>：安装磁盘使用分析工具</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="十一、快捷键与技巧-1"><a href="#十一、快捷键与技巧-1" class="headerlink" title="十一、快捷键与技巧"></a>十一、快捷键与技巧</h2><ol>
+<li><strong>终端快捷键</strong><ul>
+<li><code>Ctrl+A</code>：移到行首</li>
+<li><code>Ctrl+E</code>：移到行尾</li>
+<li><code>Ctrl+U</code>：删除光标前的内容</li>
+<li><code>Ctrl+K</code>：删除光标后的内容</li>
+<li><code>Ctrl+W</code>：删除光标前的单词</li>
+<li><code>Ctrl+L</code>：清屏（等同于 clear）</li>
+<li><code>Ctrl+D</code>：退出当前 shell</li>
+</ul>
+</li>
+</ol>
+<p>：引用上条命令的最后一个参数</p>
+<ul>
+<li><code>!*</code>：引用上条命令的所有参数</li>
+<li><code>command1 &amp;&amp; command2</code>：前一个命令成功后才执行后一个</li>
+<li><code>command1 || command2</code>：前一个命令失败后才执行后一个</li>
+<li><code>command1; command2</code>：顺序执行，不管是否成功</li>
+<li><code>$(command)</code>：命令替换</li>
+<li><code>`command`</code>：命令替换（旧式）</li>
+</ul>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">sudo !!                              # 以 root 权限重新执行上条命令
+cd !$                                # 切换到上条命令的最后一个参数
+echo !*                              # 显示上条命令的所有参数
+mkdir test && cd test                # 创建目录并进入
+ping -c1 google.com || echo "网络不通"  # 网络不通时提示
+echo "今天是 $(date +%Y-%m-%d)"      # 命令替换显示日期
+for file in *.txt; do echo $file; done  # 遍历文件
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li><p><strong>通配符与正则</strong></p>
+<ul>
+<li><code>*</code>：匹配任意多个字符</li>
+<li><code>?</code>：匹配单个字符</li>
+<li><code>[abc]</code>：匹配中括号内任一字符</li>
+<li><code>[a-z]</code>：匹配范围内任一字符</li>
+<li><code>&#123;a,b,c&#125;</code>：匹配大括号内任一字符串</li>
+</ul>
+</li>
+<li><p><strong>重定向与管道</strong></p>
+<ul>
+<li><code>&gt;</code>：输出重定向（覆盖）</li>
+<li><code>&gt;&gt;</code>：输出重定向（追加）</li>
+<li><code>2&gt;</code>：错误输出重定向</li>
+<li><code>&amp;&gt;</code>：标准输出和错误都重定向</li>
+<li><code>|</code>：管道，将前一个命令的输出作为后一个命令的输入</li>
+<li><code>tee</code>：将输出同时写入文件和标准输出 phone.txt      # 正则匹配电话号码格式<br>ps aux | grep nginx | grep -v grep            # 查找 nginx 进程（排除 grep 自身）<br>awk -F: ‘{print $1,$7}’ &#x2F;etc&#x2F;passwd           # 显示用户名和 shell<br>df -h | awk ‘NR&gt;1{print $5,$6}’              # 显示磁盘使用率和挂载点<br>sed -i ‘s&#x2F;localhost&#x2F;127.0.0.1&#x2F;g’ config.ini   # 直接替换文件内容<br>sed -n ‘&#x2F;start&#x2F;,&#x2F;end&#x2F;p’ log.txt               # 显示两个标记之间的行</li>
+</ul>
+<pre><code>
+</code></pre>
+</li>
+<li><p><strong>排序与去重</strong></p>
+<ul>
+<li><code>sort 文件</code>：排序；<code>sort -n</code> 数值排序；<code>-r</code> 逆序；<code>-k n</code> 指定第 n 列排序</li>
+<li><code>uniq 文件</code>：去除相邻重复；<code>uniq -c</code> 统计次数；常与 <code>sort</code> 管道配合：<pre class="line-numbers language-language-bash"><code class="language-language-bash">sort abc.txt | uniq -c
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><code>comm 文件1 文件2</code>：比较两个已排序文件的异同</li>
+</ul>
+</li>
+<li><p><strong>统计与比较</strong></p>
+<ul>
+<li><code>wc -l 文件</code>：统计行数；<code>-m</code> 字符数；<code>-c</code> 字节数；<code>-L</code> 最长行长度；<code>-w</code> 单词数</li>
+<li><code>diff 文件1 文件2</code>：比较文件差异</li>
+<li><code>diff -u</code>：以统一格式显示差异</li>
+<li><code>cmp 文件1 文件2</code>：二进制比较文件</li>
+</ul>
+</li>
+<li><p><strong>字符转换</strong></p>
+<ul>
+<li><code>tr &#39;a-z&#39; &#39;A-Z&#39; &lt; 文件</code>：小写转大写</li>
+<li><code>tr -d &#39;0-9&#39;</code>：删除所有数字</li>
+<li><code>tr -s &#39; &#39;</code>：压缩连续空格为单个空格</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="三、权限与拥有者-2"><a href="#三、权限与拥有者-2" class="headerlink" title="三、权限与拥有者"></a>三、权限与拥有者</h2><ol>
+<li><p><strong>查看权限</strong></p>
+<ul>
+<li><code>ls -l</code> 第一列如 <code>-rwxr-xr--</code>：分别是文件类型、用户&#x2F;组&#x2F;其他用户的读(r)&#x2F;写(w)&#x2F;执行(x) 权限</li>
+<li><code>stat 文件</code>：查看文件详细状态信息</li>
+</ul>
+</li>
+<li><p><strong>修改权限</strong></p>
+<ul>
+<li><code>chmod u+rw 文件</code>：用户添加读写权限；也可用数字模式，如 <code>chmod 755 文件</code></li>
+<li><code>chmod g-w 文件</code>：组移除写权限</li>
+<li><code>chmod o+x 文件</code>：其他用户添加执行权限</li>
+<li><code>chmod -R 755 目录</code>：递归修改目录及子目录权限</li>
+</ul>
+</li>
+<li><p><strong>修改拥有者&#x2F;所属组</strong></p>
+<ul>
+<li><code>chown user:group 文件</code>：同时修改用户与组</li>
+<li><code>chown user 文件</code> 或 <code>chown :group 文件</code></li>
+<li><code>chown -R user:group 目录</code>：递归修改目录权限</li>
+</ul>
+</li>
+<li><p><strong>特殊权限</strong></p>
+<ul>
+<li><code>chmod u+s 文件</code>：设置 SUID 权限</li>
+<li><code>chmod g+s 目录</code>：设置 SGID 权限</li>
+<li><code>chmod +t 目录</code>：设置粘滞位</li>
+<li><code>umask</code>：查看默认权限掩码</li>
+<li><code>umask 022</code>：设置默认权限掩码</li>
+</ul>
+</li>
+<li><p><strong>文件属性</strong></p>
+<ul>
+<li><code>lsattr 文件</code>：查看文件特殊属性</li>
+<li><code>chattr +i 文件</code>：设置不可修改属性</li>
+<li><code>chattr +a 文件</code>：设置只能追加属性</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="四、进程与作业管理-2"><a href="#四、进程与作业管理-2" class="headerlink" title="四、进程与作业管理"></a>四、进程与作业管理</h2><ol>
+<li><p><strong>查看进程</strong></p>
+<ul>
+<li><code>ps -ef</code>：列出所有进程；常与 <code>grep</code> 结合过滤</li>
+<li><code>ps aux</code>：显示详细进程信息</li>
+<li><code>pstree</code>：以树状图显示进程关系</li>
+<li><code>top</code> &#x2F; <code>htop</code>：动态监控 CPU&#x2F;内存&#x2F;进程（按 q 退出）</li>
+<li><code>pgrep 进程名</code>：按名称查找进程 ID</li>
+</ul>
+</li>
+<li><p><strong>杀死进程</strong></p>
+<ul>
+<li><code>kill PID</code>：温和终止（发送 SIGTERM 信号）</li>
+<li><code>kill -9 PID</code>：强制终止（发送 SIGKILL 信号）</li>
+<li><code>kill -l</code>：列出所有信号</li>
+<li><code>pkill 进程名</code> &#x2F; <code>killall 进程名</code>：按名杀死</li>
+<li><code>killall -u 用户名</code>：杀死指定用户的所有进程</li>
+</ul>
+</li>
+<li><p><strong>进程优先级</strong></p>
+<ul>
+<li><code>nice -n 10 命令</code>：以较低优先级运行命令</li>
+<li><code>renice +10 -p PID</code>：调整运行中进程的优先级</li>
+</ul>
+</li>
+<li><p><strong>后台与作业控制</strong></p>
+<ul>
+<li><code>command &amp;</code>：后台运行</li>
+<li><code>jobs</code>：查看后台作业，<code>fg %1</code> 将第 1 个作业拉到前台，<code>bg %1</code> 让其后台运行</li>
+<li><code>nohup command &amp;</code>：后台运行且忽略挂断信号（退出终端后继续运行）</li>
+<li><code>Ctrl+Z</code>：挂起当前进程</li>
+<li><code>Ctrl+C</code>：终止当前进程</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="五、网络与远程操作-2"><a href="#五、网络与远程操作-2" class="headerlink" title="五、网络与远程操作"></a>五、网络与远程操作</h2><ol>
+<li><p><strong>网络诊断</strong></p>
+<ul>
+<li><code>ping 主机</code>：连通性测试</li>
+<li><code>ping -c 4</code>：只发送 4 个数据包</li>
+<li><code>traceroute 主机</code>：路由追踪</li>
+<li><code>mtr 主机</code>：结合 ping 和 traceroute 功能</li>
+<li><code>netstat -anp</code>：查看端口、连接；常与 <code>grep</code> 结合</li>
+<li><code>ss -tulnp</code>：更现代的端口查看工具</li>
+<li><code>nmap 主机</code>：端口扫描（需要安装）</li>
+</ul>
+</li>
+<li><p><strong>DNS 查询</strong></p>
+<ul>
+<li><code>nslookup 域名</code>：查询 DNS 记录</li>
+<li><code>dig 域名</code>：详细 DNS 查询</li>
+<li><code>host 域名</code>：简单 DNS 查询</li>
+</ul>
+</li>
+<li><p><strong>网络配置</strong></p>
+<ul>
+<li><code>ifconfig</code>：查看网络接口（较旧）</li>
+<li><code>ip addr show</code>：查看 IP 地址（现代替代 ifconfig）</li>
+<li><code>ip route show</code>：查看路由表</li>
+<li><code>hostname</code>：显示主机名</li>
+<li><code>hostname -I</code>：显示所有 IP 地址</li>
+</ul>
+</li>
+<li><p><strong>文件传输与远程登录</strong></p>
+<ul>
+<li><code>ssh user@host</code>：远程登录</li>
+<li><code>ssh -p 端口 user@host</code>：指定端口登录</li>
+<li><code>scp 本地 远端</code> &#x2F; <code>scp user@host:远端 本地</code>：安全复制</li>
+<li><code>sftp user@host</code>：安全文件传输</li>
+<li><code>rsync -avz 源 目标</code>：增量同步</li>
+<li><code>rsync -avz --delete 源 目标</code>：同步并删除目标中源没有的文件</li>
+</ul>
+</li>
+<li><p><strong>下载工具</strong></p>
+<ul>
+<li><code>wget URL</code>：下载文件</li>
+<li><code>wget -c URL</code>：断点续传</li>
+<li><code>curl URL</code>：发送网络请求</li>
+<li><code>curl -O URL</code>：下载文件</li>
+<li><code>curl -H &quot;Header: Value&quot; URL</code>：添加请求头</li>
+</ul>
+</li>
+<li><p><strong>查看公网 IP</strong></p>
+<ul>
+<li><code>curl -4 ifconfig.co</code> 或 <code>curl ipinfo.io/ip</code></li>
+<li><code>curl icanhazip.com</code></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="六、磁盘与存储-2"><a href="#六、磁盘与存储-2" class="headerlink" title="六、磁盘与存储"></a>六、磁盘与存储</h2><ol>
+<li><p><strong>磁盘使用情况</strong></p>
+<ul>
+<li><code>df -h</code>：查看各分区总量与剩余空间</li>
+<li><code>df -i</code>：查看 inode 使用情况</li>
+<li><code>du -sh 目录</code>：查看目录总占用；<code>du -h --max-depth=1</code> 查看子目录分布</li>
+<li><code>du -h | sort -h</code>：按大小排序显示</li>
+<li><code>ncdu</code>：交互式磁盘使用分析（需要安装）</li>
+</ul>
+</li>
+<li><p><strong>块设备管理</strong></p>
+<ul>
+<li><code>lsblk</code>：列出块设备信息</li>
+<li><code>blkid</code>：显示块设备属性</li>
+<li><code>fdisk -l</code>：列出磁盘分区信息</li>
+<li><code>parted -l</code>：列出分区信息（支持 GPT）</li>
+</ul>
+</li>
+<li><p><strong>文件系统操作</strong></p>
+<ul>
+<li><code>mount 设备 挂载点</code>：挂载文件系统</li>
+<li><code>umount 设备/挂载点</code>：卸载文件系统</li>
+<li><code>mount -o remount,rw /</code>：重新挂载为读写模式</li>
+<li><code>fsck 设备</code>：文件系统检查和修复</li>
+<li><code>mkfs.ext4 设备</code>：创建 ext4 文件系统</li>
+</ul>
+</li>
+<li><p><strong>打包压缩</strong></p>
+<ul>
+<li><code>tar -czvf archive.tar.gz 目录/文件</code>：打包并 gzip 压缩</li>
+<li><code>tar -xzvf archive.tar.gz</code>：解压</li>
+<li><code>tar -tf archive.tar</code>：查看压缩包内容而不解压</li>
+<li><code>zip -r archive.zip 目录</code> &#x2F; <code>unzip archive.zip</code></li>
+<li><code>gzip 文件</code> &#x2F; <code>gunzip 文件.gz</code></li>
+<li><code>bzip2 文件</code> &#x2F; <code>bunzip2 文件.bz2</code></li>
+<li><code>xz 文件</code> &#x2F; <code>unxz 文件.xz</code></li>
+</ul>
+</li>
+<li><p><strong>数据复制与备份</strong></p>
+<ul>
+<li><code>dd if=源 of=目标 bs=块大小</code>：数据复制</li>
+<li><code>dd if=/dev/zero of=file bs=1M count=100</code>：创建100M空文件</li>
+<li><code>cp --sparse=always 文件 目标</code>：复制稀疏文件</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="七、查找与批处理-2"><a href="#七、查找与批处理-2" class="headerlink" title="七、查找与批处理"></a>七、查找与批处理</h2><ol>
+<li><p><strong>查找文件</strong></p>
+<ul>
+<li><code>find . -name &#39;*.log&#39;</code>：当前目录及子目录查找</li>
+<li><code>find /path -type f -mtime -7</code>：查找 7 天内修改的文件</li>
+<li><code>find . -type f -name &#39;xiaohub.log.2024-06*&#39; -delete</code>：批量删除</li>
+<li><code>find . -size +100M</code>：查找大于 100M 的文件</li>
+<li><code>find . -empty</code>：查找空文件或空目录</li>
+<li><code>find . -perm 777</code>：查找权限为 777 的文件</li>
+</ul>
+</li>
+<li><p><strong>快速定位</strong></p>
+<ul>
+<li><code>locate 文件名</code>：快速查找文件（基于数据库）</li>
+<li><code>updatedb</code>：更新 locate 数据库</li>
+<li><code>which 命令</code>：查找命令的完整路径</li>
+<li><code>whereis 命令</code>：查找二进制、源代码和手册页位置</li>
+<li><code>type 命令</code>：显示命令类型（别名、内置、外部命令）</li>
+</ul>
+</li>
+<li><p><strong>批量执行</strong></p>
+<ul>
+<li>与 <code>find</code> + <code>-exec</code>：<pre class="line-numbers language-language-bash"><code class="language-language-bash">find . -name '*.sh' -exec chmod +x &#123;&#125; \;
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><code>xargs</code>：<pre class="line-numbers language-language-bash"><code class="language-language-bash">find . -name '*.txt' | xargs grep '关键字'
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><code>parallel</code>：并行执行命令（需要安装）<pre class="line-numbers language-language-bash"><code class="language-language-bash">find . -name '*.jpg' | parallel convert &#123;&#125; &#123;.&#125;.png
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="八、Shell-环境与脚本-2"><a href="#八、Shell-环境与脚本-2" class="headerlink" title="八、Shell 环境与脚本"></a>八、Shell 环境与脚本</h2><ol>
+<li><p><strong>环境变量</strong></p>
+<ul>
+<li><code>export VAR=value</code>：临时设置；写入 <code>~/.bashrc</code> 或 <code>~/.profile</code> 实现持久</li>
+<li><code>echo $VAR</code>：显示变量值</li>
+<li><code>env</code>：显示所有环境变量</li>
+<li><code>set</code>：显示所有变量（包括局部变量）</li>
+<li><code>unset VAR</code>：删除变量</li>
+<li><code>source 文件</code> 或 <code>.</code>：重新加载配置</li>
+</ul>
+</li>
+<li><p><strong>Shell 配置</strong></p>
+<ul>
+<li><code>~/.bashrc</code>：bash shell 配置文件</li>
+<li><code>~/.bash_profile</code>：登录 shell 配置文件</li>
+<li><code>~/.bash_history</code>：命令历史记录</li>
+</ul>
+</li>
+<li><p><strong>常见提示</strong></p>
+<ul>
+<li><code>history</code>：查看历史命令；<code>!n</code> 重复第 n 条，<code>!!</code> 重复上一条</li>
+<li><code>history -c</code>：清除历史记录</li>
+<li><code>Ctrl+R</code>：反向搜索历史命令</li>
+<li>Tab 自动补全</li>
+<li><code>alias ll=&#39;ls -l&#39;</code>：自定义快捷命令，写入 <code>~/.bashrc</code> 生效</li>
+<li><code>unalias 别名</code>：删除别名</li>
+</ul>
+</li>
+<li><p><strong>目录操作</strong></p>
+<ul>
+<li><code>pushd 目录</code>：将目录压入堆栈并切换</li>
+<li><code>popd</code>：从堆栈弹出目录并切换</li>
+<li><code>dirs</code>：显示目录堆栈</li>
+</ul>
+</li>
+<li><p><strong>脚本规范</strong></p>
+<ul>
+<li>首行 <code>#!/bin/bash</code> 或 <code>#!/usr/bin/env bash</code></li>
+<li>脚本执行前加执行权限：<code>chmod +x script.sh</code></li>
+<li>参数获取：<code>$1,$2,…</code>；循环 <code>for arg in &quot;$@&quot;; do …; done</code></li>
+<li><code>$0</code>：脚本名称</li>
+<li><code>$#</code>：参数个数</li>
+<li><code>$?</code>：上个命令的退出状态</li>
+<li><code>test</code> 或 <code>[ ]</code>：条件测试</li>
+<li><code>[[ ]]</code>：扩展的条件测试（支持正则）</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="九、系统管理-2"><a href="#九、系统管理-2" class="headerlink" title="九、系统管理"></a>九、系统管理</h2><ol>
+<li><p><strong>服务与日志</strong></p>
+<ul>
+<li><code>systemctl status 服务名</code>：查看服务状态</li>
+<li><code>systemctl start/stop/restart 服务名</code>：启停服务</li>
+<li><code>systemctl enable/disable 服务名</code>：开机自启设置</li>
+<li><code>journalctl -u 服务名</code>：查看 systemd 日志</li>
+<li><code>journalctl -f</code>：实时查看系统日志</li>
+</ul>
+</li>
+<li><p><strong>定时任务</strong></p>
+<ul>
+<li><code>crontab -e</code>：编辑当前用户 crontab</li>
+<li><code>crontab -l</code>：列出当前用户的定时任务</li>
+<li>格式：<code>* * * * * command</code>（分 时 日 月 周）</li>
+<li><code>/etc/crontab</code>：系统级定时任务</li>
+</ul>
+</li>
+<li><p><strong>用户与组管理</strong></p>
+<ul>
+<li><code>useradd 用户名</code> &#x2F; <code>usermod -aG group 用户名</code> &#x2F; <code>userdel 用户名</code></li>
+<li><code>passwd 用户名</code>：设置用户密码</li>
+<li><code>groups 用户名</code>：查看用户所属组</li>
+<li><code>id 用户名</code>：显示用户和组 ID</li>
+<li><code>su - 用户名</code>：切换用户</li>
+<li><code>sudo 命令</code>：以 root 权限执行命令</li>
+</ul>
+</li>
+<li><p><strong>系统监控</strong></p>
+<ul>
+<li><code>free -h</code>：查看内存使用情况</li>
+<li><code>uptime</code>：系统运行时间和负载</li>
+<li><code>dmesg</code>：查看内核消息</li>
+<li><code>lsof</code>：列出打开的文件</li>
+<li><code>lsof -i :端口</code>：查看端口占用情况</li>
+<li><code>vmstat</code>：虚拟内存统计</li>
+<li><code>iostat</code>：IO 统计</li>
+<li><code>sar</code>：系统活动报告（需要安装 sysstat）</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="十、软件包管理-2"><a href="#十、软件包管理-2" class="headerlink" title="十、软件包管理"></a>十、软件包管理</h2><ol>
+<li><p><strong>Debian&#x2F;Ubuntu（APT）</strong></p>
+<ul>
+<li><code>apt update</code>：更新软件包列表</li>
+<li><code>apt upgrade</code>：升级已安装软件包</li>
+<li><code>apt install 软件包</code>：安装软件</li>
+<li><code>apt remove 软件包</code>：删除软件</li>
+<li><code>apt search 关键字</code>：搜索软件包</li>
+<li><code>apt show 软件包</code>：显示软件包信息</li>
+<li><code>apt autoremove</code>：删除不需要的依赖包</li>
+</ul>
+</li>
+<li><p><strong>RHEL&#x2F;CentOS（YUM&#x2F;DNF）</strong></p>
+<ul>
+<li><code>yum update</code>：更新软件包</li>
+<li><code>yum install 软件包</code>：安装软件</li>
+<li><code>yum remove 软件包</code>：删除软件</li>
+<li><code>yum search 关键字</code>：搜索软件包</li>
+<li><code>yum info 软件包</code>：显示软件包信息</li>
+<li><code>dnf</code>：新版本的 Fedora&#x2F;RHEL 使用 dnf 替代 yum</li>
+</ul>
+</li>
+<li><p><strong>常用工具安装</strong></p>
+<ul>
+<li><code>apt install net-tools</code>：安装传统网络工具（ifconfig 等）</li>
+<li><code>apt install vim</code>：安装 vim 编辑器</li>
+<li><code>apt install htop</code>：安装 htop 进程监控工具</li>
+<li><code>apt install ncdu</code>：安装磁盘使用分析工具</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="十一、快捷键与技巧-2"><a href="#十一、快捷键与技巧-2" class="headerlink" title="十一、快捷键与技巧"></a>十一、快捷键与技巧</h2><ol>
+<li><p><strong>终端快捷键</strong></p>
+<ul>
+<li><code>Ctrl+A</code>：移到行首</li>
+<li><code>Ctrl+E</code>：移到行尾</li>
+<li><code>Ctrl+U</code>：删除光标前的内容</li>
+<li><code>Ctrl+K</code>：删除光标后的内容</li>
+<li><code>Ctrl+W</code>：删除光标前的单词</li>
+<li><code>Ctrl+L</code>：清屏（等同于 clear）</li>
+<li><code>Ctrl+D</code>：退出当前 shell</li>
+</ul>
+</li>
+<li><p><strong>命令行技巧</strong></p>
+<ul>
+<li><code>!!</code>：重复执行上一条命令</li>
+<li><code>!$</code>：引用上条命令的最后一个参数</li>
+<li><code>!*</code>：引用上条命令的所有参数</li>
+<li><code>command1 &amp;&amp; command2</code>：前一个命令成功后才执行后一个</li>
+<li><code>command1 || command2</code>：前一个命令失败后才执行后一个</li>
+<li><code>command1; command2</code>：顺序执行，不管是否成功</li>
+<li><code>$(command)</code>：命令替换</li>
+<li><code>`command`</code>：命令替换（旧式）</li>
+</ul>
+</li>
+<li><p><strong>通配符与正则</strong></p>
+<ul>
+<li><code>*</code>：匹配任意多个字符</li>
+<li><code>?</code>：匹配单个字符</li>
+<li><code>[abc]</code>：匹配中括号内任一字符</li>
+<li><code>[a-z]</code>：匹配范围内任一字符</li>
+<li><code>&#123;a,b,c&#125;</code>：匹配大括号内任一字符串</li>
+</ul>
+</li>
+<li><p><strong>重定向与管道</strong></p>
+<ul>
+<li><code>&gt;</code>：输出重定向（覆盖）</li>
+<li><code>&gt;&gt;</code>：输出重定向（追加）</li>
+<li><code>2&gt;</code>：错误输出重定向</li>
+<li><code>&amp;&gt;</code>：标准输出和错误都重定向</li>
+<li><code>|</code>：管道，将前一个命令的输出作为后一个命令的输入</li>
+<li><code>tee</code>：将输出同时写入文件和标准输出</li>
+</ul>
+</li>
+</ol>
+
+                
+            </div>
+            <hr/>
+
+            
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/08/23/git-bi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Git 命令完整笔记">
+                        
+                        <span class="card-title">Git 命令完整笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-08-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    笔记
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Git/">
+                        <span class="chip bg-color">Git</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/07/15/docker-bi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Docker 命令完整笔记">
+                        
+                        <span class="card-title">Docker 命令完整笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    笔记
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Docker/">
+                        <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023-2025</span>
+            
+            <a href="/about" target="_blank">Sean</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">28k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2023";
+                        var startMonth = "7";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/HyxiaoGe" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:hyxiao97@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

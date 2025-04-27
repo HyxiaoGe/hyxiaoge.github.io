@@ -4,9 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="大模型 RAG 应用开发基础及入门, HyxiaoGe">
-    <meta name="description" content="什么是大语言模型的幻觉？大语言模型在处理自然语言时，有时候会出现”幻觉“现象。所谓幻觉，就是模型生成的内容与事实或上下文不一致的问题。这些问题会严重影响AI应用的可靠性和实用性。
-幻觉的两大类型事实性幻觉指模型生成的内容与实际事实不匹配。比">
+    <meta name="keywords" content="Git 命令完整笔记, HyxiaoGe">
+    <meta name="description" content="一、Git 配置
+配置用户信息
+git config --global user.name &#34;Your Name&#34;
+git config --global user.email &#34;your.email@example.com&#34;
+
+# 查看配">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +22,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>大模型 RAG 应用开发基础及入门 | HyxiaoGe</title>
+    <title>Git 命令完整笔记 | HyxiaoGe</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
@@ -284,12 +288,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">大模型 RAG 应用开发基础及入门</h1>
+                    <h1 class="description center-align post-title">Git 命令完整笔记</h1>
                 </div>
             </div>
         </div>
@@ -313,8 +317,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/RAG/">
-                                <span class="chip bg-color">RAG</span>
+                            <a href="/tags/Git/">
+                                <span class="chip bg-color">Git</span>
                             </a>
                         
                     </div>
@@ -325,8 +329,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/AI/" class="post-category">
-                                AI
+                            <a href="/categories/%E7%AC%94%E8%AE%B0/" class="post-category">
+                                笔记
                             </a>
                         
                     </div>
@@ -338,28 +342,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2025-02-12
+                    2024-08-23
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-04-26
+                    2025-04-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.5k
+                    2.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    12 分
+                    10 分
                 </div>
                 
 
@@ -382,361 +386,387 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="什么是大语言模型的幻觉？"><a href="#什么是大语言模型的幻觉？" class="headerlink" title="什么是大语言模型的幻觉？"></a>什么是大语言模型的幻觉？</h2><p>大语言模型在处理自然语言时，有时候会出现”幻觉“现象。所谓幻觉，就是模型生成的内容与事实或上下文不一致的问题。这些问题会严重影响AI应用的可靠性和实用性。</p>
-<h2 id="幻觉的两大类型"><a href="#幻觉的两大类型" class="headerlink" title="幻觉的两大类型"></a>幻觉的两大类型</h2><h3 id="事实性幻觉"><a href="#事实性幻觉" class="headerlink" title="事实性幻觉"></a>事实性幻觉</h3><p>指模型生成的内容与实际事实不匹配。比如在回答”第一个登上月球的人是谁?”这个问题时:</p>
-<ul>
-<li>错误回答: “Charles Lindbergh在1951年月球任务中第一个登上月球”</li>
-<li>正确事实: Neil Armstrong才是第一个登上月球的人(1969年阿波罗11号任务)</li>
-</ul>
-<p>这种幻觉之所以危险，是因为模型生成的内容看起来很可信，但实际上完全错误。</p>
-<h3 id="忠实性幻觉"><a href="#忠实性幻觉" class="headerlink" title="忠实性幻觉"></a>忠实性幻觉</h3><p>指模型生成的内容与提供的上下文不一致。这种幻觉可以分为三类：</p>
-<ul>
-<li>输出与原文不一致（编出原文中没有的信息）</li>
-<li>上下文之间不一致（前后矛盾）</li>
-<li>逻辑链不一致（推理过程存在漏洞）</li>
-</ul>
-<p>比如在总结新闻时，模型可能会添加原文中不存在的细节，或者前后描述矛盾。</p>
-<h2 id="为什么会产生幻觉？"><a href="#为什么会产生幻觉？" class="headerlink" title="为什么会产生幻觉？"></a>为什么会产生幻觉？</h2><p>大语言模型产生幻觉的原因主要来自三个方面：</p>
-<ol>
-<li>数据源导致的幻觉<ul>
-<li>训练数据中的质量问题</li>
-<li>数据中存在的错误信息</li>
-<li>数据覆盖范围有限</li>
-</ul>
+                <h2 id="一、Git-配置"><a href="#一、Git-配置" class="headerlink" title="一、Git 配置"></a>一、Git 配置</h2><ol>
+<li><p><strong>配置用户信息</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# 查看配置
+git config --list
+git config user.name
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li>训练过程导致的幻觉<ul>
-<li>架构限制：无法准确理解长文本的上下文关联</li>
-<li>累积错误：生成过程中的错误会逐步传递和放大</li>
-</ul>
+<li><p><strong>配置别名</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.lg "log --oneline --graph --decorate"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li>推理相关的幻觉<ul>
-<li>回答过于简略</li>
-<li>生成过程中的不完整推理</li>
-</ul>
-</li>
-</ol>
-<h2 id="如何评估幻觉问题"><a href="#如何评估幻觉问题" class="headerlink" title="如何评估幻觉问题"></a>如何评估幻觉问题</h2><p>为了客观评估模型的幻觉问题，我们可以使用多种方法：</p>
-<ol>
-<li>事实一致性评估：将生成内容与权威来源进行比对</li>
-<li>分类器评估：使用专门训练的模型来检测是否存在幻觉</li>
-<li>问答测量：通过问答来验证生成内容的一致性</li>
-<li>不确定度分析：评估模型对自身输出的确信程度</li>
-<li>提示测量：让模型自我评估，通过特定提示策略来评估生成内容</li>
-</ol>
-<h2 id="RAG解决方案"><a href="#RAG解决方案" class="headerlink" title="RAG解决方案"></a>RAG解决方案</h2><h3 id="RAG是什么？"><a href="#RAG是什么？" class="headerlink" title="RAG是什么？"></a>RAG是什么？</h3><p><strong>RAG</strong>（Retrieval-Augmented Generation）也叫<strong>检索增强生成</strong>，是指对大语言模型输出进行优化，使其能够参考并利用数据源之外的权威知识。简单来说，RAG就是从外部检索对应的知识内容，和用户的提问一起构成Prompt发给大模型，再让大模型生成内容。</p>
-<p>它的核心思想是：</p>
-<ol>
-<li><strong>从外部知识库检索相关信息</strong></li>
-<li><strong>将检索到的信息作为上下文提供给模型</strong></li>
-<li><strong>让模型基于这些上下文生成回答</strong></li>
-</ol>
-<p>简单来说：RAG &#x3D; 外部知识检索 + Prompt构建 + LLM 生成</p>
-<p><img src="/medias/featureimages/blog/da-mo-xing-rag-ying-yong-kai-fa-ji-chu-ji-ru-men/image1.png" alt="image"></p>
-<h3 id="为什么需要RAG？"><a href="#为什么需要RAG？" class="headerlink" title="为什么需要RAG？"></a>为什么需要RAG？</h3><p>LLM虽然是一个强大的工具，但它本身拒绝了解任何时事，且它给出的答案总是非常流畅，内容却不一定靠谱。这存在几个主要的问题:</p>
-<ol>
-<li>LLM的训练数据量有限且无法更新到最新知识。</li>
-<li>当用户需要专业或领域特定的数据时，LLM往往缺乏相应的知识</li>
-<li>对于答案的问答内容很难从源创进行溯源</li>
-<li>由于技术限制，不同的训练源使用相同的大语言技术，可能会产生不确信的响应</li>
-</ol>
-<p>而RAG为解决这些问题带来了以下优势：</p>
-<ul>
-<li><strong>经济高效</strong>：预训练和微调模型的成本很高，而RAG是一种经济高效的新方法</li>
-<li><strong>信息时效</strong>：使用RAG可以为LLM提供最新的研究、统计数据或新闻</li>
-<li><strong>增强用户信任度</strong>：RAG允许LLM通过来源归属来呈现具体的信息，输出可以包括对来源的引文或参考，这可以增加对对话的生成式人工智能解决方案的任何信心</li>
-</ul>
-<h3 id="RAG是如何工作的？"><a href="#RAG是如何工作的？" class="headerlink" title="RAG是如何工作的？"></a>RAG是如何工作的？</h3><p>RAG采用三种主要的检索方式：</p>
-<ol>
-<li><strong>一次性检索</strong>：<ul>
-<li>从单次检索中获取相关知识</li>
-<li>直接预置到大模型的提示词中</li>
-<li>不会收集反馈信息</li>
-</ul>
-</li>
-<li><strong>迭代检索</strong>：<ul>
-<li>允许在对话过程中多次检索</li>
-<li>每一轮都可能有新的检索</li>
-<li>支持多轮对话优化</li>
-</ul>
-</li>
-<li><strong>事后检索</strong>：<ul>
-<li>先生成答案</li>
-<li>然后检索验证</li>
-<li>对答案进行修正</li>
-</ul>
-</li>
-</ol>
-<p><img src="/medias/featureimages/blog/da-mo-xing-rag-ying-yong-kai-fa-ji-chu-ji-ru-men/image2.png" alt="image"></p>
-<h3 id="RAG实战示例"><a href="#RAG实战示例" class="headerlink" title="RAG实战示例"></a>RAG实战示例</h3><p>以一个简单的问答场景为例，展示RAG的实际应用流程:</p>
-<ol>
-<li>用户提问:”公司有销售什么产品？”</li>
-<li>系统处理流程:<ul>
-<li>使用检索器获取产品相关文档</li>
-<li>将文档内容与问题组合成提示词</li>
-<li>通过LLM生成回答</li>
-<li>确保回答基于检索到的事实信息</li>
-</ul>
-</li>
-<li>最终输出:包含准确的产品信息，并且所有信息都可以溯源。</li>
-</ol>
-<h2 id="AI应用开发利器：向量数据库详解"><a href="#AI应用开发利器：向量数据库详解" class="headerlink" title="AI应用开发利器：向量数据库详解"></a>AI应用开发利器：向量数据库详解</h2><h3 id="什么是向量数据库？"><a href="#什么是向量数据库？" class="headerlink" title="什么是向量数据库？"></a>什么是向量数据库？</h3><p>向量数据库（Vector Database）是一种专门用于存储和处理向量数据的数据库系统。它不同于传统的关系型数据库，因为它需要将所有数据映射为特定的向量格式，并采用相似性搜索作为主要的检索方式。</p>
-<h3 id="一个生动的例子：识别猫咪"><a href="#一个生动的例子：识别猫咪" class="headerlink" title="一个生动的例子：识别猫咪"></a>一个生动的例子：识别猫咪</h3><p>让我们通过一个识别猫咪的例子来理解向量数据库。假设我们有一组不同品种的猫咪图片：</p>
-<ul>
-<li>波斯猫</li>
-<li>英国短毛猫</li>
-<li>暹罗猫</li>
-<li>布偶猫</li>
-<li>无毛猫</li>
-</ul>
-<p>每张猫咪图片都可以用一组数字向量来表示其特征，如:</p>
-<pre class="line-numbers language-language-json"><code class="language-language-json">
-波斯猫: [0.4, 0.3, 0.4, 0.5, 0.3, 0.4, 0.5, ...]
-英国短毛猫: [0.7, 0.2, 0.5, 0.5, 0.5, 0.5, 0.5, ...]
-暹罗猫: [0.5, 0.3, 0.4, 0.5, 0.3, 0.4, 0.5, ...]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这些数字代表了猫咪的各种特征，比如:</p>
-<ul>
-<li>毛发长度</li>
-<li>体型大小</li>
-<li>面部特征</li>
-<li>耳朵形状等等</li>
-</ul>
-<h3 id="向量数据库的优势"><a href="#向量数据库的优势" class="headerlink" title="向量数据库的优势"></a>向量数据库的优势</h3><p>与传统的数据库相比，向量数据库有以下特点：</p>
-<ol>
-<li><strong>数据类型</strong>：<ul>
-<li>传统数据库：数值、字符串、时间等结构化数据</li>
-<li>向量数据库：向量数据(不存储原始数据，有的也支持)</li>
-</ul>
-</li>
-<li><strong>数据规模</strong>：<ul>
-<li>传统数据库：小，1亿条数据对关系型数据库来说规模很大</li>
-<li>向量数据库：大，最少千亿数据是基线</li>
-</ul>
-</li>
-<li><strong>数据组织方式</strong>：<ul>
-<li>传统数据库：基于表格、按照行和列组织</li>
-<li>向量数据库：基于向量、按向量维度组织</li>
-</ul>
-</li>
-<li><strong>查找方式</strong>：<ul>
-<li>传统数据库：精确查找&#x2F;范围查找</li>
-<li>向量数据库：近似查找，查询结果是与输入向量最相似的向量</li>
-</ul>
-</li>
-</ol>
-<h3 id="相似性搜索算法"><a href="#相似性搜索算法" class="headerlink" title="相似性搜索算法"></a>相似性搜索算法</h3><p>在向量数据库中，支持通过多种方式来计算两个向量的相似度：</p>
-<p><strong>余弦相似度</strong>：主要是用于衡量向量在方向上的相似性，特别适用于文本、图像和高维空间中的向量。它不受向量长度的影响，只考虑方向的相似程度，计算公式如下（计算两个向量间的夹角的余弦值，取值范围为[-1, 1]）：</p>
-<pre class="line-numbers language-language-bash"><code class="language-language-bash">
-similarity(A,B) = (A·B)/(||A||·||B||)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><strong>欧式距离</strong>：主要是用于衡量向量之间的直线距离，得到的值可能很大，最小为0，通常用于低维空间或需要考虑向量各个维度之间差异的情况。欧式距离较小的向量被认为更相似，计算公式如下：</p>
-<pre class="line-numbers language-language-bash"><code class="language-language-bash">
-distance(A,B) = √∑(Ai-Bi)²
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>例如下图：左侧就是<code>欧式距离</code>，右侧就是<code>余弦相似度</code>。</p>
-<p><img src="/medias/featureimages/blog/da-mo-xing-rag-ying-yong-kai-fa-ji-chu-ji-ru-men/image3.png" alt="image"></p>
-<h3 id="实际应用场景"><a href="#实际应用场景" class="headerlink" title="实际应用场景"></a>实际应用场景</h3><p>向量数据库的主要应用场景包括：</p>
-<ol>
-<li>人脸识别</li>
-<li>图像搜索</li>
-<li>音频识别</li>
-<li>智能推荐系统</li>
-</ol>
-<p>这些场景的共同特点是：需要对非结构化数据（如图片、文本、音频）进行相似度搜索。</p>
-<p>在RAG中，我们会将文档的知识按特定规则分成小块，转换成向量存储到向量数据库中。当人类提问时，我们将问题转换为向量，在数据库中找到最相似的文本块，这些文本块可以成为Prompt的补充内容。</p>
-<h2 id="深入理解Embedding嵌入技术"><a href="#深入理解Embedding嵌入技术" class="headerlink" title="深入理解Embedding嵌入技术"></a>深入理解Embedding嵌入技术</h2><h3 id="Embedding-是什么？"><a href="#Embedding-是什么？" class="headerlink" title="Embedding 是什么？"></a>Embedding 是什么？</h3><p>Embedding(嵌入)是一种在机器学习中广泛使用的技术，它能将文本、图片、视频等非结构化数据映射到向量空间中。一个Embedding向量通常是一个包含N个浮点数的数组，这个向量不仅表示了数据的特征，更重要的是通过学习可以表达它们的内在语义。简而言之，Embedding就是一个模型生成方法，可以将非结构化的数据，例如文本&#x2F;图片&#x2F;视频等数据映射成有意义的向量数据。比如一段文本、一张图片、一段视频，警告Embedding模型处理后都会变成类似这样的向量：</p>
-<pre class="line-numbers language-language-bash"><code class="language-language-bash">
-[0.5, 0.8, 0.7, 0.5, 0.8, 0.7, 0.5, 0.8, 0.7, 0.5]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><img src="/medias/featureimages/blog/da-mo-xing-rag-ying-yong-kai-fa-ji-chu-ji-ru-men/image4.png" alt="image"></p>
-<h3 id="主流的Embedding模型"><a href="#主流的Embedding模型" class="headerlink" title="主流的Embedding模型"></a>主流的Embedding模型</h3><p>目前主要有这几类Embedding模型：</p>
-<ol>
-<li><strong>Word2Vec（词嵌入模型）</strong><ul>
-<li>通过学习词语转化为连续的向量表示</li>
-<li>基于两种主要算法：<code>CBOW</code> 和 <code>Skip-gram</code></li>
-<li>能够捕捉词语之间的语义关系</li>
-</ul>
-</li>
-<li><strong>1GloVe</strong><ul>
-<li>类似Word2Vec但采用不同的训练方式</li>
-<li>同时考虑全局共现信息</li>
-<li>能较好地保存词语间的语义关系</li>
-<li>适用于多种自然语言处理任务</li>
-</ul>
-</li>
-<li><strong>FastText</strong><ul>
-<li>考虑了单词的子词信息</li>
-<li>能处理训练集中未出现的生词</li>
-<li>支持多语言处理</li>
-</ul>
-</li>
-<li><strong>大模型Embeddings</strong><ul>
-<li>如OpenAI的text-embedding-ada-002</li>
-<li>输入维度8191个tokens</li>
-<li>输出维度1536维向量</li>
-</ul>
-</li>
-</ol>
-<h3 id="Embedding的神奇之处"><a href="#Embedding的神奇之处" class="headerlink" title="Embedding的神奇之处"></a>Embedding的神奇之处</h3><p>Embedding最有趣的特性是它能够捕捉语义关系。让我们看一个著名的例子</p>
-<pre class="line-numbers language-language-bash"><code class="language-language-bash">
-King - Man + Woman ≈ Queen
-(国王 - 男人 + 女人 ≈ 女王)
+<li><p><strong>配置编辑器和工具</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git config --global core.editor "vim"
+git config --global merge.tool vimdiff
+git config --global diff.tool vimdiff
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>这个公式展示了Embedding不仅仅是把词语转换成数字，它还能：</p>
-<ol>
-<li>保留词语之间的关系</li>
-<li>支持向量运算</li>
-<li>产生有意义的结果</li>
+</li>
 </ol>
-<p>我们可以通过可视化的方式看到这些词语在向量空间中的分布：</p>
+<h2 id="二、基础操作"><a href="#二、基础操作" class="headerlink" title="二、基础操作"></a>二、基础操作</h2><ol>
+<li><p><strong>初始化仓库</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git init                    # 在当前目录初始化
+git init my-project        # 创建目录并初始化
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>克隆仓库</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git clone https://github.com/user/repo.git
+git clone -b develop https://github.com/user/repo.git    # 克隆特定分支
+git clone --depth 1 https://github.com/user/repo.git     # 浅克隆，只克隆最新提交
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>查看状态</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git status                  # 查看工作区状态
+git status -s              # 简短输出
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>添加文件到暂存区</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git add file.txt           # 添加特定文件
+git add .                  # 添加所有更改
+git add *.js              # 添加所有JS文件
+git add -p                 # 交互式添加文件块
+git add -u                 # 添加已跟踪文件的更改
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>提交更改</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git commit -m "Commit message"              # 提交带消息
+git commit -am "Add and commit message"     # 添加并提交所有更改
+git commit --amend                          # 修改最后一次提交
+git commit --amend --no-edit                # 修改但不更改提交信息
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="三、远程仓库操作"><a href="#三、远程仓库操作" class="headerlink" title="三、远程仓库操作"></a>三、远程仓库操作</h2><ol>
+<li><p><strong>设置远程仓库的URL</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git remote set-url origin https://github.com/your-username/xiaohub.git
+git remote add upstream https://github.com/original/repo.git    # 添加上游仓库
+git remote -v                                                   # 查看远程仓库
+git remote show origin                                          # 查看远程仓库详情
+git remote rename origin old-origin                             # 重命名远程仓库
+git remote remove old-origin                                    # 删除远程仓库
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>拉取远程更改</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git fetch origin           # 从远程获取最新，但不合并
+git pull origin master     # 拉取并合并
+git pull --rebase         # 拉取并变基
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>推送更改到GitHub</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git push origin master                 # 推送到远程master分支
+git push -u origin feature-branch      # 推送并设置上游
+git push origin --tags                 # 推送所有标签
+git push origin v1.0.0                 # 推送特定标签
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>强制推送到远程仓库</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git push origin --force --all          # 强制推送所有分支
+git push origin --force master         # 强制推送特定分支
+git push --force-with-lease           # 更安全的强制推送
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="四、分支管理"><a href="#四、分支管理" class="headerlink" title="四、分支管理"></a>四、分支管理</h2><ol>
+<li><p><strong>创建和切换分支</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git branch                    # 查看本地分支
+git branch -a                 # 查看所有分支（包括远程）
+git branch feature-login      # 创建新分支
+git checkout feature-login    # 切换分支
+git checkout -b feature-new   # 创建并切换分支
+git switch -c feature-new     # 新版本创建并切换
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>合并分支</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git merge feature-branch      # 合并分支
+git merge --no-ff feature     # 禁用快进合并
+git merge --squash feature    # 压缩合并
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>变基操作</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git rebase master            # 变基到master
+git rebase -i HEAD~3         # 交互式变基最近3个提交
+git rebase --continue        # 解决冲突后继续变基
+git rebase --abort           # 放弃变基
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>删除分支</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git branch -d feature-branch          # 删除已合并分支
+git branch -D feature-branch          # 强制删除分支
+git push origin --delete feature      # 删除远程分支
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="五、文件管理"><a href="#五、文件管理" class="headerlink" title="五、文件管理"></a>五、文件管理</h2><ol>
+<li><p><strong>从Git仓库中删除文件（可以使用 <code>-f</code>（force）选项来强制移除这些文件的跟踪）</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git rm --cached <file>                # 从索引中删除，保留工作区文件
+git rm -r --cached <directory>        # 递归删除目录
+git rm file.txt                       # 删除文件（同时从工作区删除）
+git rm --cached -r node_modules       # 移除node_modules的跟踪
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>移动或重命名文件</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git mv oldname.txt newname.txt        # 重命名文件
+git mv file.txt directory/            # 移动文件
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>.gitignore文件</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash"># 示例.gitignore文件内容
+*.log
+node_modules/
+.env
+.DS_Store
+
+# 清除已跟踪但现在要忽略的文件
+git rm -r --cached .
+git add .
+git commit -m "Update .gitignore"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="六、提交历史管理"><a href="#六、提交历史管理" class="headerlink" title="六、提交历史管理"></a>六、提交历史管理</h2><ol>
+<li><p><strong>回滚到之前的提交</strong></p>
 <ul>
-<li>woman和girl的向量位置接近</li>
-<li>man和boy的向量位置接近</li>
-<li>king和queen虽然性别不同，但都位于表示”统治者”的维度上</li>
-</ul>
-<h3 id="Embedding的重要价值"><a href="#Embedding的重要价值" class="headerlink" title="Embedding的重要价值"></a>Embedding的重要价值</h3><ol>
-<li><strong>降维</strong>：将高维数据映射到低维空间，大大降低了计算复杂度</li>
-<li><strong>捕捉语义信息</strong>：不仅能记录表面的词频信息，还能捕捉深层的语义关联</li>
-<li><strong>泛化性</strong>：Embedding学习到的是通用的语言表达方式，可以应用到新的场景</li>
-<li><strong>泛化能力</strong>：对于未见过的数据，也能基于已学习的语义特征给出合理的向量表示</li>
-<li><strong>可视化支持</strong>：虽然Embedding本身很复杂，但我们可以使用t-SNE等工具将其可视化，帮助理解数据的内在结构。</li>
-</ol>
-<h3 id="在RAG中的应用"><a href="#在RAG中的应用" class="headerlink" title="在RAG中的应用"></a>在RAG中的应用</h3><p>在RAG系统中，Embedding主要用于两个场景：</p>
-<ol>
-<li><strong>文档向量化</strong>：将知识库中的文档转换为向量</li>
-<li><strong>查询向量化</strong>：将用户的问题转换为向量</li>
-</ol>
-<p>通过比较这些向量的相似度，我们可以找到与用户问题最相关的文档片段，从而提供更准确的答案。</p>
-<h2 id="RAG应用实战-OpenAI-Embedding与LangChain的结合"><a href="#RAG应用实战-OpenAI-Embedding与LangChain的结合" class="headerlink" title="RAG应用实战:OpenAI Embedding与LangChain的结合"></a>RAG应用实战:OpenAI Embedding与LangChain的结合</h2><h3 id="OpenAI-Embedding接口简介"><a href="#OpenAI-Embedding接口简介" class="headerlink" title="OpenAI Embedding接口简介"></a>OpenAI Embedding接口简介</h3><p>OpenAI提供了多个Embedding模型选择，以下是几个主要模型的对比:</p>
-<table>
-<thead>
-<tr>
-<th>模型</th>
-<th>Token数(每个文档800个)</th>
-<th>性能评估</th>
-<th>最大输入</th>
-<th>向量维度</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>text-embedding-3-small</td>
-<td>62,500</td>
-<td>62.3%</td>
-<td>8191</td>
-<td>1536</td>
-</tr>
-<tr>
-<td>text-embedding-3-large</td>
-<td>9,615</td>
-<td>64.6%</td>
-<td>8191</td>
-<td>3072</td>
-</tr>
-<tr>
-<td>text-embedding-ada-002</td>
-<td>12,500</td>
-<td>61.0%</td>
-<td>8191</td>
-<td>1536</td>
-</tr>
-</tbody></table>
-<h3 id="LangChain中的Embedding组件使用"><a href="#LangChain中的Embedding组件使用" class="headerlink" title="LangChain中的Embedding组件使用"></a>LangChain中的Embedding组件使用</h3><p>在LangChain中，Embedding类提供了统一的接口来使用各种嵌入模型:</p>
-<pre class="line-numbers language-language-bash"><code class="language-language-bash">
-class Embeddings(ABC):
-    """Interface for embedding models."""
-    
-    @abstractmethod
-    def embed_documents(self, texts: List[str]) -> List[List[float]]:
-        """Embed search docs."""
-        
-    @abstractmethod
-    def embed_query(self, text: str) -> List[float]:
-        """Embed query text."""
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>使用示例:</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">
-import dotenv
-import numpy as np
-from langchain_openai import OpenAIEmbeddings
-from numpy.linalg import norm
-
-# 初始化Embedding模型
-embeddings = OpenAIEmbeddings()
-
-# 进行文本嵌入
-query_vector = embeddings.embed_query("你好, 我是小潘")
-documents_vector = embeddings.embed_documents([
-    "你好, 我是小潘",
-    "这个自然语言处理的人叫小潘",
-    "来知若惘, 既心若旷"
-])
-
-# 计算相似度
-def cosine_similarity(vector1, vector2):
-    dot_product = np.dot(vector1, vector2)
-    norm1 = norm(vector1)
-    norm2 = norm(vector2)
-    return dot_product / (norm1 * norm2)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="CacheBackEmbedding的使用"><a href="#CacheBackEmbedding的使用" class="headerlink" title="CacheBackEmbedding的使用"></a>CacheBackEmbedding的使用</h3><p>为了提高性能，LangChain提供了缓存功能：</p>
-<pre class="line-numbers language-language-python"><code class="language-language-python">
-from langchain.embeddings import CacheBackedEmbeddings
-from langchain.storage import LocalFileStore
-
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
-embeddings_with_cache = CacheBackedEmbeddings.from_bytes_store(
-    embeddings,
-    LocalFileStore("./cache/"),
-    namespace=embeddings.model,
-    query_embedding_cache=True
-)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>使用缓存时需要注意：</p>
-<ol>
-<li>underlying_embedder: 使用的基础嵌入模型</li>
-<li>document_embedding_cache: 用于缓存文档的存储结构</li>
-<li>batch_size: 可选参数，默认None</li>
-<li>namespace: 用于文档缓存的命名空间</li>
-<li>query_embedding_cache: 是否缓存查询向量</li>
-</ol>
-<h3 id="运行流程分析"><a href="#运行流程分析" class="headerlink" title="运行流程分析"></a>运行流程分析</h3><p>一个完整的RAG应用运行流程如下：</p>
-<ol>
-<li><strong>文档预处理</strong><ul>
-<li>分割文档</li>
-<li>生成向量</li>
-<li>存入向量数据库</li>
+<li><p><strong>使用 <code>git reset --hard HEAD^</code></strong>: 这个命令将撤销最后一次提交，并且丢弃所有的更改。请注意，这将彻底删除最后一次提交的所有更改，所以请确保你没有需要保留的其他更改。</p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git reset --hard HEAD^
+git reset --hard HEAD~2         # 回退2个提交
+git reset --hard commit-hash    # 回退到特定提交
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>使用 <code>git reset --soft HEAD^</code></strong>: 如果你想保留更改但撤销提交，可以使用这个命令。这将把所有的更改放回暂存区，你可以重新编辑并再次提交。</p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git reset --soft HEAD^
+git reset --soft HEAD~1
+git reset --mixed HEAD^         # 默认选项，保留工作区更改，重置暂存区
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
 </ul>
 </li>
-<li><strong>查询处理</strong><ul>
-<li>将用户问题转为向量</li>
-<li>在向量数据库中检索</li>
-<li>组合上下文生成回答</li>
-</ul>
+<li><p><strong>撤销更改</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git checkout -- file.txt        # 撤销工作区更改
+git restore file.txt            # 新版本撤销更改
+git clean -fd                   # 删除未跟踪的文件和目录
+git clean -n                    # 查看将要删除的文件
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li><strong>缓存优化</strong><ul>
-<li>缓存常见文档的向量</li>
-<li>缓存常见查询的向量</li>
-<li>提供响应速度</li>
-</ul>
+<li><p><strong>回滚已推送的提交</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git revert HEAD                 # 创建一个新提交来撤销最后的提交
+git revert commit-hash          # 撤销特定提交
+git revert -n HEAD~3..HEAD      # 撤销多个提交但不自动提交
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
-<li>向量维度的选择<ul>
-<li>需要平衡精度和效率</li>
-<li>维度越高，表达能力越强，但计算成本也越高</li>
-</ul>
+<h2 id="七、查看日志和差异"><a href="#七、查看日志和差异" class="headerlink" title="七、查看日志和差异"></a>七、查看日志和差异</h2><ol>
+<li><p><strong>检查Git历史记录</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git log --all -- <file>              # 查看文件的所有历史
+git log --graph --oneline --all      # 图形化显示所有分支
+git log --stat                       # 显示文件修改统计
+git log --patch                      # 显示具体修改内容
+git log --author="John"              # 按作者查找提交
+git log --grep="fix"                 # 按提交信息查找
+git log --since="2 weeks ago"        # 查看最近两周的提交
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
-<li>缓存策略<ul>
-<li>合理设置缓存大小</li>
-<li>选择适当的缓存淘汰策略</li>
-<li>定期更新缓存</li>
-</ul>
+<li><p><strong>查看最近的提交</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git log -n 10                        # 查看最近10次提交
+git log --oneline -5                 # 简短格式显示最近5次提交
+git log --pretty=format:"%h - %an, %ar : %s"   # 自定义格式
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
-<li>性能优化<ul>
-<li>使用批处理提高效率</li>
-<li>合理使用多线程</li>
-<li>监控资源使用情况</li>
-</ul>
+<li><p><strong>查看差异</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git diff                             # 查看工作区和暂存区差异
+git diff --staged                    # 查看暂存区和最新提交差异
+git diff HEAD                        # 查看工作区和最新提交差异
+git diff branch1..branch2            # 比较两个分支
+git diff commit1 commit2             # 比较两个提交
+git diff --name-only                 # 只显示更改的文件名
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="八、标签管理"><a href="#八、标签管理" class="headerlink" title="八、标签管理"></a>八、标签管理</h2><ol>
+<li><p><strong>创建标签</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git tag v1.0.0                       # 创建轻量标签
+git tag -a v1.0.0 -m "Version 1.0"   # 创建带注释的标签
+git tag v1.0.0 commit-hash           # 给特定提交打标签
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>查看和管理标签</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git tag                              # 列出所有标签
+git tag -l "v1.*"                    # 列出匹配的标签
+git show v1.0.0                      # 查看标签信息
+git tag -d v1.0.0                    # 删除本地标签
+git push origin --delete v1.0.0      # 删除远程标签
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="九、储藏和清理"><a href="#九、储藏和清理" class="headerlink" title="九、储藏和清理"></a>九、储藏和清理</h2><ol>
+<li><p><strong>储藏工作区</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git stash                            # 储藏当前更改
+git stash save "work in progress"    # 带描述的储藏
+git stash list                       # 列出所有储藏
+git stash pop                        # 应用并删除最新储藏
+git stash apply stash@&#123;2&#125;            # 应用特定储藏
+git stash drop stash@&#123;1&#125;             # 删除特定储藏
+git stash clear                      # 清空所有储藏
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>清理工作区</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git clean -n                         # 查看将被清理的文件
+git clean -f                         # 清理未跟踪文件
+git clean -fd                        # 清理文件和目录
+git clean -xfd                       # 清理包括.gitignore忽略的文件
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="十、查找和调试"><a href="#十、查找和调试" class="headerlink" title="十、查找和调试"></a>十、查找和调试</h2><ol>
+<li><p><strong>定位Bug引入</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git bisect start                     # 开始二分查找
+git bisect bad                       # 标记当前提交为有bug
+git bisect good commit-hash          # 标记某个提交为正常
+git bisect reset                     # 结束查找
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>查看文件每行最后修改</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git blame file.txt                   # 查看文件每行的最后修改信息
+git blame -L 10,20 file.txt         # 查看特定行范围
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="十一、Git工作流"><a href="#十一、Git工作流" class="headerlink" title="十一、Git工作流"></a>十一、Git工作流</h2><ol>
+<li><p><strong>特性分支工作流</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash"># 创建特性分支
+git checkout -b feature/login
+
+# 开发完成后
+git add .
+git commit -m "Add login feature"
+
+# 更新主分支
+git checkout master
+git pull origin master
+
+# 合并特性分支
+git merge --no-ff feature/login
+git push origin master
+
+# 删除特性分支
+git branch -d feature/login
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>GitFlow工作流</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash"># 创建开发分支
+git checkout -b develop master
+
+# 创建功能分支
+git checkout -b feature/login develop
+
+# 完成功能分支
+git checkout develop
+git merge --no-ff feature/login
+git branch -d feature/login
+
+# 创建发布分支
+git checkout -b release/1.0.0 develop
+
+# 完成发布
+git checkout master
+git merge --no-ff release/1.0.0
+git tag -a v1.0.0
+
+git checkout develop
+git merge --no-ff release/1.0.0
+git branch -d release/1.0.0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="十二、高级操作"><a href="#十二、高级操作" class="headerlink" title="十二、高级操作"></a>十二、高级操作</h2><ol>
+<li><p><strong>子模块管理</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git submodule add https://github.com/user/repo.git path/to/submodule
+git submodule init
+git submodule update
+git submodule update --remote
+git submodule foreach git pull origin master
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>获取指定文件版本</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git show HEAD:file.txt               # 查看最新版本文件
+git show branch:file.txt             # 查看特定分支文件
+git checkout commit-hash -- file.txt  # 恢复特定版本文件
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>导出归档</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git archive --format=zip HEAD > archive.zip
+git archive --format=tar.gz --prefix=project/ v1.0.0 > project.tar.gz
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="十三、常见问题解决"><a href="#十三、常见问题解决" class="headerlink" title="十三、常见问题解决"></a>十三、常见问题解决</h2><ol>
+<li><p><strong>解决合并冲突</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash"># 出现冲突后
+git status                  # 查看冲突文件
+# 编辑冲突文件
+git add resolved-file.txt
+git commit -m "Resolve merge conflict"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>修改历史提交</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash"># 修改最近N个提交
+git rebase -i HEAD~3
+# 在编辑器中将pick改为edit, reword, squash等
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>找回丢失的提交</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">git reflog                   # 查看所有操作记录
+git checkout commit-hash     # 恢复到特定提交
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="十四、Git别名和快捷命令"><a href="#十四、Git别名和快捷命令" class="headerlink" title="十四、Git别名和快捷命令"></a>十四、Git别名和快捷命令</h2><ol>
+<li><strong>常用别名设置</strong><pre class="line-numbers language-language-bash"><code class="language-language-bash">git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.unstage 'reset HEAD --'
+git config --global alias.last 'log -1 HEAD'
+git config --global alias.visual '!gitk'
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h2 id="十五、Git最佳实践"><a href="#十五、Git最佳实践" class="headerlink" title="十五、Git最佳实践"></a>十五、Git最佳实践</h2><ol>
+<li><p><strong>提交信息规范</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash"># 好的提交信息
+feat: 添加用户登录功能
+fix: 修复导航栏在移动端显示异常
+docs: 更新README文件
+style: 格式化代码
+refactor: 重构用户模块
+test: 添加用户登录单元测试
+chore: 更新依赖版本
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>保持提交原子性</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash"># 每个提交只做一件事
+git add file1.js
+git commit -m "Add user validation"
+
+git add file2.js
+git commit -m "Add password encryption"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>定期推送和拉取</strong></p>
+<pre class="line-numbers language-language-bash"><code class="language-language-bash"># 每天工作开始
+git pull origin develop
+
+# 完成功能后
+git push origin feature-branch
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
 
@@ -753,8 +783,8 @@ embeddings_with_cache = CacheBackedEmbeddings.from_bytes_store(
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/RAG/">
-                                    <span class="chip bg-color">RAG</span>
+                                <a href="/tags/Git/">
+                                    <span class="chip bg-color">Git</span>
                                 </a>
                             
                         </div>
@@ -801,13 +831,13 @@ embeddings_with_cache = CacheBackedEmbeddings.from_bytes_store(
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/02/26/kafka-bi-ji/">
+                <a href="/2025/02/09/langchain-rag-ying-yong-kai-fa-zu-jian-shen-du-jie-xi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Kakfa 整理">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="LangChain RAG 应用开发组件深度解析">
                         
-                        <span class="card-title">Kakfa 整理</span>
+                        <span class="card-title">LangChain RAG 应用开发组件深度解析</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -818,57 +848,8 @@ embeddings_with_cache = CacheBackedEmbeddings.from_bytes_store(
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-26
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-09
                         </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="post-category">
-                                    中间件
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Kafka/">
-                        <span class="chip bg-color">Kafka</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2025/02/12/langchain-rag-ying-yong-kai-fa-you-hua-ce-lue-xiang-jie/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="LangChain RAG 应用开发优化策略详解">
-                        
-                        <span class="card-title">LangChain RAG 应用开发优化策略详解</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-12
-                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -890,6 +871,55 @@ embeddings_with_cache = CacheBackedEmbeddings.from_bytes_store(
                     
                     <a href="/tags/RAG/">
                         <span class="chip bg-color">RAG</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/08/10/linux-bi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Linux常用命令">
+                        
+                        <span class="card-title">Linux常用命令</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    笔记
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
