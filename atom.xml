@@ -44,11 +44,62 @@
   </entry>
   
   <entry>
+    <title>ConcurrentHashMap 整理</title>
+    <link href="https://hyxiaoge.github.io/2025/02/28/concurrenthashmap/"/>
+    <id>https://hyxiaoge.github.io/2025/02/28/concurrenthashmap/</id>
+    <published>2025-02-28T11:59:53.000Z</published>
+    <updated>2025-05-02T15:49:49.780Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;ConcurrentHashMap 提供了线程安全的映射操作，可以在多线程环境下被安全地访问和修改，内部使用 数组+链表+红黑树 结构来存储元素。适用于高并发，特别是高读少写的场景。&lt;/p&gt;
+&lt;h2 id=&quot;JDK-8-之前数据结构（数组-链表）&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="并发集合" scheme="https://hyxiaoge.github.io/categories/%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88/"/>
+    
+    
+    <category term="ConcurrentHash" scheme="https://hyxiaoge.github.io/tags/ConcurrentHash/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RabbitMQ 整理</title>
+    <link href="https://hyxiaoge.github.io/2025/02/26/rabbitmq/"/>
+    <id>https://hyxiaoge.github.io/2025/02/26/rabbitmq/</id>
+    <published>2025-02-26T12:48:39.000Z</published>
+    <updated>2025-05-02T15:47:34.772Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;消息队列-RabbitMQ&quot;&gt;&lt;a href=&quot;#消息队列-RabbitMQ&quot; class=&quot;headerlink&quot; title=&quot;消息队列-RabbitMQ&quot;&gt;&lt;/a&gt;消息队列-RabbitMQ&lt;/h2&gt;&lt;p&gt;RabbitMQ 基于 AMQP</summary>
+        
+      
+    
+    
+    
+    <category term="消息队列" scheme="https://hyxiaoge.github.io/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
+    
+    
+    <category term="RabbitMQ" scheme="https://hyxiaoge.github.io/tags/RabbitMQ/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Kakfa 整理</title>
     <link href="https://hyxiaoge.github.io/2025/02/26/kafka-bi-ji/"/>
     <id>https://hyxiaoge.github.io/2025/02/26/kafka-bi-ji/</id>
     <published>2025-02-26T07:40:13.000Z</published>
-    <updated>2025-04-27T01:38:05.593Z</updated>
+    <updated>2025-05-02T15:46:07.666Z</updated>
     
     
       
@@ -62,7 +113,7 @@
     
     
     
-    <category term="中间件" scheme="https://hyxiaoge.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    <category term="消息队列" scheme="https://hyxiaoge.github.io/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/"/>
     
     
     <category term="Kafka" scheme="https://hyxiaoge.github.io/tags/Kafka/"/>
@@ -253,6 +304,56 @@
   </entry>
   
   <entry>
+    <title>Redis基础巩固</title>
+    <link href="https://hyxiaoge.github.io/2024/05/04/redis/"/>
+    <id>https://hyxiaoge.github.io/2024/05/04/redis/</id>
+    <published>2024-05-04T02:10:09.000Z</published>
+    <updated>2025-05-02T15:45:41.128Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;Redis-是什么&quot;&gt;&lt;a href=&quot;#Redis-是什么&quot; class=&quot;headerlink&quot; title=&quot;Redis 是什么&quot;&gt;&lt;/a&gt;Redis 是什么&lt;/h2&gt;&lt;p&gt;Redis</summary>
+        
+      
+    
+    
+    
+    <category term="数据库" scheme="https://hyxiaoge.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="Redis" scheme="https://hyxiaoge.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL基础巩固</title>
+    <link href="https://hyxiaoge.github.io/2024/05/03/mysql/"/>
+    <id>https://hyxiaoge.github.io/2024/05/03/mysql/</id>
+    <published>2024-05-03T03:23:06.000Z</published>
+    <updated>2025-05-02T15:43:30.529Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;MySQL索引，以及数据结构是什么？&quot;&gt;&lt;a href=&quot;#MySQL索引，以及数据结构是什么？&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="数据库" scheme="https://hyxiaoge.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="MySQL" scheme="https://hyxiaoge.github.io/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SpringCloud Alibaba-Nacos</title>
     <link href="https://hyxiaoge.github.io/2024/04/23/springcloud-alibaba-nacos/"/>
     <id>https://hyxiaoge.github.io/2024/04/23/springcloud-alibaba-nacos/</id>
@@ -365,7 +466,7 @@
     <link href="https://hyxiaoge.github.io/2024/04/10/springboot/"/>
     <id>https://hyxiaoge.github.io/2024/04/10/springboot/</id>
     <published>2024-04-10T12:38:03.000Z</published>
-    <updated>2025-05-02T10:06:24.907Z</updated>
+    <updated>2025-05-02T15:37:16.139Z</updated>
     
     
       

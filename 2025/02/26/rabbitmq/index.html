@@ -1,0 +1,1671 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="RabbitMQ 整理, HyxiaoGe">
+    <meta name="description" content="消息队列-RabbitMQRabbitMQ 基于 AMQP 协议，Advanced Message Queuing Protocol（高级消息队列协议），是一个网络协议，是应用层协议的一个开放标准，为面向消息中间设计的。基于这个协议的客户端">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>RabbitMQ 整理 | HyxiaoGe</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(http://sv6693ki5.hn-bkt.clouddn.com/background/bg.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="HyxiaoGe" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><script src="/js/prism.js"></script>
+<script src="/js/prism-line-numbers.min.js"></script></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">HyxiaoGe</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">HyxiaoGe</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">RabbitMQ 整理</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/RabbitMQ/">
+                                <span class="chip bg-color">RabbitMQ</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="post-category">
+                                消息队列
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-02-26
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-05-02
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    7.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    26 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="消息队列-RabbitMQ"><a href="#消息队列-RabbitMQ" class="headerlink" title="消息队列-RabbitMQ"></a>消息队列-RabbitMQ</h2><p>RabbitMQ 基于 AMQP 协议，Advanced Message Queuing Protocol（高级消息队列协议），是一个网络协议，是应用层协议的一个开放标准，为面向消息中间设计的。基于这个协议的客户端和消息中间件可以传递消息，并且不会因为客户端或中间件产品的不同所受限，也不会受到不同开发语言的限制。</p>
+<h3 id="主要特性"><a href="#主要特性" class="headerlink" title="主要特性"></a>主要特性</h3><ol>
+<li>灵活的路由能力<ul>
+<li>RabbitMQ 提供了多种交换机类型（如 direct、fanout、topic、headers），这些交换器支持灵活的消息路由机制。</li>
+<li>它允许精确控制消息应该被发送到哪个队列，支持复杂的路由方案。</li>
+</ul>
+</li>
+<li>高可靠性和持久性<ul>
+<li>RabbitMQ 支持消息和队列的持久化，确保在系统故障时消息不会丢失。</li>
+<li>它支持镜像队列（mirrored queues）来提高可用性，这通过在多个节点上复制队列来实现。</li>
+</ul>
+</li>
+<li>多种协议和语言支持<ul>
+<li>RabbitMQ 支持多种消息协议，包括 AMQP、STOMP、MQTT 等。</li>
+<li>它提供了广泛的客户端库支持，适用于各种编程语言，如 Java、Python、Ruby、.NET等。</li>
+</ul>
+</li>
+<li>集群和负载均衡<ul>
+<li>RabbitMQ 可以在多个服务器上形成集群，提高吞吐量和可靠性。</li>
+<li>它支持负载均衡和故障转移，帮助保持应用的高可用性。</li>
+</ul>
+</li>
+<li>管理和监控<ul>
+<li>RabbitMQ 附带管理界面，允许用户轻松管理和监控他们的消息系统。</li>
+<li>提供了丰富的监控和管理 API，方便集成到现有的监控系统。</li>
+</ul>
+</li>
+<li>易于扩展和集成<ul>
+<li>它的插件系统使得扩展 RabbitMQ 功能变得简单，可以添加新的功能或集成到其他系统中。</li>
+<li>社区提供了许多插件，例如用于消息追踪、Shovel 插件用于在多个 RabbitMQ 实例之间迁移消息等。</li>
+</ul>
+</li>
+<li>事务支持<ul>
+<li>RabbitMQ 提供事务功能，允许将消息的发送、接受和确认操作组合为单个原子操作。</li>
+<li>虽然事务会增加一定的开销，但它们对于确保消息处理的完整性非常有用。</li>
+</ul>
+</li>
+<li>灵活的消息处理模式<ul>
+<li>支持多种消息处理模式，包括简单的点对点通信、工作队列模式、发布&#x2F;订阅模式等。</li>
+<li>通过不同的交换器和队列配置，可以灵活地实现各种消息处理需求。</li>
+</ul>
+</li>
+</ol>
+<h3 id="主要结构"><a href="#主要结构" class="headerlink" title="主要结构"></a>主要结构</h3><p><img src="http://www.hyxiaoblog.com/images/21/rabbitmq_model.png" alt="img"></p>
+<ol>
+<li>交换器（Exchanges）<ul>
+<li>交换器是 RabbitMQ 消息路由的核心组件，它负责接收生产者发送的消息并根据路由规则将它们转发到一个或多个队列。</li>
+<li>RabbitMQ 提供了几种类型的交换器：<code>direct</code>、<code>topic</code>、<code>fanout</code> 和 <code>headers</code>，每种类型的交换器都有其特定的路由逻辑。</li>
+</ul>
+</li>
+<li>队列（Queues）<ul>
+<li>队列是 RabbitMQ 中的基本存储结构，用于存储待消费的消息。</li>
+<li>队列与交换器之间通过绑定关系（Binding）建立连接，决定了哪些消息应该被路由到特定的队列。</li>
+</ul>
+</li>
+<li>绑定（Bindings）<ul>
+<li>绑定是交换器和队列之间的关系，它基于路由键（routing key）和（对于某些交换器类型）绑定键（binding key）来路由消息。</li>
+<li>绑定可以包含路由键匹配规则，尤其是在适用 topic 交换器时。</li>
+</ul>
+</li>
+<li>生产者（Producers）<ul>
+<li>生产者是发送消息到交换器的应用程序或服务。</li>
+<li>生产者决定将消息发送到哪个交换器，并指定消息的路由键。</li>
+</ul>
+</li>
+<li>消费者（Consumers）<ul>
+<li>消费者从队列中提取消息并处理它们。</li>
+<li>消费者可以监听一个或多个队列，以接收和处理存储在队列中的消息。</li>
+</ul>
+</li>
+<li>消息（Messages）<ul>
+<li>消息是 RabbitMQ 传递的数据单元，由生产者创建并发送到交换器。</li>
+<li>每个消息都包含有效负载（payload，即实际数据）和标签（header），其中可能包括路由键、消息优先级、过期时间等信息。</li>
+</ul>
+</li>
+<li>虚拟主机（Virtual Hosts）<ul>
+<li>虚拟主机提供了一种隔离方式，可以在同一个 RabbitMQ 服务器上运行多个独立的消息系统。</li>
+<li>每个虚拟主机都有自己的队列、交换器和绑定。</li>
+</ul>
+</li>
+<li>用户和权限<ul>
+<li>RabbitMQ 允许你定义多个用户，并且可以给每个用户分配不同的角色和权限。</li>
+<li>这种权限控制可以用来限制对特定队列、交换器和其他资源的访问。</li>
+</ul>
+</li>
+</ol>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><ol>
+<li><strong>生产者</strong>创建一条消息，这条消息包含有效负载（即实际要传递的数据）和一些元数据（如路由键）。</li>
+<li>生产者将这条消息发送到一个<strong>交换器</strong>。生产者在发送消息时指定<strong>交换器</strong>和<strong>路由键</strong>。</li>
+<li>交换器接收到消息后，根据<strong>交换类型</strong>（如 direct、fanout、topic）和消息的路由键来决定如何路由消息。</li>
+<li>在<strong>binding key</strong>的帮助下，交换器将消息路由到一个或多个<strong>队列</strong>。绑定定义了交换器和队列之间的关系，并可能包含与路由键匹配的模式。</li>
+<li>一旦消息被路由到某个队列，它将在那里等待，直到出现一个<strong>消费者</strong>准备好接收它。</li>
+<li>如果消息配置了消息持久化，消息将在磁盘上存储，以防止在系统崩溃时丢失。</li>
+<li>消费者从队列中接收消息，并进行处理。消费者可以是任何能够连接到队列并读取消息的应用程序或服务。</li>
+<li>消费者可以手动或自动确认消息。确认（acknowledge）是否告诉 RabbitMQ 消息已经被接收并处理。</li>
+<li>一旦消息被正确处理，消费者会发送一个确认给 RabbitMQ。</li>
+<li>如果消费者因为某种原因无法处理消息，它可以拒绝（reject）或将消息重回队列（nack）。</li>
+<li>当 RabbitMQ 收到确认后，它将从队列中移除该消息。</li>
+<li>如果在处理消息时发生故障，系统可以配置为重试机制或将消息移动到死信队列（dead-letter queue）。</li>
+</ol>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/4d514fab-2492-4877-a269-a017b8992bb6/e21bc9b8-8a43-4e48-b3f9-1dee429ddef2/Screenshot_2024-07-10-13-19-25-957_com.android.chrome-edit.jpg" alt="Screenshot_2024-07-10-13-19-25-957_com.android.chrome-edit.jpg"></p>
+<h3 id="Exchanges-交换器"><a href="#Exchanges-交换器" class="headerlink" title="Exchanges 交换器"></a>Exchanges 交换器</h3><p>在RabbitMQ中，交换器（Exchanges）是决定如何路由消息的关键组件。它们接收来自生产者的消息，并根据特定规则将它们路由到一个或多个队列。</p>
+<p>RabbitMQ 提供了四种主要的交换器类型，每种类型根据不同的规则路由消息。</p>
+<ol>
+<li><p><strong>Direct Exchange</strong></p>
+<ul>
+<li><strong>工作原理</strong>：根据消息的路由键（routing key）将消息路由到具有相同绑定值（binding key）的队列。</li>
+<li><strong>用途</strong>：当你想要将消息发送到指定的队列时，可以使用 direct exchanges。它适用于一对一的消息路由场景。</li>
+<li><strong>示例场景</strong>：订单服务向指定的处理队列发送订单更新消息。</li>
+</ul>
+<p>示例代码：</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">// 创建 Direct Exchange
+@Bean
+public DirectExchange directExchange() &#123;
+    return new DirectExchange("direct_exchange");
+&#125;
+
+// 创建队列
+@Bean
+public Queue orderQueue() &#123;
+    return new Queue("order_queue");
+&#125;
+
+// 绑定队列到交换器
+@Bean
+public Binding bindingDirect(Queue orderQueue, DirectExchange directExchange) &#123;
+    return BindingBuilder.bind(orderQueue).to(directExchange).with("order_key");
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>Fanout Exchange</strong></p>
+<ul>
+<li><strong>工作原理</strong>：忽略路由键，将消息广播到所有绑定到该交换器的队列。</li>
+<li><strong>用途</strong>：当你需要将相同的消息发送到多个队列时，fanout exchange 非常有用。它实现发布&#x2F;订阅模式。</li>
+<li><strong>示例场景</strong>：广播系统通知或实时更新，如股票价格变动。</li>
+</ul>
+<p>示例代码：</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">// 创建 Fanout Exchange
+@Bean
+public FanoutExchange fanoutExchange() &#123;
+    return new FanoutExchange("fanout_exchange");
+&#125;
+
+// 创建队列
+@Bean
+public Queue notificationQueue() &#123;
+    return new Queue("notification_queue");
+&#125;
+
+// 绑定队列到交换器
+@Bean
+public Binding bindingFanout(Queue notificationQueue, FanoutExchange fanoutExchange) &#123;
+    return BindingBuilder.bind(notificationQueue).to(fanoutExchange);
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>Topic Exchange</strong></p>
+<ul>
+<li><strong>工作原理</strong>：根据消息的路由键和队列的绑定键（可以包含通配符）进行模糊匹配，来决定消息路由到哪些队列。</li>
+<li><strong>用途</strong>：当你需要根据特定模式或多个标准路由消息时，topic exchange 是最佳选择。它提供了很高的灵活性。</li>
+<li><strong>示例场景</strong>：向不同的日志记录系统发送不同级别（如 error，info，debug）的日志消息。</li>
+</ul>
+<p>示例代码：</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">// 创建 Topic Exchange
+@Bean
+public TopicExchange topicExchange() &#123;
+    return new TopicExchange("topic_exchange");
+&#125;
+
+// 创建队列
+@Bean
+public Queue logQueue() &#123;
+    return new Queue("log_queue");
+&#125;
+
+// 绑定队列到交换器
+@Bean
+public Binding bindingTopic(Queue logQueue, TopicExchange topicExchange) &#123;
+    return BindingBuilder.bind(logQueue).to(topicExchange).with("log.*");
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-java"><code class="language-language-java">@Component
+public class LogMessagePublisher &#123;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private TopicExchange topicExchange;
+
+    public void sendInfoLog(String message) &#123;
+        rabbitTemplate.convertAndSend(topicExchange.getName(), "log.info", message);
+    &#125;
+
+    public void sendErrorLog(String message) &#123;
+        rabbitTemplate.convertAndSend(topicExchange.getName(), "log.error", message);
+    &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>Headers Exchange</strong></p>
+<ul>
+<li><strong>工作原理</strong>：基于消息头（headers）中的一个或多个属性进行匹配，而不是路由键。匹配规则可以是“全部匹配”（all）或“任意匹配”（any）。</li>
+<li><strong>用途</strong>：当你需要基于多个属性进行复杂的路由规则时，可以使用 headers exchanges。</li>
+<li><strong>示例场景</strong>：基于消息内容的多个属性（如源、目的地、优先级）路由消息到不同的处理队列。</li>
+</ul>
+<p>示例代码：</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">// 创建 Headers Exchange
+@Bean
+public HeadersExchange headersExchange() &#123;
+    return new HeadersExchange("headers_exchange");
+&#125;
+
+// 创建队列
+@Bean
+public Queue processQueue() &#123;
+    return new Queue("process_queue");
+&#125;
+
+// 绑定队列到交换器
+@Bean
+public Binding bindingHeaders(Queue processQueue, HeadersExchange headersExchange) &#123;
+    Map<String, Object> map = new HashMap<>();
+    map.put("x-match", "all");
+    map.put("header1", "value1");
+    map.put("header2", "value2");
+    return BindingBuilder.bind(processQueue).to(headersExchange).whereAll(map).match();
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<h3 id="Queue-队列"><a href="#Queue-队列" class="headerlink" title="Queue 队列"></a>Queue 队列</h3><h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a><strong>持久化</strong></h3><ul>
+<li><strong>持久化队列</strong>：在 RabbitMQ 中，队列可以被标记为持久化（durable）。持久化队列会在代理重启后自动重建，但这本身并不保证队列中的消息也是持久的。</li>
+<li><strong>消息持久化</strong>：要确保消息不丢失，除了声明队列为持久化之外，发送到队列的每条消息也需要被标记为持久化。这意味着消息会被写入磁盘，尽管这可能会引入额外的性能开销。</li>
+<li><strong>写入磁盘的时机</strong>：RabbitMQ 不会为每条消息写入磁盘，而是可能仅在必要时进行，这取决于消息代理的配置和当前的负载。这种机制提供了性能和持久性之间的平衡。</li>
+</ul>
+<p><strong>在代码中使用队列持久化</strong></p>
+<p>声明一个持久化队列</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">@Bean
+public Queue myDurableQueue() &#123;
+    return new Queue("myDurableQueue", true); // true 表示队列是持久化的
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在这个示例中，<code>Queue</code> 的构造函数接受一个布尔值作为第二个参数，用来指定队列是否持久化。<code>true</code> 表示队列是持久化的。</p>
+<p>对于消息的持久化，可以在发送消息时设置它的持久性。使用 <code>MessageProperties</code> 设置消息为持久化：</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">MessageProperties messageProperties = new MessageProperties();
+messageProperties.setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+Message message = new Message("Your message content".getBytes(), messageProperties);
+
+rabbitTemplate.send("myDurableQueue", message);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在这个示例中，<code>MessageDeliveryMode.PERSISTENT</code> 指定了消息应该被持久化。</p>
+<h3 id="事务支持"><a href="#事务支持" class="headerlink" title="事务支持"></a><strong>事务支持</strong></h3><ul>
+<li>RabbitMQ 中的事务允许你将一系列动作（如发送消息、确认消息）包装在一个事务中。事务保证了这些操作要么全部成功，要么全部失败，从而提供了一定程度的消息处理保证。</li>
+<li>操作步骤：<ul>
+<li>开启事务：通过 <code>channel.txSelect()</code> 开启事务。</li>
+<li>执行操作：在事务中发送消息或执行其他操作。</li>
+<li>提交或回滚：使用 <code>channel.txCommit()</code> 提交事务或使用 <code>channel.txRollback()</code> 回滚事务。</li>
+</ul>
+</li>
+</ul>
+<p>示例代码：</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">Channel channel = connection.createChannel();
+try &#123;
+    channel.txSelect();
+    channel.basicPublish("", "queue_name", null, message.getBytes());
+    // 可能的其他操作...
+    channel.txCommit();
+&#125; catch (Exception e) &#123;
+    channel.txRollback();
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>但是这种事务机制在 RabbitMQ 中会显得影响消息吞吐量。由于每个事务都涉及到磁盘 I&#x2F;O 操作来确保状态的持久化，这会导致性能瓶颈。对于需要高吞吐量的系统，事务可能不是一个理想的选择。</p>
+<p><strong>替代方案</strong></p>
+<p><img src="http://www.hyxiaoblog.com/images/21/message_reliable.png" alt="img"></p>
+<ul>
+<li><p><strong>confirm 确认模式</strong></p>
+<ul>
+<li>消息一旦从生产者发送给 MQ Server，也就是被交换器接收到，这个时候会有一个回调 confirmCallback，代表 MQ Server 接收到了。不管消息是否消费成功，这个回调函数一定会被执行。</li>
+</ul>
+<p><strong>示例代码</strong>：在代码设置 confirm 确认模式</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">/**
+* correlationData: 相关性数据
+* ack: 交换机是否成功接收到消息，true：成功
+* cause: 失败的原因（成功则为null）
+*/
+rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> &#123;
+    if (ack) &#123;
+        log.info("交换机接收消息成功~~ &#123;&#125;", cause);
+        // 确认成功逻辑
+    &#125; else &#123;
+        log.info("交换机接收消息失败~~ &#123;&#125;", cause);
+        // 确认失败逻辑
+    &#125;
+&#125;);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>return 回退模式</strong></p>
+<ul>
+<li>如果交换器无法根据自身的类型和路由键或绑定规则将消息路由到一个队列，它会调用生产者的回退回调函数（<code>returnCallback</code>）。这通常意味着消息无法送达任何队列。</li>
+</ul>
+<p><strong>示例代码</strong>：在代码设置 return 回退模式</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">rabbitTemplate.setReturnsCallback(returnedMessage -> &#123;
+    log.info("return");
+    log.info("returnedMessage:&#123;&#125;", returnedMessage);
+&#125;);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p><strong>结合使用</strong></p>
+<p>通常情况下，<code>confirmCallback</code> 和 <code>returnCallback</code> 被一起使用，以确保消息不仅被交换器接收，而且能被正确路由到队列。</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> &#123;
+    if (ack) &#123;
+        // 确认成功逻辑
+    &#125; else &#123;
+        // 确认失败逻辑，例如记录日志、重试等
+    &#125;
+&#125;);
+
+rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> &#123;
+    // 处理无法路由的消息，例如记录日志、通知生产者等
+&#125;);
+
+rabbitTemplate.setMandatory(true); // 设置为 true，以确保触发 returnCallback
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>设置了 <code>setMandatory(true)</code> 之后，如果消息无法被正确路由到队列，<code>returnCallback</code> 会被触发。如果没有设置 <code>mandatory</code> 参数，无法路由的消息会被 RabbitMQ 丢弃，生产者不会收到通知。</p>
+<h3 id="死信队列"><a href="#死信队列" class="headerlink" title="死信队列"></a><strong>死信队列</strong></h3><p>死信队列（Dead Letter Queue, DLQ）是用来收集死信的队列。在消息队列服务中，死信通常是指<strong>那些无法被正常消费的消息</strong>。有几种情况会导致消息称为死信：</p>
+<ol>
+<li><strong>消息被拒绝（Rejected）</strong>：消费者收到消息后，可以选择拒绝它，这是可以设置是否重新入队。如果消费者拒绝消息且不重新入队，该消息就会成为死信。</li>
+<li><strong>消息过期</strong>：如果消息在队列中存在时间超过了设置的TTL（Time-To-Live），它就会变成信息。</li>
+<li><strong>队列达到最大长度</strong>：如果队列满了，新消息就会变成死信。</li>
+</ol>
+<p>在 RabbitMQ 中，你可以通过配置队列的参数来指定死信交换器（DLX）和死信路由键（DLK）。当消息成为死信后，它会被发送到 DLX 指定的交换器，并根据 DLK 进行路由。</p>
+<p><strong>示例代码</strong>：配置死信队列</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">Map<String, Object> args = new HashMap<>();
+args.put("x-dead-letter-exchange", "dlx_exchange");
+args.put("x-dead-letter-routing-key", "dlx_routing_key");
+
+@Bean
+public Queue myQueue() &#123;
+	return new Queue("myQueue", true, false, false, args);
+&#125;
+
+@Bean
+public DirectExchange deadLetterExchange() &#123;
+	return new DirectExchange("dlx_exchange");
+&#125;
+
+@Bean
+public Queue dlQueue() &#123;
+	return new Queue("deadLetterQueue");
+&#125;
+
+@Bean
+public Binding dlBinding() &#123;
+	return BindingBuilder.bind(dlQueue()).to(deadLetterExchange()).with("dlx_routing_key");
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在这个配置中，如果 <code>myQueue</code> 中的消息变成了死信，它会被路由到 <code>deadLetterQueue</code> 队列。</p>
+<h3 id="延迟队列"><a href="#延迟队列" class="headerlink" title="延迟队列"></a><strong>延迟队列</strong></h3><p>延迟队列（Delayed Queue）是一种特殊类型的队列，消息被发送到这个队列之后不会立即被消费，而是会在延迟一定时间后才能被消费。</p>
+<p>需要注意的是，RabbitMQ 本身默认不支持延迟队列，但是可以通过<strong>安装插件</strong>或者<strong>使用消息TTL和死信队列的组合</strong>来实现相似的功能。</p>
+<ol>
+<li><strong>安装插件</strong></li>
+</ol>
+<ul>
+<li><p>先通过命令行 <code>rabbitmqctl veriosn</code> 得到mq的版本号，根据版本号去下载插件</p>
+</li>
+<li><p>下载延迟插件 <a target="_blank" rel="noopener" href="https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases">https://github.com/rabbitmq/rabbitmq-delayed-message-exchange/releases</a></p>
+</li>
+<li><p>下载好了之后，传到 Linux 服务器</p>
+</li>
+<li><p>然后再从虚拟机拷贝到 docker 的 rabbitmq 插件中：<code>docker cp rabbitmq_delayed_message_exchange-3.9.0.ez rabbitmq:/plugins</code></p>
+</li>
+<li><p>运行命令开启延迟插件，<code>rabbitmq-plugins enable rabbitmq_delayed_message_exchange</code></p>
+</li>
+<li><p>查看插件列表是否存在延迟插件，<code>rabbitmq-plugins list</code></p>
+</li>
+<li><p><code>ctrl+d</code>退出控制台并且重启rabbitmq，<code>docker restart rabbitmq</code></p>
+<p>示例代码：</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">@Configuration
+public class DelayConfig_Article &#123;
+
+    // 定义交换机的名称
+    public static final String EXCHANGE_DELAY_ARTICLE = "exchange_delay_article";
+
+    // 定义队列的名称
+    public static final String QUEUE_DELAY_ARTICLE = "queue_delay_article";
+
+    // 统一定义路由key
+    public static final String DELAY_DISPLAY_ARTICLE = "delay.display.article";
+
+    // 创建交换机
+    @Bean(EXCHANGE_DELAY_ARTICLE)
+    public Exchange exchange() &#123;
+        return ExchangeBuilder
+                    .topicExchange(EXCHANGE_DELAY_ARTICLE)
+                    .durable(true)
+                    .delayed()              // 设置延迟特性
+                    .build();
+    &#125;
+
+    // 创建队列
+    @Bean(QUEUE_DELAY_ARTICLE)
+    public Queue queue() &#123;
+        return QueueBuilder
+                .durable(QUEUE_DELAY_ARTICLE)
+                .build();
+    &#125;
+
+    // 创建绑定关系
+    @Bean
+    public Binding delayBindingArticle(@Qualifier(EXCHANGE_DELAY_ARTICLE) Exchange exchange,
+                                        @Qualifier(QUEUE_DELAY_ARTICLE) Queue queue) &#123;
+        return BindingBuilder
+                .bind(queue)
+                .to(exchange)
+                .with("delay.display.*")
+                .noargs();
+    &#125;
+
+    /**
+     * 设置消息属性处理器，目的是设置延迟的时间
+     * @param times
+     * @return
+     */
+    public static MessagePostProcessor setDelayTimes(Integer times) &#123;
+        return message -> &#123;
+            message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+            message.getMessageProperties().setDelay(times);
+            return message;
+        &#125;;
+    &#125;
+
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-language-java"><code class="language-language-java">...
+Integer delayTimes = 10 * 1000;
+MessagePostProcessor processor = DelayConfig_Article.setDelayTimes(delayTimes);
+
+rabbitTemplate.convertAndSend(DelayConfig_Article.EXCHANGE_DELAY_ARTICLE,
+                                DelayConfig_Article.DELAY_DISPLAY_ARTICLE,
+                                message,
+                                processor);
+...
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>这个插件扩展了 RabbitMQ 的功能，允许创建一个自定义的交换器类型 <code>x-delayed-message</code>，这种类型的交换器可以接收带有延迟信息的消息，并在指定的延迟时间后将消息路由到绑定的队列。</p>
+<ul>
+<li>使用 <code>.delayed()</code>方法标记交换器以支持延迟消息。</li>
+<li>在发送消息时，通过<code>MessagePostProcessor</code>设置消息的延迟时间，这是通过设置消息属性中的 <code>x-delay</code>来实现的。</li>
+<li>当消息发送到这个交换器时，它不会立即被路由到一个队列，而是会在经过指定的延迟时间之后被路由。</li>
+</ul>
+<ol>
+<li><p><strong>使用TTL和DLX实现延迟队列：</strong></p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">@Bean
+public Queue delayProcessQueue() &#123;
+    Map<String, Object> args = new HashMap<>();
+    args.put("x-dead-letter-exchange", "dlx_exchange");
+    args.put("x-dead-letter-routing-key", "process_routing_key");
+    args.put("x-message-ttl", 60000);    // 消息TTL为60000ms(1分钟)
+
+    return new Queue("delayQueue", true, false, false, args);
+&#125;
+
+@Bean
+public DirectExchange processExchange() &#123;
+    return new DirectExchange("processExchange");
+&#125;
+
+@Bean
+public Queue processQueue() &#123;
+    return new Queue("processQueue");
+&#125;
+
+#Bean
+public Binding processBinding() &#123;
+    return BindingBuilder.bind(processQueue()).to(processExchange()).with("process_routing_key");
+&#125;
+
+@Bean
+public Binding delayBinding() &#123;
+    return BindingBuilder.bind(delayProcessQueue()).to(processExchange()).with("delay_routing_key");
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<p>在这个示例中，<code>delayQueue</code> 是一个带有 TTL 和 DLX 配置的队列。消息会在这个队列中延迟一定时间（这里是1分钟），然后通过 DLX 被发送到 <code>processQueue</code> 队列进行处理。</p>
+<p>使用 TTL 和 DLX 实现的延迟队列的<strong>工作流程</strong>大致如下：</p>
+<ol>
+<li><p>生产者（<code>producer</code>）将消息发送到一个普通的交换器（<code>processExchange</code>）。</p>
+</li>
+<li><p>该交换器将消息路由到配置有 TTL 和 DLX 的队列（<code>delayQueue</code>）。</p>
+</li>
+<li><p>消息在<code>delayQueue</code>中停留，直到其 TTL 过期。如果消息在 TTL 时间内没有被消费，它就会变成死信。</p>
+</li>
+<li><p>一旦消息成为死信，它会被发送到配置在<code>delayQueue</code>上的DLX（<code>dlx_exchange</code>）。</p>
+</li>
+<li><p>DLX 交换器（<code>dlx_exchange</code>）将这个死信路由到最终的处理队列（<code>processQueue</code>）。</p>
+</li>
+<li><p>消费者（<code>comsumer</code>）监听<code>processQueue</code>，准备处理消息。</p>
+<pre class="line-numbers language-language-rust"><code class="language-language-rust">producer -> processExchange -> delayQueue --(after TTL)--> DLX(dlx_exchange) -> processQueue -> consumer
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ol>
+<p>这里的<code>DLX</code>是<code>delayQueue</code>配置的死信交换器，它负责接收<code>delayQueue</code>中过期的消息，并将它们路由到<code>processQueue</code>。需要确保<code>delayQueue</code>的DLX指向了正确的交换器，这个交换器会将消息路由到<code>processQueue</code>。</p>
+<h3 id="重回队列"><a href="#重回队列" class="headerlink" title="重回队列"></a><strong>重回队列</strong></h3><p>在 RabbitMQ 中，“重回队列”（Requeue）是一个过程，当消费者因为某些原因不能处理接收到的消息时，它可以选择将消息发送回队列中以便稍后重新消费。</p>
+<p><strong>重回队列适合场景</strong></p>
+<ol>
+<li><p>手动拒绝消息：</p>
+<ul>
+<li><p>当消费者接收到消息但不想或不能立即处理时，它可以使用 <code>basicReject</code> 或 <code>basicNack</code> 方法拒绝消息，并将 <code>requeue</code> 标志设置为 <code>true</code>，这会将消息重新放回队列。</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">channel.basicNack(message.getMessageProperties().getDeliveryTag(), true, true);
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p>消费者断开连接：</p>
+<ul>
+<li>如果消费者在处理消息时断开连接（比如由于崩溃或网络问题），没有发送 ack（消息确认），那么 RabbitMQ 会将消息重新入队。</li>
+</ul>
+</li>
+</ol>
+<p><strong>与死信队列和延迟队列的关系</strong></p>
+<pre><code>**死信队列**：
+</code></pre>
+<ul>
+<li><p>如果消息被消费者多次拒绝且不重回队列（<code>requeue</code>标志设置为<code>false</code>），或者消息超过了最大重试次数（如果设置了），那么这条消息可以被发送到死信队列。</p>
+</li>
+<li><p>死信队列用来收集那些无法被成功消费的消息，以便后续可以对这些消息进行监控和处理。</p>
+<p><strong>延迟队列</strong>：</p>
+</li>
+<li><p>与重回队列不同，延迟队列通常是用来延迟消息的投递。当你希望消息在一段时间后被处理，而不是立即被消费时，可以使用延迟队列。</p>
+</li>
+<li><p>如果一个消息在延迟队列中到期后不能被成功消费，并且不再被重回队列，它同样可以变成死信并被发送到死信队列。</p>
+</li>
+</ul>
+<p><strong>注意事项</strong></p>
+<ul>
+<li>无限重试的风险：<ul>
+<li>如果消息被不断地重回队列而不进行任何修改，这可能导致“死循环”，其中消费者不断尝试处理同一条消息。</li>
+<li>为了避免这种情况，通常需要实现一些逻辑来跟踪消息的重试次数，并在超过某个阈值后将其发送到死信队列或其他的处理队列。</li>
+</ul>
+</li>
+<li>消息顺序：<ul>
+<li>如果队列中的消息顺序很重要，那么重回队列可能会打乱原有的顺序，因为重新排队的消息将会放置在队列的末尾。</li>
+</ul>
+</li>
+</ul>
+<h3 id="手动确认和自动确认"><a href="#手动确认和自动确认" class="headerlink" title="手动确认和自动确认"></a>手动确认和自动确认</h3><p>在 RabbitMQ 中，消息确认（ACK）是保证消息被正确处理的一种机制。生产者将消息发送到队列中，消费者从队列中获取消息并进行处理。一旦消息被成功处理，消费者应该向 RabbitMQ 发送一个确认信号，即 ACK。这个确认过程可以是自动的或手动的，具体取决于消费者的配置。</p>
+<p><strong>手动确认（Manual-acknowledge）</strong></p>
+<ul>
+<li><p>在手动确认模式下，消费者必须明确地告诉 RabbitMQ 它已经完成了消息的处理，并且消息可以被安全地删除。</p>
+</li>
+<li><p>如果消费者在处理消息之前发生故障，消息不会丢失，因为它还没有被确认。</p>
+</li>
+<li><p>手动确认给了消费者更多的控制，但也增加了复杂性，因为需要在代码中明确地处理ACK。</p>
+</li>
+<li><p>使用手动确认可以避免消息的意外丢失，适用于需要保证<strong>消息处理可靠性</strong>的场景。</p>
+<p>示例代码：</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">// 消费者接收消息的方法
+public void onMessage(Message message, Channel channel) throws IOException &#123;
+    try &#123;
+        // 处理消息的逻辑...
+
+        // 手动发送ACK
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+    &#125; catch (Exception e) &#123;
+        // 如果处理消息时发生异常，拒绝消息，并根据情况决定是否重新入队
+        channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, true);
+    &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在这个示例中，如果消息成功处理，消费者会调用 <code>basicAck</code> 方法来确认消息。如果处理失败，它会调用 <code>basicNack</code> 方法来拒绝消息，并可能选择将其重新入队。</p>
+</li>
+</ul>
+<p><strong>自动确认（Auto-acknowledge）</strong></p>
+<ul>
+<li>在自动确认模式下，一旦消息被投递给消费者，RabbitMQ 就会立即将其标记为已确认。</li>
+<li>这种模式下简化了处理流程，因为消费者不需要显示地发送 ACK 信号。</li>
+<li>但是，如果消费者在处理消息后发生故障（例如，应用崩溃或断电），那么消息可能会丢失，因为 RabbitMQ 认为它已经被处理了。</li>
+<li>自动确认适用于那些对消息丢失不敏感或可以容忍丢失的场景。</li>
+</ul>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="RabbitMQ-如何保证消息的可靠性"><a href="#RabbitMQ-如何保证消息的可靠性" class="headerlink" title="RabbitMQ 如何保证消息的可靠性"></a>RabbitMQ 如何保证消息的可靠性</h3><p><strong>可靠性</strong>主要关注消息在传输过程中不丢失，确保消息从生产者到MQ Server 再到消费者的过程中被正确处理。</p>
+<p>RabbitMQ 提供了多种机制来确保消息的可靠性和安全性，以下是几个主要的方法：</p>
+<ol>
+<li>消息持久化<ul>
+<li>将消息标记为持久化，并且确保队列也是持久的，这样即使在 RabbitMQ 重启后，消息也不会丢失。</li>
+</ul>
+</li>
+<li>事务<ul>
+<li>虽然事务会降低性能，但它们可以确保一系列操作（如消息发布）要么全部成功，要么全部不执行。</li>
+</ul>
+</li>
+<li>confirm 确认模式和 return 回退模式<ul>
+<li>前者是一个轻量级的、异步的机制，允许生产者知道其消息是否已成功到达交换器。</li>
+<li>后者是当消息无法路由到任何一个队列时，它会调用生产者的回退回调函数。</li>
+</ul>
+</li>
+<li>消费者确认（Consumer Acknowledgements）<ul>
+<li>通过手动确认模式，消费者可以控制什么时候确认消息。这确保了只有在消息被正确处理后，它才会从队列中移除。</li>
+</ul>
+</li>
+<li>死信队列<ul>
+<li>设置死信队列可以处理无法正常消费的消息，例如因为消息被拒绝、过期或队列达到最大长度。</li>
+</ul>
+</li>
+</ol>
+<h3 id="RabbitMQ-如何做到削峰限流"><a href="#RabbitMQ-如何做到削峰限流" class="headerlink" title="RabbitMQ 如何做到削峰限流"></a>RabbitMQ 如何做到削峰限流</h3><ol>
+<li><p><strong>预取计数（Prefetch Count）</strong></p>
+<p>通过设置预取计数，可以限制 RabbitMQ 向每个消费者发送的未确认消息的数量。一旦达到这个数量，RabbitMQ 将停止向该消费者发送更多消息，直到它开始确认消息。</p>
+<pre class="line-numbers language-language-java"><code class="language-language-java">channel.basicQos(prefetchCount);
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在这里，<code>prefetchCount</code> 是你想要设置的预取数量。这个设置可以帮助避免给单个消费者分配过多消息，从而平衡负载并限制处理速率。</p>
+</li>
+<li><p><strong>消息延迟</strong></p>
+<p>可以将消息发送到延迟队列&#x2F;死信队列，并设定消息的延迟时间。这样，消息会在指定的延迟之后才被投递到实际的工作队列。</p>
+</li>
+<li><p><strong>手动消息确认</strong></p>
+<p>通过手动确认消息，可以更细粒度地控制消息的处理速度。消费者在完成消息处理后手动发送确认，这样可以根据处理能力来调整接收消息的速度。</p>
+</li>
+</ol>
+<h3 id="RabbitMQ-如何保证最终一致性"><a href="#RabbitMQ-如何保证最终一致性" class="headerlink" title="RabbitMQ 如何保证最终一致性"></a>RabbitMQ 如何保证最终一致性</h3><p>使用数据库（DB）来辅助 RabbitMQ 实现消息的最终一致性是一个常见的模式，尤其是在分布式系统和微服务架构中。这种方法通常涉及到在消息处理和数据库操作之间保持一致性。以下是如何借助数据库实现 RabbitMQ 消息的最终一致性的步骤：</p>
+<p>&#x2F;&#x2F;	TODO 消息的延迟投递，做二次确认，回调检查</p>
+<ol>
+<li>事务日志记录<ul>
+<li>在发送消息前，首先在数据库中记录事务日志。这个日志记录了即将发送的消息及其状态。这样做的目的是在发送消息之前确保有一个持久的记录存在。</li>
+</ul>
+</li>
+<li>发送消息<ul>
+<li>发送消息到 RabbitMQ，此时消息可能仅被标记为“待发送”或类似状态。</li>
+</ul>
+</li>
+<li>发布者确认<ul>
+<li>利用 RabbitMQ 的发布者确认机制来确保消息已被交换器接收。一旦收到确认，更新数据库中的事务日志，表明消息已成功发送。</li>
+</ul>
+</li>
+<li>消费者处理<ul>
+<li>消费者从 RabbitMQ 接收消息并进行处理。处理过程可能涉及到更改数据库的数据。</li>
+</ul>
+</li>
+<li>处理确认<ul>
+<li>处理完成后，消费者手动确认消息。这个确认告诉 RabbitMQ 消息已被成功处理，可以将数据的日志记录删除或者更改消息状态为完成。</li>
+</ul>
+</li>
+<li>处理失败和重试<ul>
+<li>如果消费者处理失败，可以利用 RabbitMQ 的重试机制或将消息放入死信队列。同时，可以在数据库中记录失败事件，以便进行后续的错误处理或人工干预。</li>
+</ul>
+</li>
+<li>幂等性处理<ul>
+<li>在消费者端实现幂等性，确保即使同一消息被重复消费，也不会对系统状态产生不良影响。</li>
+</ul>
+</li>
+<li>同步或补偿机制<ul>
+<li>在某些情况下，如果处理过程中发生了故障或不一致性，可能需要在数据库中执行补偿操作来恢复一致性。</li>
+</ul>
+</li>
+<li>监控和告警<ul>
+<li>通过对 RabbitMQ 队列和数据库的监控，可以及时发现问题并进行干预，比如处理积压的消息或解决数据不一致的问题。</li>
+</ul>
+</li>
+</ol>
+<h3 id="RabbitMQ-如何避免消息被重复消费"><a href="#RabbitMQ-如何避免消息被重复消费" class="headerlink" title="RabbitMQ 如何避免消息被重复消费"></a>RabbitMQ 如何避免消息被重复消费</h3><ol>
+<li>使用唯一标识符<ul>
+<li>为每条消息分配一个唯一标识符（如 UUID 或 消息 ID）。在消息者处理消息之前，先检查数据库或缓存中是否存在该标识符。如果存在，表明该消息已被处理，可以跳过；如果不存在，进行处理并记录该标识符。</li>
+</ul>
+</li>
+<li>消息指纹<ul>
+<li>为消息内容生成一个指纹（如哈希值），并检查这个指纹是否已被处理。这种方法适用于消息内容不变的情况。</li>
+</ul>
+</li>
+<li>利用Redis的原子性<ul>
+<li>需要考虑两个问题<ul>
+<li>问题1：是否要进行数据落库，如果落库的话，关键解决的问题是数据库和缓存如何做到原子性？（假如redis保存数据成功，数据库保存失败的情况）</li>
+<li>问题2：如果不进行落库，那么都存储到缓存中，如何设置定时同步的策略？（并且有可能会出现redis保存数据失败的情况）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+                
+            </div>
+            <hr/>
+
+            
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/RabbitMQ/">
+                                    <span class="chip bg-color">RabbitMQ</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/02/28/concurrenthashmap/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="ConcurrentHashMap 整理">
+                        
+                        <span class="card-title">ConcurrentHashMap 整理</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-28
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88/" class="post-category">
+                                    并发集合
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ConcurrentHash/">
+                        <span class="chip bg-color">ConcurrentHash</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/02/26/kafka-bi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Kakfa 整理">
+                        
+                        <span class="card-title">Kakfa 整理</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="post-category">
+                                    消息队列
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Kafka/">
+                        <span class="chip bg-color">Kafka</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023-2025</span>
+            
+            <a href="/about" target="_blank">Sean</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">70.6k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2023";
+                        var startMonth = "7";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/HyxiaoGe" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:hyxiao97@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

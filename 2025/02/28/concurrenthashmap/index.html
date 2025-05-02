@@ -1,0 +1,1231 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="ConcurrentHashMap 整理, HyxiaoGe">
+    <meta name="description" content="ConcurrentHashMap 提供了线程安全的映射操作，可以在多线程环境下被安全地访问和修改，内部使用 数组+链表+红黑树 结构来存储元素。适用于高并发，特别是高读少写的场景。
+JDK 8 之前数据结构（数组+链表）
+内部结构分为多个">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>ConcurrentHashMap 整理 | HyxiaoGe</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(http://sv6693ki5.hn-bkt.clouddn.com/background/bg.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="HyxiaoGe" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><script src="/js/prism.js"></script>
+<script src="/js/prism-line-numbers.min.js"></script></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">HyxiaoGe</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">HyxiaoGe</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">ConcurrentHashMap 整理</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/ConcurrentHash/">
+                                <span class="chip bg-color">ConcurrentHash</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%B9%B6%E5%8F%91%E9%9B%86%E5%90%88/" class="post-category">
+                                并发集合
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-02-28
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-05-02
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.8k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    13 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>ConcurrentHashMap 提供了线程安全的映射操作，可以在多线程环境下被安全地访问和修改，内部使用 数组+链表+红黑树 结构来存储元素。适用于高并发，特别是高读少写的场景。</p>
+<h2 id="JDK-8-之前数据结构（数组-链表）"><a href="#JDK-8-之前数据结构（数组-链表）" class="headerlink" title="JDK 8 之前数据结构（数组+链表）"></a>JDK 8 之前数据结构（数组+链表）</h2><ul>
+<li>内部结构分为多个 Segment（分段）。每个 Segment 是一个静态内部类，继承了 ReentrantLock，因此 Segment 就是可重入锁。</li>
+<li>每个 Segment 包含多个 HashEntry，每个 HashEntry 是一个链表节点，包含键值对和指向下一个节点的引用。</li>
+</ul>
+<h2 id="并发操作机制"><a href="#并发操作机制" class="headerlink" title="并发操作机制"></a>并发操作机制</h2><ul>
+<li><strong>并发读取</strong>：允许多个线程同时读取不同的 Segment 的数据，因为读取操作不需要锁定整个 Segment。</li>
+<li><strong>并发写入</strong>：写入操作（如 put 和 remove）会在对应的 Segment 上加锁。这意味着不同 Segment 的写入操作可以同时进行，而相同 Segment 的写入操作则需要等待锁。</li>
+</ul>
+<p><strong>示例场景</strong></p>
+<p>假设有 ConcurrentHashMap 内部有四个Segment，线程A和线程B分别向不同的键写入值，他们通过哈希算法定位到不同的Segment。因此，线程A和B可以同时进行操作，不会互相堵塞，从而实现高效的并发。</p>
+<p>那假如说线程A和B通过哈希算法定位到同一个Segment呢？</p>
+<p><strong>当多个线程定位到同一个 Segment 时，它们必须获得该 Segment 的锁才能进行任何操作。这意味着在任何时候，每个Segment只允许一个线程进行操作</strong>。</p>
+<h2 id="扩容机制"><a href="#扩容机制" class="headerlink" title="扩容机制"></a>扩容机制</h2><h3 id="触发扩容"><a href="#触发扩容" class="headerlink" title="触发扩容"></a><strong>触发扩容</strong></h3><ul>
+<li>当任何一个 Segment 的填充度达到阈值时（基于负载因子和 Segment 的容量），就会触发该 Segment 的扩容。</li>
+<li>扩容是针对于单个 Segment 的，而不是整个 ConcurrentHashMap。</li>
+<li>如果一个线程在进行插入操作时触发了扩容，该线程会锁定对应的 Segment 并开始扩容过程，其他试图访问同一个 Segment 的线程将会被堵塞（其他的Segment不会受影响），直到扩容完成。</li>
+</ul>
+<h3 id="扩容过程"><a href="#扩容过程" class="headerlink" title="扩容过程"></a><strong>扩容过程</strong></h3><p>当某个 Segment 的填充度达到设定阈值时，该 Segment 将独立触发扩容，这个过程包括：</p>
+<ol>
+<li>创建一个新的哈系统数组，大小通常是原数组的两倍。</li>
+<li>重新计算旧数据的哈希值并将数据迁移到新数组。</li>
+<li>迁移完成后，将旧 Segment 的引用更新为新 Segment。</li>
+</ol>
+<p><strong>利弊点</strong>：</p>
+<ul>
+<li>这种扩容机制减少了整个 ConcurrentHashMap 范围内的锁竞争，因为只有被扩容的 Segment 会被锁定，扩容和数据迁移通常由触发扩容的单个线程完成的。</li>
+<li>然而会存在局限性，在单个 Segment 达到较大时，扩容过程仍可能达到性能瓶颈，因为其他线程需要等待扩容线程完成操作。</li>
+</ul>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ol>
+<li>提高数据访问效率<ul>
+<li>在不同线程访问不同 Segment 的场景中，由于锁是分段的，线程间几乎不会相互堵塞，这大大提高了数据访问的效率。</li>
+</ul>
+</li>
+<li>减少锁的范围<ul>
+<li>锁分段技术通过仅锁定部分数据结构，来减少锁的范围，这意味着更少的线程会因为等待锁被堵塞。</li>
+</ul>
+</li>
+<li>降低锁竞争<ul>
+<li>锁分段机制有效降低了竞争，特别是有大量读操作和一定量写操作的情况下。</li>
+</ul>
+</li>
+</ol>
+<h2 id="JDK-8及以后"><a href="#JDK-8及以后" class="headerlink" title="JDK 8及以后"></a>JDK 8及以后</h2><p><strong>ConcurrentHashMap 的进化</strong></p>
+<p>在JDK8及之后的版本中，ConcurrentHashMap的内部结构和锁机制有了重大改进，主要是引入了<code>红黑树</code> 来优化长链表带来的性能问题，并且取消了 Segment 的使用，改为直接对节点进行分散加锁。</p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a><strong>数据结构</strong></h3><ul>
+<li><strong>Node数组</strong>：使用统一的 Node 数组替代了旧版本的多个 Segment。每个 Node 包含了一个 key, value 及指向下一个 Node 的引用。</li>
+<li><strong>链表和红黑树</strong>：当链表长度超过设定阈值时（默认为8），自动转化为红黑树，提升查找效率。</li>
+</ul>
+<h3 id="底线实现"><a href="#底线实现" class="headerlink" title="底线实现"></a><strong>底线实现</strong></h3><ul>
+<li><strong>CAS操作</strong>：用于无锁的读取和高效的更新，实现原子性操作。</li>
+<li><strong>Synchronized 同步块</strong>：控制复杂的写操作，如转换链表为红黑树。</li>
+</ul>
+<h3 id="特性和并发控制"><a href="#特性和并发控制" class="headerlink" title="特性和并发控制"></a>特性和并发控制</h3><ul>
+<li><strong>并发读取</strong>：无锁操作允许多线程可以同时进行读取操作，读取操作是完全无锁的。</li>
+<li><strong>并发写入</strong>：写入操作使用了 CAS 操作和 synchronized 块。CAS 用于简单的更新，而 synchronized 块用于删除或（链表转红黑树）操作。</li>
+</ul>
+<p><strong>示例场景</strong></p>
+<p>假设有两个线程：线程A和线程B，两个线程分别向ConcurrentHashMap中添加值：</p>
+<ul>
+<li>两个键经过哈希运算之后，分别发生在不同的key中，那么更新操作主要依赖于CAS操作来安全地完成更新，而不需要锁定这个段。</li>
+<li>如果两个键恰好映射到同一个桶，且其中一个操作需要更复杂的同步（如转换链表为红黑树或删除操作），则会使用synchronized来锁定这个特定的桶或节点，另外一个线程需要被堵塞。</li>
+</ul>
+<p>这种新的机制减少了锁的使用，提高了读取效率和写操作的并发控制能力。允许更多线程无锁地读取数据，同时仍然保持一定程度的写入性能。</p>
+<h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><h3 id="触发条件"><a href="#触发条件" class="headerlink" title="触发条件"></a><strong>触发条件</strong></h3><ul>
+<li>扩容通常在两种情况下被触发：当桶的数量不足以容纳当前元素时，或者单个链表的长度过长，影响了查询效率。</li>
+</ul>
+<h3 id="扩容过程-1"><a href="#扩容过程-1" class="headerlink" title="扩容过程"></a><strong>扩容过程</strong></h3><ol>
+<li>新建数组：<ul>
+<li>当扩容开始时，创建一个新的<code>节点数组</code>，其容量是原数组的两倍。</li>
+</ul>
+</li>
+<li>数据迁移：<ul>
+<li>ConcurrentHashMap 会将旧数组中的每个桶（bucket）中的节点迁移到新数组中。整个过程是并发进行的，多个线程可以同时参与到不同桶的迁移过程中。</li>
+</ul>
+</li>
+<li>重哈希：<ul>
+<li>每个节点在迁移时需要重新计算其在新数组中的位置。这是因为数组大小改变后，原哈希值映射到新数组的位置也可能发生变化。</li>
+</ul>
+</li>
+<li>转移节点：<ul>
+<li>对于链表中的每个节点，根据其哈希值确定它在新数组中的位置，并将其移动到新位置。如果原链表已经转换为红黑树，那么红黑树也会重新组织并迁移到新数组中。</li>
+</ul>
+</li>
+</ol>
+<p><strong>并发控制：</strong></p>
+<p>在扩容过程中，ConcurrentHashMap 使用了精细的并发控制机制来确保数据一致性和线程安全。它允许多个线程同时参与扩容过程，每个线程可以处理一部分数据的迁移，从而加快整体扩容过程。</p>
+<h3 id="锁定特定桶（bucket）"><a href="#锁定特定桶（bucket）" class="headerlink" title="锁定特定桶（bucket）"></a>锁定特定桶（bucket）</h3><ol>
+<li><strong>粒度更细的锁</strong>：锁的粒度更细。它不再锁定整个Segment，而是锁定特定的桶。</li>
+<li><strong>使用synchronized关键字</strong>：Synchronized关键字来锁定特定的桶。当一个线程想要访问或修改一个桶时，它必须首先获取该桶的锁。</li>
+<li><strong>每个桶作为独立的锁</strong>：每个桶都作为一个独立的锁，可以被单独锁定或解锁。这减少了线程的竞争，因为不同的线程可以锁定不同的桶。</li>
+</ol>
+<p><strong>工作流程</strong></p>
+<ol>
+<li>**计算桶的索引：**当一个线程想要添加、删除或访问一个元素时，它首先会计算元素的hash值。</li>
+<li><strong>获取桶的锁</strong>：线程在操作桶之前必须首先获取该桶的锁。如果锁不可用（已经被其他线程持有），线程将被堵塞，直到锁变为可用。</li>
+<li><strong>操作桶</strong>：一旦线程获取了桶的锁，它就可以安全地修改该桶。</li>
+<li><strong>释放锁</strong>：操作完成后，线程必须释放桶的锁，以便其他线程可以锁定该桶。</li>
+</ol>
+<p>通过这种方式，Java 8的ConcurrentHashMap允许多个线程同时访问和修改不同的桶，从而实现了更高的并发性和性能。同时，通过锁定特定的桶，它确保了线程安全性，防止了多个线程同时修改同一个桶的情况。</p>
+<h2 id="CAS和Synchronized在ConcurrentHashMap中的应用"><a href="#CAS和Synchronized在ConcurrentHashMap中的应用" class="headerlink" title="CAS和Synchronized在ConcurrentHashMap中的应用"></a>CAS和Synchronized在ConcurrentHashMap中的应用</h2><h3 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a><strong>CAS</strong></h3><p><code>CAS</code> 操作是一种无锁的同步机制。它包括三个操作数：<code>内存位置（要操作的数据）</code>、<code>预期原值</code>和<code>新值</code>。CAS首先检查<code>内存位置的当前值</code>是否与<code>预期原值</code>相同，如果相同，就将此位置更新为<code>新值</code>。整个过程是<code>原子的</code>。</p>
+<ol>
+<li>用于插入操作：<ul>
+<li>当插入一个新的键值对时，ConcurrentHashMap 使用CAS操作来确保线程安全。</li>
+<li>它首先计算键的哈希值，然后使用这个哈希值来找到对应的桶。</li>
+<li>使用CAS操作来插入新的节点到桶中，如果CAS操作失败（说明有其他线程已经修改了这个桶），它会重试操作，直到成功。</li>
+</ul>
+</li>
+<li>用于删除操作：<ul>
+<li>当删除一个键值对时，ConcurrentHashMap 同样使用CAS操作。</li>
+<li>它找到要删除的节点，然后使用CAS操作来安全地从桶中删除节点。</li>
+</ul>
+</li>
+<li>用于扩容：<ul>
+<li>当ConcurrentHashMap的大小超过一定的阈值，它会进行扩容。</li>
+<li>扩容操作也使用CAS来确保只有一个线程可以扩容数组，并且在扩容过程中，其他线程还可以继续安全地访问和修改 ConcurrentHashMap。</li>
+</ul>
+</li>
+</ol>
+<h3 id="Synchronized"><a href="#Synchronized" class="headerlink" title="Synchronized"></a><strong>Synchronized</strong></h3><ol>
+<li>复杂结构的修改：<ul>
+<li>当链表长度超过阈值，将链表转换为红黑树时，需要锁定整个链表。这种转换是复杂的结构修改，涉及多个节点，因此使用 synchronized 来确保在修改期间，没有其他线程可以修改这些节点。</li>
+</ul>
+</li>
+<li>删除操作：<ul>
+<li>在删除过程中，synchronized 被用来锁定特定节点或整个桶，保证操作的原子性和一致性。</li>
+</ul>
+</li>
+</ol>
+<h2 id="为什么使用CAS"><a href="#为什么使用CAS" class="headerlink" title="为什么使用CAS"></a>为什么使用CAS</h2><ol>
+<li>无锁优势：<ul>
+<li>CAS 提供了一种<code>无锁</code>的同步方式。相比传统的锁机制，CAS在多线程环境下可以减少堵塞和上下文切换的开销，减少线程之间的竞争，提高系统整体性能。</li>
+</ul>
+</li>
+<li>原子性：<ul>
+<li>CAS 保证了原子性，无需使用复杂的锁定机制。</li>
+</ul>
+</li>
+<li>避免死锁：<ul>
+<li>CAS 可以避免死锁的发生，因为不会像传统锁那样持有资源。</li>
+</ul>
+</li>
+</ol>
+<p><strong>替代方案的局限性</strong></p>
+<ul>
+<li><strong>悲观锁</strong>：使用传统的悲观锁（synchronized 或 ReentrantLock）可能会导致在高并发环境下性能下降。</li>
+<li><strong>自旋锁</strong>：自旋锁可以作为一种替代方案，但它在等待锁释放时会占用处理器时间，这在长时间等待的情况下可能不高效。</li>
+</ul>
+<h2 id="Java-8-ConcurrentHashMap-引入了什么新的技术？"><a href="#Java-8-ConcurrentHashMap-引入了什么新的技术？" class="headerlink" title="Java 8 ConcurrentHashMap 引入了什么新的技术？"></a>Java 8 ConcurrentHashMap 引入了什么新的技术？</h2><ol>
+<li>统一的 Node 数组：<ul>
+<li>使用单个统一的 Node 数组替代了分段的 Segment 数组。每个 Node 包含了一个键值对。</li>
+</ul>
+</li>
+<li>CAS 操作：<ul>
+<li>CAS用于在无锁的情况下实现安全的更新。在更新节点时不需要锁定整个结构。</li>
+</ul>
+</li>
+<li>synchronized 同步块：<ul>
+<li>对于需要同步的操作（如节点的删除或整个桶的更新），使用了内部的 synchronized 同步块来控制。</li>
+</ul>
+</li>
+<li>引入链表和红黑树：<ul>
+<li>在链表长度超过一定阈值时，链表转换为红黑树，这提高了查找效率。</li>
+</ul>
+</li>
+</ol>
+<h2 id="为什么要移除掉JDK7中的分段锁Segment？"><a href="#为什么要移除掉JDK7中的分段锁Segment？" class="headerlink" title="为什么要移除掉JDK7中的分段锁Segment？"></a>为什么要移除掉JDK7中的分段锁Segment？</h2><ol>
+<li>提高并发性和性能：<ul>
+<li>分段锁虽然允许多个线程同时访问不同的Segment，但如果多个线程修改同一个Segment，它们仍然会堵塞。堵塞意味着线程会被挂起，操作系统需要进行上下文切换，阻塞和上下文切换可能导致 CPU 资源的不充分利用，因为等待锁的线程不能执行任何操作。</li>
+<li>在 Java 8中，通过锁定特定的桶而不是整个Segment，引入CAS和 Synchronized 减少锁的竞争，可以进一步提高并发读。CAS 自旋是在用户态完成的，不涉及操作系统层面的线程挂起或上下文切换。</li>
+</ul>
+</li>
+<li>减少内存开销：<ul>
+<li>每个Segment对象都是一个额外的内存开销，不需要再为每个 Segment 维护独立的哈希表和锁结构，降低了内存占用。</li>
+</ul>
+</li>
+<li>优化扩容过程：<ul>
+<li>新的扩容机制允许多个线程协作进行，减少了扩容期间的堵塞和性能损失。</li>
+</ul>
+</li>
+</ol>
+<h2 id="ConcurrentHashMap-一定是线程安全的吗？"><a href="#ConcurrentHashMap-一定是线程安全的吗？" class="headerlink" title="ConcurrentHashMap 一定是线程安全的吗？"></a>ConcurrentHashMap 一定是线程安全的吗？</h2><p>高并发场景下，当涉及到符合操作的情况下，ConcurrentHashMap 还是会出现数据不一致的情况。</p>
+<p>ConcurrentHashMap 本身确保了单个操作，如<code>get</code>、<code>put</code>、<code>remove</code> 等的线程安全性，这意味着每个这样的操作都是原子的。然而，当这些操作组合在一起形成复合逻辑时，例如：</p>
+<ol>
+<li><p>检查后执行（Check-then-act）：如先通过</p>
+<pre><code>get
+</code></pre>
+<p>检查键是否存在，然后根据检查结果决定是否执行</p>
+<pre><code>put
+</code></pre>
+<p>。在多线程环境中，即使这两个操作各是安全的，组合在一起就可能不再是线程安全的。</p>
+<ul>
+<li><strong>问题示例</strong>：如果两个线程同时发现某个键不存在，它们可能各自创建一个新的值，并尝试将其插入到<code>ConcurrentHashMap</code> 中。这可能会导致后一个线程的操作覆盖前一个线程的操作。</li>
+</ul>
+</li>
+</ol>
+<p><strong>避免措施</strong></p>
+<ol>
+<li>使用原子操作：<code>ConcurrentHashMap</code> 提供了一些复合操作，如<code>putIfAbsent</code>、<code>compute</code> 、<code>computeIfAbsent</code> 和<code>computeIfPresent</code> ，这些方法可以安全地执行复合逻辑，确保整个过程的原子性。</li>
+</ol>
+<h3 id="computeIfAbsent"><a href="#computeIfAbsent" class="headerlink" title="computeIfAbsent"></a>computeIfAbsent</h3><ul>
+<li>这个方法用于在<code>键不存在</code>时计算其值，并将其添加到 HashMap 中。</li>
+<li>方法签名：computeIfAbsent(K key, Function mappingFunction)</li>
+<li>工作原理：如果给定的键在 HashMap 中不存在或其值为 null，computeIfAbsent 会使用提供的映射函数计算其值，并将键值对添加到 HashMap 中。如果键已经存在，则不执行任何操作。</li>
+<li>应用场景：常用于缓存实现，或者你希望键不存在时自动计算并存储值时。</li>
+</ul>
+<pre class="line-numbers language-language-java"><code class="language-language-java">Map<String, Integer> map = new HashMap<>();
+map.put("apple", 3);
+
+// 使用 computeIfAbsent 更新不存在的键 "banana" 的值
+map.computeIfAbsent("banana", k -> 6);
+System.out.println(map); // 输出: &#123;apple=3, banana=6&#125;
+
+// 使用 computeIfAbsent 尝试更新存在的键 "apple" 的值
+map.computeIfAbsent("apple", k -> 10);
+System.out.println(map); // 输出: &#123;apple=3, banana=6&#125;，"apple" 的值没有改变
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="computeIfPresent"><a href="#computeIfPresent" class="headerlink" title="computeIfPresent"></a>computeIfPresent</h3><ul>
+<li>这个方法用于在<code>键存在</code>且值非null时，重新计算并更新其值。</li>
+<li>方法签名：computeIfPresent(K key, BiFunction remappingFunction)</li>
+<li>工作原理：如果给定的键在 HashMap 中存在且其值非 null，computeIfPresent 会使用提供的重新映射函数根据旧值计算新值，并替换旧值。如果计算出的新值为 null，则删除该建。</li>
+<li>应用场景：常用于需要基于旧值更新键值对的场合。</li>
+</ul>
+<pre class="line-numbers language-language-java"><code class="language-language-java">Map<String, Integer> map = new HashMap<>();
+map.put("apple", 3);
+
+// 使用 computeIfPresent 更新存在的键 "apple" 的值
+map.computeIfPresent("apple", (k, v) -> v + 2);
+System.out.println(map); // 输出: &#123;apple=5&#125;
+
+// 使用 computeIfPresent 尝试更新不存在的键 "banana" 的值
+map.computeIfPresent("banana", (k, v) -> v + 2);
+System.out.println(map); // 输出: &#123;apple=5&#125;，没有 "banana" 键
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+                
+            </div>
+            <hr/>
+
+            
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/ConcurrentHash/">
+                                    <span class="chip bg-color">ConcurrentHash</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/04/26/demo/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="Markdown代码样式测试文件">
+                        
+                        <span class="card-title">Markdown代码样式测试文件</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-04-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%B5%8B%E8%AF%95/" class="post-category">
+                                    测试
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Markdown/">
+                        <span class="chip bg-color">Markdown</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B5%8B%E8%AF%95/">
+                        <span class="chip bg-color">测试</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/02/26/rabbitmq/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="RabbitMQ 整理">
+                        
+                        <span class="card-title">RabbitMQ 整理</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="post-category">
+                                    消息队列
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/RabbitMQ/">
+                        <span class="chip bg-color">RabbitMQ</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023-2025</span>
+            
+            <a href="/about" target="_blank">Sean</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">70.6k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2023";
+                        var startMonth = "7";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/HyxiaoGe" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:hyxiao97@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
