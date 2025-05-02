@@ -357,7 +357,7 @@ sudo systemctl enable do">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.5k
+                    2.6k
                 </div>
                 
 
@@ -408,15 +408,22 @@ sudo vim /etc/docker/daemon.json
 # 添加镜像加速器配置
 &#123;
   "registry-mirrors": [
-    "https://mirror.ccs.tencentyun.com",
-    "https://docker.mirrors.ustc.edu.cn"
+    "https://docker.m.daocloud.io",
+    "https://dockerproxy.com",
+    "https://docker.mirrors.ustc.edu.cn",
+    "https://docker.nju.edu.cn",
+    "https://iju9kaj2.mirror.aliyuncs.com",
+    "http://hub-mirror.c.163.com",
+    "https://cr.console.aliyun.com",
+    "https://hub.docker.com",
+    "http://mirrors.ustc.edu.cn"
   ]
 &#125;
 
 # 重启Docker服务
 sudo systemctl daemon-reload
 sudo systemctl restart docker
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 </ol>
 <h2 id="二、镜像管理"><a href="#二、镜像管理" class="headerlink" title="二、镜像管理"></a>二、镜像管理</h2><ol>
@@ -443,8 +450,8 @@ docker rmi $(docker images -q)      # 删除所有镜像
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p><strong>保存和加载镜像</strong></p>
-<pre class="line-numbers language-language-bash"><code class="language-language-bash">docker save nginx:latest > nginx.tar     # 保存镜像到tar文件
-docker load < nginx.tar                  # 从tar文件加载镜像
+<pre class="line-numbers language-language-bash"><code class="language-language-bash">docker save -o nginx.tar nginx:latest     # 保存镜像到tar文件
+docker load -i nginx.tar                  # 从tar文件加载镜像
 docker save nginx:latest | gzip > nginx.tar.gz  # 压缩保存
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 </li>
@@ -1059,16 +1066,16 @@ pipeline &#123;
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/07/15/docker-bi-ji/">
+                <a href="/2024/04/23/springcloud-alibaba-nacos/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Docker 命令完整笔记">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="SpringCloud Alibaba-Nacos">
                         
-                        <span class="card-title">Docker 命令完整笔记</span>
+                        <span class="card-title">SpringCloud Alibaba-Nacos</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1079,26 +1086,29 @@ pipeline &#123;
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-07-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-23
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%AC%94%E8%AE%B0/" class="post-category">
-                                    笔记
+                            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="post-category">
+                                    微服务
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Docker/">
-                        <span class="chip bg-color">Docker</span>
+                    <a href="/tags/SpringCloud-Alibaba/">
+                        <span class="chip bg-color">SpringCloud Alibaba</span>
+                    </a>
+                    
+                    <a href="/tags/Nacos/">
+                        <span class="chip bg-color">Nacos</span>
                     </a>
                     
                 </div>
@@ -1242,7 +1252,7 @@ pipeline &#123;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">28k</span>
+                        class="white-color">40k</span>
             
             
             
