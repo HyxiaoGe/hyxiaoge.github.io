@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="标签, HyxiaoGe">
-    <meta name="description" content="HyxiaoGe">
+    <meta name="keywords" content="SpringCloud-OpenFeign, HyxiaoGe">
+    <meta name="description" content="简介OpenFeign 是一个声明式客户端（声明式客户端：专注于要调用服务的接口，而不是服务调用的底层细节），允许开发者定义一个接口，然后通过注解指定对应的微服务名称，当这个接口被调用时，就会自动构建一个 HTTP 请求并发送，并将服务的响">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>标签 | HyxiaoGe</title>
+    <title>SpringCloud-OpenFeign | HyxiaoGe</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
@@ -279,295 +279,436 @@
 
 </header>
 
-    <div class="bg-cover pd-header about-cover">
-    <div class="container">
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">SpringCloud-OpenFeign</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
     <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                    subtitle
-                
-            </div>
-
-            <div class="description center-align">
-                
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
                     
+                    <div class="article-tag">
+                        
+                            <a href="/tags/SpringCloud/">
+                                <span class="chip bg-color">SpringCloud</span>
+                            </a>
+                        
+                            <a href="/tags/OpenFeign/">
+                                <span class="chip bg-color">OpenFeign</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="post-category">
+                                微服务
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-04-22
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-07-25
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    1.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    3 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>OpenFeign 是一个声明式客户端（声明式客户端：专注于要调用服务的接口，而不是服务调用的底层细节），允许开发者定义一个接口，然后通过注解指定对应的微服务名称，当这个接口被调用时，就会自动构建一个 HTTP 请求并发送，并将服务的响应进行解码。</p>
+<h2 id="主要特点"><a href="#主要特点" class="headerlink" title="主要特点"></a>主要特点</h2><ol>
+<li><strong>简化 HTTP 客户端</strong>：使用 OpenFeign，开发者无需手动创建 HTTP 请求，只需定义接口和注解绑定服务。</li>
+<li><strong>统一异常处理</strong>：OpenFeign 提供了统一的异常处理机制，使得服务调用失败时可以统一处理。</li>
+<li><strong>集成负载均衡</strong>：与 Ribbon 结合，OpenFeign 可以实现客户端的负载均衡。</li>
+<li><strong>支持多种 HTTP 客户端</strong>：Feign 默认使用 HttpURLConnection 进行 HTTP 调用，也可以配置为使用 Apache HttpClient、OkHttp 等其他库。</li>
+</ol>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ol>
+<li><strong>微服务调用解耦</strong>：在微服务架构中，服务间需要频繁地进行通信，OpenFeign 提供了一个简洁的方式来调用其他服务的 API，只需要像调用本地方法一样调用Feign 客户端接口，Feign 就会处理服务发现、负载均衡以及远程调用。</li>
+<li><strong>服务封装</strong>：可以将所有与特定微服务通信的逻辑封装在一个 Feign 客户端接口中，便于管理和复用。</li>
+<li><strong>错误处理和重试机制</strong>：Feign 可以配置重试机制以对应临时的网络波动或服务不稳定。</li>
+</ol>
+<h3 id="核心组件和工作流程"><a href="#核心组件和工作流程" class="headerlink" title="核心组件和工作流程"></a>核心组件和工作流程</h3><ol>
+<li>接口定义：<ul>
+<li>用户定义一个接口，并使用 Feign 提供的注解（如<code>@FeignClient</code>，<code>GetMapping</code>，<code>@PostMapping</code>等）标注接口方法。这些注解定义了如何将接口方法调用转换为 HTTP 请求。</li>
+</ul>
+</li>
+<li>动态代理：<ul>
+<li>当应用启动时，Feign 使用 Java 的动态代理技术为标注了 <code>@FeignClient</code>的接口生成代理对象。这些代理对象负责将调用转换为 HTTP 请求。</li>
+</ul>
+</li>
+<li>请求构造：<ul>
+<li>Feign 根据接口方法上的注解信息（如 URL、HTTP 方法和参数等）构造HTTP请求。这包括解析和替换URI中的变量，序列化请求体，添加必要的请求头等。</li>
+</ul>
+</li>
+<li>发送请求：<ul>
+<li>请求构造完毕后，Feign 使用配置的 HTTP 客户端（如默认的 HttpURLConnection, Apache HttpClient 或 OkHttp）发送请求到服务端。如果配置了客户端负载均衡（如 Ribbon），Feign 会查询服务发现组件（如Nacos）获取服务实例的列表，并根据负载均衡策略选择一个实例发送请求。</li>
+</ul>
+</li>
+<li>响应处理：<ul>
+<li>服务端响应后，Feign 根据配置的解码器（Decoder）处理响应数据。这通常涉及将响应体反序列化为 Java 对象。如果响应表示错误，Feign 可以使用 ErrorDecoder 来解码错误信息，并可能抛出异常。</li>
+</ul>
+</li>
+<li>异常处理和回退：<ul>
+<li>如果在请求过程中出现错误，如网络问题或服务端错误，Feign 可以配置回退逻辑（Fallback）来处理这些情况。</li>
+</ul>
+</li>
+</ol>
+<h3 id="x-Beanpublic-ClientHttpRequestFactory-clientHttpRequestFactory-HttpComponentsClientHttpRequestFactory-factory-new-HttpComponentsClientHttpRequestFactory-factory-setReadTimeout-5000-factory-setConnectTimeout-1000-factory-setHttpClient-httpClient-自定义配置-HttpClient-return-factory-​private-HttpClient-httpClient-PoolingHttpClientConnectionManager-connectionManager-new-PoolingHttpClientConnectionManager-connectionManager-setMaxTotal-200-最大连接数-connectionManager-setDefaultMaxPerRoute-50-每个路由的默认最大连接数-return-HttpClientBuilder-create-setConnectionManager-connectionManager-build-java"><a href="#x-Beanpublic-ClientHttpRequestFactory-clientHttpRequestFactory-HttpComponentsClientHttpRequestFactory-factory-new-HttpComponentsClientHttpRequestFactory-factory-setReadTimeout-5000-factory-setConnectTimeout-1000-factory-setHttpClient-httpClient-自定义配置-HttpClient-return-factory-​private-HttpClient-httpClient-PoolingHttpClientConnectionManager-connectionManager-new-PoolingHttpClientConnectionManager-connectionManager-setMaxTotal-200-最大连接数-connectionManager-setDefaultMaxPerRoute-50-每个路由的默认最大连接数-return-HttpClientBuilder-create-setConnectionManager-connectionManager-build-java" class="headerlink" title="x @Beanpublic ClientHttpRequestFactory clientHttpRequestFactory() {    HttpComponentsClientHttpRequestFactory factory &#x3D; new HttpComponentsClientHttpRequestFactory();    factory.setReadTimeout(5000);    factory.setConnectTimeout(1000);    factory.setHttpClient(httpClient()); &#x2F;&#x2F; 自定义配置 HttpClient    return factory;}​private HttpClient httpClient() {    PoolingHttpClientConnectionManager connectionManager &#x3D; new PoolingHttpClientConnectionManager();    connectionManager.setMaxTotal(200);    &#x2F;&#x2F; 最大连接数    connectionManager.setDefaultMaxPerRoute(50); &#x2F;&#x2F; 每个路由的默认最大连接数    return HttpClientBuilder.create().setConnectionManager(connectionManager).build();}java"></a>x @Beanpublic ClientHttpRequestFactory clientHttpRequestFactory() {    HttpComponentsClientHttpRequestFactory factory &#x3D; new HttpComponentsClientHttpRequestFactory();    factory.setReadTimeout(5000);    factory.setConnectTimeout(1000);    factory.setHttpClient(httpClient()); &#x2F;&#x2F; 自定义配置 HttpClient    return factory;}​private HttpClient httpClient() {    PoolingHttpClientConnectionManager connectionManager &#x3D; new PoolingHttpClientConnectionManager();    connectionManager.setMaxTotal(200);    &#x2F;&#x2F; 最大连接数    connectionManager.setDefaultMaxPerRoute(50); &#x2F;&#x2F; 每个路由的默认最大连接数    return HttpClientBuilder.create().setConnectionManager(connectionManager).build();}java</h3><p>OpenFeign 使用了 <code>Ribbon</code> 和 <code>Hystrix</code> 实现服务间通信。</p>
+<ol>
+<li>OpenFeign 客户端通过 Ribbon 确定具体的微服务实例。</li>
+<li>确定微服务实例后，OpenFeign 客户端根据定义的服务接口和方法（包括URL、HTTP方法、请求参数等）构造一个HTTP请求，并通过HTTP客户端将这个请求发送到指定的微服务实例上。</li>
+<li>当请求到达指定服务器进行处理之后并返回响应，Feign客户端会处理这个响应，并将结果反序列化（或转换）成接口方法的返回类型。</li>
+</ol>
+<p>在这个过程中，Ribbon 主要负责<code>负载均衡</code>和<code>服务发现</code>，而 Hystrix 则用于<code>短路</code>、<code>降级</code>等容错功能。Hystrix 可以提供强大的服务保护和监控能力，防止单个节点故障导致整体系统不可用。</p>
+
                 
             </div>
+            <hr/>
+
+            
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/SpringCloud/">
+                                    <span class="chip bg-color">SpringCloud</span>
+                                </a>
+                            
+                                <a href="/tags/OpenFeign/">
+                                    <span class="chip bg-color">OpenFeign</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2024/04/22/springcloud-gateway/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="SpringCloud-Gateway">
+                        
+                        <span class="card-title">SpringCloud-Gateway</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-04-22
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="post-category">
+                                    微服务
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/SpringCloud/">
+                        <span class="chip bg-color">SpringCloud</span>
+                    </a>
+                    
+                    <a href="/tags/Gateway/">
+                        <span class="chip bg-color">Gateway</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/04/10/springboot/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="SpringBoot基础巩固">
+                        
+                        <span class="card-title">SpringBoot基础巩固</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-10
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="post-category">
+                                    微服务
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/SpringBoot/">
+                        <span class="chip bg-color">SpringBoot</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
         </div>
     </div>
 </div>
 
+<!-- TOC 悬浮按钮. -->
 
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
-</script>
-<script>
-    
-      var bannerUrl = "/medias/featureimages/" + Math.floor(Math.random() * 24) + '.jpg';
-    
-    $('.bg-cover.about-cover').css('background-image', 'url(' + bannerUrl + ')');
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
 
-</script>
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
 
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
 
-    </div>
-</div>
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
 
-<main class="content">
-
-    
-
-<div id="tags" class="container chip-container">
-    <div class="card">
-        <div class="card-content">
-            <div class="tag-title center-align">
-                <i class="fas fa-tags"></i>&nbsp;&nbsp;文章标签
-            </div>
-            <div class="tag-chips">
-                
-                
-                <a href="/tags/ConcurrentHash/" title="ConcurrentHash: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="ConcurrentHash" style="background-color: #F9EBEA;">ConcurrentHash
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Git/" title="Git: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Git" style="background-color: #F5EEF8;">Git
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Kafka/" title="Kafka: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Kafka" style="background-color: #D5F5E3;">Kafka
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Langchain/" title="Langchain: 3">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Langchain" style="background-color: #E8F8F5;">Langchain
-                        <span class="tag-length">3</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/LLM/" title="LLM: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="LLM" style="background-color: #FEF9E7;">LLM
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/RAG/" title="RAG: 3">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="RAG" style="background-color: #F8F9F9;">RAG
-                        <span class="tag-length">3</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Linux/" title="Linux: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Linux" style="background-color: #82E0AA;">Linux
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/SpringBoot/" title="SpringBoot: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="SpringBoot" style="background-color: #D7BDE2;">SpringBoot
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/RabbitMQ/" title="RabbitMQ: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="RabbitMQ" style="background-color: #A3E4D7;">RabbitMQ
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/MySQL/" title="MySQL: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="MySQL" style="background-color: #85C1E9;">MySQL
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Spring/" title="Spring: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Spring" style="background-color: #F8C471;">Spring
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Redis/" title="Redis: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Redis" style="background-color: #F9E79F;">Redis
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/SpringCloud-Alibaba/" title="SpringCloud Alibaba: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="SpringCloud Alibaba" style="background-color: #FFF;">SpringCloud Alibaba
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Nacos/" title="Nacos: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Nacos" style="background-color: #A3E4D7;">Nacos
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/SpringCloud/" title="SpringCloud: 3">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="SpringCloud" style="background-color: #FFF;">SpringCloud
-                        <span class="tag-length">3</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Gateway/" title="Gateway: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Gateway" style="background-color: #F9EBEA;">Gateway
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Sentinel/" title="Sentinel: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Sentinel" style="background-color: #F9EBEA;">Sentinel
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Ribbon/" title="Ribbon: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Ribbon" style="background-color: #D5F5E3;">Ribbon
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Docker/" title="Docker: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Docker" style="background-color: #F9EBEA;">Docker
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/Markdown/" title="Markdown: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="Markdown" style="background-color: #F8F9F9;">Markdown
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E6%B5%8B%E8%AF%95/" title="测试: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="测试" style="background-color: #F8C471;">测试
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/OpenFeign/" title="OpenFeign: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="OpenFeign" style="background-color: #82E0AA;">OpenFeign
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/ElasticSearch/" title="ElasticSearch: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            data-tagname="ElasticSearch" style="background-color: #F9EBEA;">ElasticSearch
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-    
-    <link rel="stylesheet" type="text/css" href="/libs/jqcloud/jqcloud.css">
-<style type="text/css">
-    #tag-wordcloud {
-        width: 100%;
-        height: 300px;
-    }
-</style>
-
-<div class="container" data-aos="fade-up">
-    <div class="card">
-        <div id="tag-wordcloud" class="card-content"></div>
-    </div>
-</div>
-
-<script type="text/javascript" src="/libs/jqcloud/jqcloud-1.0.4.min.js"></script>
-<script type="text/javascript">
-    
-
-    $('#tag-wordcloud').jQCloud([{"text":"ConcurrentHash","weight":1,"link":"/tags/ConcurrentHash/"},{"text":"Git","weight":1,"link":"/tags/Git/"},{"text":"Kafka","weight":2,"link":"/tags/Kafka/"},{"text":"Langchain","weight":3,"link":"/tags/Langchain/"},{"text":"LLM","weight":1,"link":"/tags/LLM/"},{"text":"RAG","weight":3,"link":"/tags/RAG/"},{"text":"Linux","weight":1,"link":"/tags/Linux/"},{"text":"SpringBoot","weight":1,"link":"/tags/SpringBoot/"},{"text":"RabbitMQ","weight":1,"link":"/tags/RabbitMQ/"},{"text":"MySQL","weight":1,"link":"/tags/MySQL/"},{"text":"Spring","weight":1,"link":"/tags/Spring/"},{"text":"Redis","weight":1,"link":"/tags/Redis/"},{"text":"SpringCloud Alibaba","weight":2,"link":"/tags/SpringCloud-Alibaba/"},{"text":"Nacos","weight":1,"link":"/tags/Nacos/"},{"text":"SpringCloud","weight":3,"link":"/tags/SpringCloud/"},{"text":"Gateway","weight":1,"link":"/tags/Gateway/"},{"text":"Sentinel","weight":1,"link":"/tags/Sentinel/"},{"text":"Ribbon","weight":1,"link":"/tags/Ribbon/"},{"text":"Docker","weight":1,"link":"/tags/Docker/"},{"text":"Markdown","weight":1,"link":"/tags/Markdown/"},{"text":"测试","weight":1,"link":"/tags/测试/"},{"text":"OpenFeign","weight":1,"link":"/tags/OpenFeign/"},{"text":"ElasticSearch","weight":1,"link":"/tags/ElasticSearch/"}], {
-        autoResize: true
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
     });
 </script>
 
     
 
 </main>
+
+
 
 
     <footer class="page-footer bg-color">
