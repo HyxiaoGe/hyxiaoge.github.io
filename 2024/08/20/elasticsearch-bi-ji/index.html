@@ -4,11 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="ElasticSearch 笔记, HyxiaoGe">
-    <meta name="description" content="什么是ElasticSearchElasticSearch是一个基于Lucene的开源分布式搜索引擎，由Elastic公司开发。它具有以下特点：
+    <meta name="keywords" content="ElasticSearch笔记, HyxiaoGe">
+    <meta name="description" content="ElasticSearch 复习什么是ElasticSearchElasticSearch是一个基于Lucene的开源分布式搜索引擎，由Elastic公司开发。它具有以下特点：
 核心特性
-分布式搜索引擎：基于Lucene，提供分布式的全文搜索功能
-RESTful API：">
+分布式搜索引擎：基于Lucene，提供分布式的全文搜">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +19,7 @@ RESTful API：">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>ElasticSearch 笔记 | HyxiaoGe</title>
+    <title>ElasticSearch笔记 | HyxiaoGe</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
@@ -291,7 +290,7 @@ RESTful API：">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">ElasticSearch 笔记</h1>
+                    <h1 class="description center-align post-title">ElasticSearch笔记</h1>
                 </div>
             </div>
         </div>
@@ -340,28 +339,28 @@ RESTful API：">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2025-02-20
+                    2024-08-20
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-07-25
+                    2025-07-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.3k
+                    6.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    19 分
+                    24 分
                 </div>
                 
 
@@ -384,7 +383,7 @@ RESTful API：">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="什么是ElasticSearch"><a href="#什么是ElasticSearch" class="headerlink" title="什么是ElasticSearch"></a>什么是ElasticSearch</h1><p>ElasticSearch是一个基于Lucene的开源分布式搜索引擎，由Elastic公司开发。它具有以下特点：</p>
+                <h1 id="ElasticSearch-复习"><a href="#ElasticSearch-复习" class="headerlink" title="ElasticSearch 复习"></a>ElasticSearch 复习</h1><h1 id="什么是ElasticSearch"><a href="#什么是ElasticSearch" class="headerlink" title="什么是ElasticSearch"></a>什么是ElasticSearch</h1><p>ElasticSearch是一个基于Lucene的开源分布式搜索引擎，由Elastic公司开发。它具有以下特点：</p>
 <h2 id="核心特性"><a href="#核心特性" class="headerlink" title="核心特性"></a>核心特性</h2><ul>
 <li><strong>分布式搜索引擎</strong>：基于Lucene，提供分布式的全文搜索功能</li>
 <li><strong>RESTful API</strong>：通过HTTP使用JSON进行数据交互</li>
@@ -495,7 +494,7 @@ RESTful API：">
 <li><strong>类比：</strong> 整个<strong>高可用的数据库集群</strong>。</li>
 <li><strong>解释：</strong> 它将所有节点的数据和计算能力汇集在一起，对外提供统一的服务。你与 ES 的所有交互，都是通过集群中的某个节点进行的。集群负责管理所有索引、分片、副本的健康和分布，确保整个系统的稳定运行。</li>
 </ul>
-<h3 id="为什么说“索引的每个文档都只属于一个主分片。主分片的数量在索引创建时就必须固定，之后不能修改。”"><a href="#为什么说“索引的每个文档都只属于一个主分片。主分片的数量在索引创建时就必须固定，之后不能修改。”" class="headerlink" title="为什么说“索引的每个文档都只属于一个主分片。主分片的数量在索引创建时就必须固定，之后不能修改。”"></a>为什么说“索引的每个文档都只属于一个主分片。主分片的数量在索引创建时就必须固定，之后不能修改。”</h3><p><strong>我们先来理解第一部分：“索引的每个文档都只属于一个主分片”</strong></p>
+<h2 id="为什么说“索引的每个文档都只属于一个主分片。主分片的数量在索引创建时就必须固定，之后不能修改。”"><a href="#为什么说“索引的每个文档都只属于一个主分片。主分片的数量在索引创建时就必须固定，之后不能修改。”" class="headerlink" title="为什么说“索引的每个文档都只属于一个主分片。主分片的数量在索引创建时就必须固定，之后不能修改。”"></a>为什么说“索引的每个文档都只属于一个主分片。主分片的数量在索引创建时就必须固定，之后不能修改。”</h2><p><strong>我们先来理解第一部分：“索引的每个文档都只属于一个主分片”</strong></p>
 <p>这句话意味着，当你保存一个文档时，Elasticsearch 必须有一个<strong>确定的、可重复的</strong>方法来决定这个文档应该存到哪个主分片里。它不能这次存到分片1，下次又存到分片2，那样就乱套了，永远也找不到数据。</p>
 <p>这个决定过程，就叫做 <strong>“路由” (Routing)</strong>。</p>
 <p><strong>路由是如何工作的？</strong></p>
@@ -540,7 +539,7 @@ RESTful API：">
 <li>在重新写入的过程中，ES 会为每一条数据应用<strong>新的路由规则</strong>（比如 <code>% 6</code>），将它们正确地分布到新的 6 个分片中。</li>
 <li>数据迁移完成后，你可以将你的应用程序指向新的索引 <code>products_v2</code>，然后安全地删除旧索引。</li>
 </ol>
-<h3 id="搜索的流程是什么？"><a href="#搜索的流程是什么？" class="headerlink" title="搜索的流程是什么？"></a>搜索的流程是什么？</h3><p>具体来说，它分为几个关键步骤：</p>
+<h2 id="搜索的流程是什么？"><a href="#搜索的流程是什么？" class="headerlink" title="搜索的流程是什么？"></a>搜索的流程是什么？</h2><p>具体来说，它分为几个关键步骤：</p>
 <ol>
 <li><strong>分析查询 (Analyze Query):</strong> 首先，Elasticsearch 会使用与索引时<strong>相同的分析器 (Analyzer)</strong> 来处理用户的查询语句。例如，用户搜索“华为手机”，分析器会将其处理成词元（Tokens） <code>[&quot;华为&quot;, &quot;手机&quot;]</code>。</li>
 <li><strong>查找词典 (Term Dictionary Lookup):</strong> 接着，系统会拿着处理好的每一个词元（“华为”、“手机”），去那个已经建好的、巨大的<strong>词典 (Term Dictionary)</strong> 中快速查找。</li>
@@ -561,7 +560,7 @@ RESTful API：">
 <li><strong>直接修改主分片数会导致找不到文档，所以 ES 禁止这样做。</strong></li>
 <li><strong>正确的扩容方式（Reindex）是一个“先建新，再搬家，最后换门牌”的过程，它通过创建全新的索引来应用新的路由规则，从而保证在任何时候都不会出现找不到文档的情况。</strong></li>
 </ul>
-<h3 id="倒排索引-Inverted-Index-的工作原理是什么？"><a href="#倒排索引-Inverted-Index-的工作原理是什么？" class="headerlink" title="倒排索引 (Inverted Index) 的工作原理是什么？"></a>倒排索引 (Inverted Index) 的工作原理是什么？</h3><p>倒排索引是 Elasticsearch 实现快速全文搜索的核心数据结构，它的核心思想是“词到文档”的映射。传统的关系型数据库是“文档到词”，即根据一条记录（文档）找到里面的内容（词），而倒排索引反了过来。</p>
+<h2 id="倒排索引-Inverted-Index-的工作原理是什么？"><a href="#倒排索引-Inverted-Index-的工作原理是什么？" class="headerlink" title="倒排索引 (Inverted Index) 的工作原理是什么？"></a>倒排索引 (Inverted Index) 的工作原理是什么？</h2><p>倒排索引是 Elasticsearch 实现快速全文搜索的核心数据结构，它的核心思想是“词到文档”的映射。传统的关系型数据库是“文档到词”，即根据一条记录（文档）找到里面的内容（词），而倒排索引反了过来。</p>
 <p>而像MySQL 和 MongoDB也是做某种“值到记录”的映射，但是跟ElasticSearch有一个根本性的区别，就是<strong>分词</strong>。</p>
 <p><strong>MySQL &#x2F; MongoDB 的标准索引 (通常是 B-Tree 索引)</strong></p>
 <ul>
@@ -678,7 +677,137 @@ RESTful API：">
 </ul>
 </li>
 </ol>
-<h3 id="query-和-filter-的区别"><a href="#query-和-filter-的区别" class="headerlink" title="query 和 filter 的区别"></a><code>query</code> 和 <code>filter</code> 的区别</h3><ol>
+<h2 id="ES-查询参数的区别"><a href="#ES-查询参数的区别" class="headerlink" title="ES 查询参数的区别"></a>ES 查询参数的区别</h2><h3 id="match-查询：智能的全文搜索"><a href="#match-查询：智能的全文搜索" class="headerlink" title="match 查询：智能的全文搜索"></a><strong><code>match</code> 查询：智能的全文搜索</strong></h3><ul>
+<li><strong>核心功能：</strong> 这是进行<strong>全文搜索</strong>的标准和首选方式。它的目标是找到“相关的”文档，并计算相关性得分 <code>_score</code>。</li>
+<li><strong>是否分析查询词？</strong> <strong>是！</strong> 这是它最重要的特点。它会使用字段在 Mapping 中指定的<strong>同一个分析器</strong>来分析你的查询词。</li>
+<li><strong>工作流程：</strong><ol>
+<li>你搜索 <code>&quot;华为 手机&quot;</code>。</li>
+<li><code>match</code> 查询拿到这个字符串，用分析器将它分词成 <code>[&quot;华为&quot;, &quot;手机&quot;]</code>。</li>
+<li>然后它去倒排索引中查找同时包含这两个词元的文档。</li>
+</ol>
+</li>
+<li><strong>适用场景：</strong> 几乎所有的<strong>搜索框</strong>功能，用户输入的自然语言搜索。最适合用于 <code>text</code> 类型的字段。</li>
+<li><strong>示例：</strong></li>
+</ul>
+<pre class="line-numbers language-language-json"><code class="language-language-json">GET /products/_search
+&#123;
+  "query": &#123;
+    "match": &#123;
+      "title": "华为 手机" 
+    &#125;
+  &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="term-查询：精确的、未经分析的匹配"><a href="#term-查询：精确的、未经分析的匹配" class="headerlink" title="term 查询：精确的、未经分析的匹配"></a><strong><code>term</code> 查询：精确的、未经分析的匹配</strong></h3><ul>
+<li><strong>核心功能：</strong> 查找<strong>未经分析</strong>的、与你输入内容<strong>完全相等</strong>的词元。</li>
+<li><strong>是否分析查询词？</strong> <strong>否！</strong> 这是它与 <code>match</code> 最根本的区别。你给它什么，它就拿着什么去倒排索引里找一模一样的词元。</li>
+<li><strong>“陷阱”说明：</strong><ul>
+<li>假设一个 <code>text</code> 字段的内容是 <code>&quot;Apple iPhone&quot;</code>，经过分析后，索引里存的词元是 <code>[&quot;apple&quot;, &quot;iphone&quot;]</code>（如果是keyword类型就没事了）。</li>
+<li>如果你用 <code>term</code> 查询 <code>&quot;Apple iPhone&quot;</code>，<strong>绝对会失败</strong>，因为索引里根本没有 <code>&quot;Apple iPhone&quot;</code> 这个完整的词元。</li>
+<li>如果你用 <code>term</code> 查询 <code>&quot;Apple&quot;</code>，也<strong>可能会失败</strong>，因为索引里的词元是小写的 <code>&quot;apple&quot;</code>。<code>term</code> 查询是区分大小写的。</li>
+</ul>
+</li>
+<li><strong>适用场景：</strong> 它几乎<strong>不用于 <code>text</code> 字段</strong>。它被广泛用于<strong>精确值</strong>的过滤，比如 <code>keyword</code>（标签、ID）、<code>numeric</code>（数字）、<code>boolean</code>（布尔值）和 <code>date</code> 类型的字段。我们之前在 <code>filter</code> 上下文中用的就是它。</li>
+<li><strong>示例：</strong></li>
+</ul>
+<pre class="line-numbers language-language-json"><code class="language-language-json">GET /products/_search
+&#123;
+  "query": &#123;
+    "term": &#123;
+      "tags": "卫星通话"  // 假设 tags 是 keyword 类型
+    &#125;
+  &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="prefix-查询：“以…开头”的查询"><a href="#prefix-查询：“以…开头”的查询" class="headerlink" title="prefix 查询：“以…开头”的查询"></a><strong><code>prefix</code> 查询：“以…开头”的查询</strong></h3><ul>
+<li><strong>核心功能：</strong> 查找以你指定的<strong>前缀</strong>开头的词元。</li>
+<li><strong>是否分析查询词？</strong> <strong>否！</strong> 它将你输入的字符串作为一个完整的前缀。</li>
+<li><strong>适用场景：</strong> 用于需要“前缀匹配”的场景，比如商品编码、URL、或者简单的输入提示。通常用于 <code>keyword</code> 类型的字段。</li>
+<li><strong>示例：</strong> 查找所有 <code>product_id</code> 以 “A-123” 开头的商品。</li>
+</ul>
+<pre class="line-numbers language-language-json"><code class="language-language-json">GET /products/_search
+&#123;
+  "query": &#123;
+    "prefix": &#123;
+      "product_id": "A-123" 
+    &#125;
+  &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="wildcard-查询：通配符查询"><a href="#wildcard-查询：通配符查询" class="headerlink" title="wildcard 查询：通配符查询"></a><strong><code>wildcard</code> 查询：通配符查询</strong></h3><ul>
+<li><strong>核心功能：</strong> 允许你使用  (匹配任意多个字符) 和 <code>?</code> (匹配一个字符)来进行模式匹配。</li>
+<li><strong>是否分析查询词？</strong> <strong>否！</strong> 它将你输入的带通配符的模式作为一个整体进行匹配。</li>
+<li><strong>适用场景：</strong> 当你不确定部分内容时进行搜索。但因其性能问题，应谨慎使用。</li>
+<li><strong>性能警告：</strong> 这个查询<strong>性能通常较差</strong>，因为它需要遍历词典中大量的词元来寻找匹配项。<strong>尤其要避免将通配符  放在开头</strong>，那将是性能灾难。</li>
+<li><strong>示例：</strong></li>
+</ul>
+<pre class="line-numbers language-language-json"><code class="language-language-json">GET /products/_search
+&#123;
+  "query": &#123;
+    "wildcard": &#123;
+      "title.raw": "华? Ma*e" // 注意：通常对不分词的 .raw 字段使用
+    &#125;
+  &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="总结对比表"><a href="#总结对比表" class="headerlink" title="总结对比表"></a><strong>总结对比表</strong></h3><table>
+<thead>
+<tr>
+<th>查询类型</th>
+<th>是否分析查询词？</th>
+<th>主要用途</th>
+<th>适用字段类型</th>
+<th>性能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>match</code></strong></td>
+<td><strong>是</strong></td>
+<td>全文搜索、相关性搜索</td>
+<td><code>text</code></td>
+<td><strong>高</strong></td>
+</tr>
+<tr>
+<td><strong><code>term</code></strong></td>
+<td><strong>否</strong></td>
+<td>精确值过滤、完全匹配</td>
+<td><code>keyword</code>, <code>numeric</code>, <code>boolean</code></td>
+<td><strong>非常高</strong></td>
+</tr>
+<tr>
+<td><strong><code>prefix</code></strong></td>
+<td><strong>否</strong></td>
+<td>“以…开头”的查询</td>
+<td><code>keyword</code></td>
+<td><strong>中等</strong></td>
+</tr>
+<tr>
+<td><strong><code>wildcard</code></strong></td>
+<td><strong>否</strong></td>
+<td>通配符模式匹配</td>
+<td><code>keyword</code></td>
+<td><strong>低</strong>（慎用）</td>
+</tr>
+</tbody></table>
+<h3 id="关于-prefix-和-wildcard-的区别，以及为什么-Elasticsearch-要单独提供一个-prefix-查询呢？"><a href="#关于-prefix-和-wildcard-的区别，以及为什么-Elasticsearch-要单独提供一个-prefix-查询呢？" class="headerlink" title="关于 prefix 和 wildcard 的区别，以及为什么 Elasticsearch 要单独提供一个 prefix 查询呢？"></a>关于 <code>prefix</code> 和 <code>wildcard</code> 的区别，以及为什么 Elasticsearch 要单独提供一个 <code>prefix</code> 查询呢？</h3><ul>
+<li><strong><code>prefix</code>：</strong> 是专门用于<strong>前缀匹配</strong>的。</li>
+<li><strong><code>wildcard</code>：</strong> 功能更强大，可以进行任意位置的<strong>模糊匹配</strong>（前缀、后缀、中间）。</li>
+</ul>
+<p>从<strong>功能效果</strong>上来看，使用 <code>wildcard</code> 来做前缀匹配（如 <code>&quot;abc*&quot;</code>) 和使用 <code>prefix</code> 查询（如 <code>&quot;abc&quot;</code>) 得到的结果是<strong>一模一样</strong>的。</p>
+<p>那为什么我们还要用 <code>prefix</code> 呢？</p>
+<p><strong>因为即使是在做完全相同的前缀匹配工作时，<code>prefix</code> 的效率也比 <code>wildcard</code> 更高。</strong></p>
+<p>我们可以用一个“工具箱”的比喻来理解这个性能差异：</p>
+<ul>
+<li><strong><code>prefix</code> 查询</strong> 就像一把 <strong>专门用来拧六角螺丝的、尺寸完全匹配的扳手</strong>。它的设计目标就是做这一件事，因此它的结构简单、贴合度高、发力直接，效率是最高的。</li>
+<li><strong><code>wildcard</code> 查询</strong> 就像一把 <strong>可以调节开口大小的活动扳手</strong>。它非常强大，不仅能拧六角螺丝，还能拧四角螺丝，甚至一些不规则形状的螺母。但是，当你用它来拧那个标准的六角螺丝时，你需要先调节开口、确保卡紧，整个操作过程和内部机械结构总会比专用扳手要稍微复杂和慢一点。</li>
+</ul>
+<p><strong>深入到技术层面，为什么会这样？</strong></p>
+<p>Elasticsearch 底层的 Lucene 搜索引擎对这两种查询的处理方式不同：</p>
+<ol>
+<li><strong><code>prefix</code> 的执行路径（专用通道）</strong>：Lucene 内部的词典是按字母顺序排序的。当它收到一个 <code>prefix</code> 查询时，它有一个高度优化的“捷径”可走。它可以非常快地定位到词典中这个前缀的起始位置，然后简单地顺序向后扫描，直到不符合前缀为止。 这是一个非常直接、开销很小的操作。</li>
+<li><strong><code>wildcard</code> 的执行路径（通用通道）</strong>：当 Lucene 收到一个 <code>wildcard</code> 查询时，它会先将这个通配符模式（即使是简单的 <code>&quot;abc*&quot;</code>）编译成一个更通用的内部状态机（Automaton）。 然后用这个状态机去匹配词典中的词元。虽然对于 <code>&quot;abc*&quot;</code> 这个简单的模式，最终效果和 <code>prefix</code> 一样，但启动和运行这个更“通用”和“强大”的状态机引擎，本身就会带来一点额外的计算开销。</li>
+</ol>
+<h2 id="query-和-filter-的区别"><a href="#query-和-filter-的区别" class="headerlink" title="query 和 filter 的区别"></a><code>query</code> 和 <code>filter</code> 的区别</h2><ol>
 <li><p><strong>核心目的：相关性评分 (Scoring) vs. 是&#x2F;否 (Yes&#x2F;No)</strong></p>
 <p> <strong><code>query</code> 上下文 (Query Context)</strong></p>
 <ul>
@@ -804,7 +933,7 @@ RESTful API：">
 &#125;
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>分析：</strong> <code>must_not</code> 也运行在 filter 上下文中，因为它不计算分数，所以效率也很高。</p>
-<h3 id="分析器-Analyzer-是什么"><a href="#分析器-Analyzer-是什么" class="headerlink" title="分析器 (Analyzer)是什么"></a><strong>分析器 (Analyzer)是什么</strong></h3><p><strong>工作原理</strong>：它的工作是把一段原始的、杂乱的文本，加工成一系列规整、统一的、适合搜索的最小单元——<strong>词元 (Token)</strong>。</p>
+<h2 id="分析器-Analyzer-是什么"><a href="#分析器-Analyzer-是什么" class="headerlink" title="分析器 (Analyzer)是什么"></a><strong>分析器 (Analyzer)是什么</strong></h2><p><strong>工作原理</strong>：它的工作是把一段原始的、杂乱的文本，加工成一系列规整、统一的、适合搜索的最小单元——<strong>词元 (Token)</strong>。</p>
 <p>固定的流程分别是：</p>
 <ol>
 <li><strong>字符过滤器 (Character Filter)</strong> - <em>预处理，负责“净化”</em></li>
@@ -842,7 +971,7 @@ RESTful API：">
 <p>它的任务是在词元被拆分<strong>之后</strong>，对每一个词元进行修改、添加或删除。你可以配置零个或多个词元过滤器，它们会按顺序执行。</p>
 <ul>
 <li><strong>常见功能：</strong><ul>
-<li><strong>Lowercase</strong>: 将所有词元转为小写（<strong>Standard Tokenizer 默认</strong>）。</li>
+<li><strong>Lowercase</strong>: 将所有词元转为小写。</li>
 <li><strong>Stop Words</strong>: 移除常见的、对搜索意义不大的“停用词”（如 <code>the</code>, <code>a</code>, <code>is</code>）。</li>
 <li><strong>Stemming</strong>: 将词语简化为它的词干（e.g., <code>running</code>, <code>ran</code> 都变成 <code>run</code>）。</li>
 <li><strong>Synonym</strong>: 添加同义词 (e.g., 遇到 <code>quick</code>，可以额外添加一个 <code>fast</code> 词元)。</li>
@@ -855,7 +984,7 @@ RESTful API：">
 <li><strong>经过【Stop Words Token Filter】处理后，词元流变为：</strong><code>[ 2, quick, brown-foxes, jump, over, lazy, dog&#39;s, bone ]</code><em>(两个 <code>the</code> 被移除了)</em></li>
 </ol>
 <p><strong>最终，被写入倒排索引的就是这个最终的词元流。</strong></p>
-<h3 id="用-IK-分析器时，遇到英文会怎样？"><a href="#用-IK-分析器时，遇到英文会怎样？" class="headerlink" title="用 IK 分析器时，遇到英文会怎样？"></a>用 IK 分析器时，遇到英文会怎样？</h3><p><strong>当您为一个字段指定了 <code>ik_analyzer</code>，那么无论这个字段里是中文、英文还是数字，都会由 <code>ik_analyzer</code> 来全权处理。它不会自动切换到 <code>standard</code> 分析器。</strong></p>
+<h2 id="用-IK-分析器时，遇到英文会怎样？"><a href="#用-IK-分析器时，遇到英文会怎样？" class="headerlink" title="用 IK 分析器时，遇到英文会怎样？"></a>用 IK 分析器时，遇到英文会怎样？</h2><p><strong>当您为一个字段指定了 <code>ik_analyzer</code>，那么无论这个字段里是中文、英文还是数字，都会由 <code>ik_analyzer</code> 来全权处理。它不会自动切换到 <code>standard</code> 分析器。</strong></p>
 <p>那么，IK 是如何处理英文的呢？</p>
 <p>它的处理逻辑通常是：</p>
 <ol>
@@ -866,7 +995,7 @@ RESTful API：">
 <p>如果你的文本是 <code>&quot;IK分析器 very good&quot;</code></p>
 <p>使用 <code>ik_analyzer</code> 分析后，得到的词元流会是：<br><code>[ik, 分析器, very, good]</code></p>
 <p>你可以看到，它既正确地处理了中文的“分析器”，也正确地处理了英文的“ik”、“very”和“good”。</p>
-<h3 id="如何为中英文提供各自最优的分析？"><a href="#如何为中英文提供各自最优的分析？" class="headerlink" title="如何为中英文提供各自最优的分析？"></a><strong>如何为中英文提供各自最优的分析？</strong></h3><p>虽然 IK 能很好地处理英文，但它毕竟不是专门为英文设计的（比如它缺少英文中很重要的<strong>词干提取&#x2F;Stemming</strong>功能，不能把 <code>running</code> 和 <code>run</code> 视为同一个词）。</p>
+<h2 id="如何为中英文提供各自最优的分析？"><a href="#如何为中英文提供各自最优的分析？" class="headerlink" title="如何为中英文提供各自最优的分析？"></a><strong>如何为中英文提供各自最优的分析？</strong></h2><p>虽然 IK 能很好地处理英文，但它毕竟不是专门为英文设计的（比如它缺少英文中很重要的<strong>词干提取&#x2F;Stemming</strong>功能，不能把 <code>running</code> 和 <code>run</code> 视为同一个词）。</p>
 <p>如果想达到极致的效果，最优的方案是使用 <strong>Multi-fields (多字段)</strong>。</p>
 <p>您可以在字段映射（Mapping）中这样设置：</p>
 <pre class="line-numbers language-language-json"><code class="language-language-json">PUT /my_index
@@ -897,7 +1026,7 @@ RESTful API：">
 <li>当你的用户主要用中文搜索时，你查询 <code>title</code> 字段。</li>
 <li>当你判断用户的查询是英文时，你可以去查询 <code>title.english</code> 字段。</li>
 </ul>
-<h3 id="索引设计讲解"><a href="#索引设计讲解" class="headerlink" title="索引设计讲解"></a>索引设计讲解</h3><p>Mapping 就是索引的“模式定义 (Schema)”，它告诉 Elasticsearch 如何处理和索引你文档中的每一个字段。一个精心设计的 Mapping 能带来诸多好处：</p>
+<h2 id="索引设计讲解"><a href="#索引设计讲解" class="headerlink" title="索引设计讲解"></a>索引设计讲解</h2><p>Mapping 就是索引的“模式定义 (Schema)”，它告诉 Elasticsearch 如何处理和索引你文档中的每一个字段。一个精心设计的 Mapping 能带来诸多好处：</p>
 <ul>
 <li><strong>节省存储空间</strong></li>
 <li><strong>提升索引和查询性能</strong></li>
@@ -1030,7 +1159,7 @@ RESTful API：">
 <li><p><strong><code>nested</code> 类型</strong>通过为每个数组元素创建独立的隐藏文档来解决这个问题，<strong>完美地保留了对象内部字段之间的关联性</strong>，让你可以进行精确的内部查询。</p>
 </li>
 </ul>
-<h3 id="写入（索引）性能优化"><a href="#写入（索引）性能优化" class="headerlink" title="写入（索引）性能优化"></a><strong>写入（索引）性能优化</strong></h3><p>想象一个场景：您需要将一个包含 1 亿条商品数据的数据库，首次同步到 Elasticsearch 中。如果一条一条地写入，可能需要几天几夜。但通过优化，我们可能将这个时间缩短到几小时甚至几十分钟。</p>
+<h2 id="写入（索引）性能优化"><a href="#写入（索引）性能优化" class="headerlink" title="写入（索引）性能优化"></a><strong>写入（索引）性能优化</strong></h2><p>想象一个场景：您需要将一个包含 1 亿条商品数据的数据库，首次同步到 Elasticsearch 中。如果一条一条地写入，可能需要几天几夜。但通过优化，我们可能将这个时间缩短到几小时甚至几十分钟。</p>
 <p>以下是提升写入性能的几个关键手段，按照重要性排序：</p>
 <hr>
 <p><strong>1. 使用 Bulk API (批量写入)</strong></p>
@@ -1120,7 +1249,7 @@ PUT /my_index/_settings
 <li><strong>执行写入：</strong> 使用多线程和 <strong>Bulk API</strong> 并发地写入数据，并监控集群状态。</li>
 <li><strong>恢复设置：</strong> 数据全部写入完成后，将 <code>number_of_replicas</code> 和 <code>refresh_interval</code> 恢复到它们的正常值。</li>
 </ol>
-<h3 id="查询性能优化"><a href="#查询性能优化" class="headerlink" title="查询性能优化"></a>查询性能优化</h3><p><strong>1. 避免深度分页 (Deep Pagination)</strong></p>
+<h2 id="查询性能优化"><a href="#查询性能优化" class="headerlink" title="查询性能优化"></a>查询性能优化</h2><p><strong>1. 避免深度分页 (Deep Pagination)</strong></p>
 <ul>
 <li><strong>问题是什么？</strong> 在关系型数据库中，<code>LIMIT 10000, 10</code> 这样的查询可能依然很快。但在分布式系统中，这会成为一个灾难。ES 中使用 <code>from</code> 和 <code>size</code> 的分页方式，当你请求 <code>from: 10000, size: 10</code> 时，ES 必须：<ol>
 <li>在<strong>每个分片</strong>上都找出前 <code>10010</code> (from + size) 个文档。</li>
@@ -1169,7 +1298,7 @@ PUT /my_index/_settings
 <li><strong>避免浪费：</strong> 不做多余的工作。避免深度分页的巨大开销，只请求必要的字段。</li>
 <li><strong>善用索引：</strong> 确保你的查询能最大化地利用倒排索引的优势，避免全索引扫描。</li>
 </ol>
-<h3 id="脑裂-Split-Brain"><a href="#脑裂-Split-Brain" class="headerlink" title="脑裂 (Split-Brain)"></a>脑裂 (Split-Brain)</h3><p>我们先用一个简单的比喻来理解。</p>
+<h2 id="脑裂-Split-Brain"><a href="#脑裂-Split-Brain" class="headerlink" title="脑裂 (Split-Brain)"></a>脑裂 (Split-Brain)</h2><p>我们先用一个简单的比喻来理解。</p>
 <p>想象一个公司只有一个 CEO，所有决策都由他做出，公司井井有条。</p>
 <p>突然有一天，公司总部大楼中间的电话线和网络断了，把公司分成了两半（比如A座和B座）。</p>
 <ul>
@@ -1206,7 +1335,7 @@ PUT /my_index/_settings
 <li><strong>孤岛2 (Node-2, Node-3):</strong> 它们有两个节点，数量 <code>2</code> 等于法定人数 <code>2</code>。因此，它们<strong>有权</strong>在它们之间选举出一个新的主节点（比如 Node-2）。</li>
 </ul>
 <p><strong>结果：</strong> 整个集群在任何时候都只有一个合法的主节点（Node-2）。当网络恢复后，Node-1 会自动发现已经存在主节点，并作为从节点加入回去。<strong>脑裂被成功避免了！</strong></p>
-<h3 id="集群引导-Cluster-Bootstrapping"><a href="#集群引导-Cluster-Bootstrapping" class="headerlink" title="集群引导 (Cluster Bootstrapping)"></a><strong>集群引导 (Cluster Bootstrapping)</strong></h3><p>“集群引导”是一个<strong>仅在集群生命周期中发生一次</strong>的初始化过程。</p>
+<h2 id="集群引导-Cluster-Bootstrapping"><a href="#集群引导-Cluster-Bootstrapping" class="headerlink" title="集群引导 (Cluster Bootstrapping)"></a><strong>集群引导 (Cluster Bootstrapping)</strong></h2><p>“集群引导”是一个<strong>仅在集群生命周期中发生一次</strong>的初始化过程。</p>
 <p><strong>这个过程是如何工作的？</strong></p>
 <p>当你准备启动一个全新的、由多个节点（比如 Node-A, Node-B, Node-C）组成的 ES 集群时，你需要在<strong>每一个主节点候选人</strong>的配置文件 (<code>elasticsearch.yml</code>) 中，明确地列出这个初始“三人小组”的成员。</p>
 <p>这个配置项就是：<code>cluster.initial_master_nodes</code></p>
@@ -1519,13 +1648,13 @@ discovery.seed_hosts: ["192.168.1.10", "192.168.1.11", "192.168.1.12"]
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2025/02/26/kafka-bi-ji/">
+                <a href="/2024/08/23/git-bi-ji/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Kakfa 整理">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Git 命令完整笔记">
                         
-                        <span class="card-title">Kakfa 整理</span>
+                        <span class="card-title">Git 命令完整笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1536,14 +1665,14 @@ discovery.seed_hosts: ["192.168.1.10", "192.168.1.11", "192.168.1.12"]
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-26
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-08-23
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="post-category">
-                                    中间件
+                            <a href="/categories/%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    笔记
                                 </a>
                             
                             
@@ -1553,8 +1682,8 @@ discovery.seed_hosts: ["192.168.1.10", "192.168.1.11", "192.168.1.12"]
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Kafka/">
-                        <span class="chip bg-color">Kafka</span>
+                    <a href="/tags/Git/">
+                        <span class="chip bg-color">Git</span>
                     </a>
                     
                 </div>
@@ -1568,13 +1697,13 @@ discovery.seed_hosts: ["192.168.1.10", "192.168.1.11", "192.168.1.12"]
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2025/02/12/da-mo-xing-rag-ying-yong-kai-fa-ji-chu-ji-ru-men/">
+                <a href="/2024/08/10/linux-bi-ji/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="大模型 RAG 应用开发基础及入门">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Linux常用命令">
                         
-                        <span class="card-title">大模型 RAG 应用开发基础及入门</span>
+                        <span class="card-title">Linux常用命令</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1585,14 +1714,14 @@ discovery.seed_hosts: ["192.168.1.10", "192.168.1.11", "192.168.1.12"]
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-08-10
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/AI/" class="post-category">
-                                    AI
+                            <a href="/categories/%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    笔记
                                 </a>
                             
                             
@@ -1602,8 +1731,8 @@ discovery.seed_hosts: ["192.168.1.10", "192.168.1.11", "192.168.1.12"]
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/RAG/">
-                        <span class="chip bg-color">RAG</span>
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
@@ -1747,7 +1876,7 @@ discovery.seed_hosts: ["192.168.1.10", "192.168.1.11", "192.168.1.12"]
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">79.6k</span>
+                        class="white-color">88.3k</span>
             
             
             

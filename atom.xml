@@ -121,31 +121,6 @@
   </entry>
   
   <entry>
-    <title>ElasticSearch 笔记</title>
-    <link href="https://hyxiaoge.github.io/2025/02/20/elasticsearch-bi-ji/"/>
-    <id>https://hyxiaoge.github.io/2025/02/20/elasticsearch-bi-ji/</id>
-    <published>2025-02-20T12:40:13.000Z</published>
-    <updated>2025-07-25T09:31:00.997Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;什么是ElasticSearch&quot;&gt;&lt;a href=&quot;#什么是ElasticSearch&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="中间件" scheme="https://hyxiaoge.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
-    
-    
-    <category term="ElasticSearch" scheme="https://hyxiaoge.github.io/tags/ElasticSearch/"/>
-    
-  </entry>
-  
-  <entry>
     <title>大模型 RAG 应用开发基础及入门</title>
     <link href="https://hyxiaoge.github.io/2025/02/12/da-mo-xing-rag-ying-yong-kai-fa-ji-chu-ji-ru-men/"/>
     <id>https://hyxiaoge.github.io/2025/02/12/da-mo-xing-rag-ying-yong-kai-fa-ji-chu-ji-ru-men/</id>
@@ -252,6 +227,31 @@
   </entry>
   
   <entry>
+    <title>Nginx笔记</title>
+    <link href="https://hyxiaoge.github.io/2024/09/18/nginx-bi-ji/"/>
+    <id>https://hyxiaoge.github.io/2024/09/18/nginx-bi-ji/</id>
+    <published>2024-09-18T13:23:13.000Z</published>
+    <updated>2025-07-27T14:49:05.538Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Nginx-复习&quot;&gt;&lt;a href=&quot;#Nginx-复习&quot; class=&quot;headerlink&quot; title=&quot;Nginx 复习&quot;&gt;&lt;/a&gt;Nginx 复习&lt;/h1&gt;&lt;h1 id=&quot;Nginx-概述&quot;&gt;&lt;a href=&quot;#Nginx-概述&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="中间件" scheme="https://hyxiaoge.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+    
+    <category term="Nginx" scheme="https://hyxiaoge.github.io/tags/Nginx/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Git 命令完整笔记</title>
     <link href="https://hyxiaoge.github.io/2024/08/23/git-bi-ji/"/>
     <id>https://hyxiaoge.github.io/2024/08/23/git-bi-ji/</id>
@@ -275,6 +275,31 @@
     
     
     <category term="Git" scheme="https://hyxiaoge.github.io/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ElasticSearch笔记</title>
+    <link href="https://hyxiaoge.github.io/2024/08/20/elasticsearch-bi-ji/"/>
+    <id>https://hyxiaoge.github.io/2024/08/20/elasticsearch-bi-ji/</id>
+    <published>2024-08-20T15:49:50.000Z</published>
+    <updated>2025-07-27T14:50:48.266Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;ElasticSearch-复习&quot;&gt;&lt;a href=&quot;#ElasticSearch-复习&quot; class=&quot;headerlink&quot; title=&quot;ElasticSearch 复习&quot;&gt;&lt;/a&gt;ElasticSearch 复习&lt;/h1&gt;&lt;h1</summary>
+        
+      
+    
+    
+    
+    <category term="中间件" scheme="https://hyxiaoge.github.io/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+    
+    <category term="ElasticSearch" scheme="https://hyxiaoge.github.io/tags/ElasticSearch/"/>
     
   </entry>
   
@@ -333,14 +358,15 @@
     <link href="https://hyxiaoge.github.io/2024/05/04/redis/"/>
     <id>https://hyxiaoge.github.io/2024/05/04/redis/</id>
     <published>2024-05-04T02:10:09.000Z</published>
-    <updated>2025-05-02T15:45:41.128Z</updated>
+    <updated>2025-07-28T14:53:51.035Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;Redis-是什么&quot;&gt;&lt;a href=&quot;#Redis-是什么&quot; class=&quot;headerlink&quot; title=&quot;Redis 是什么&quot;&gt;&lt;/a&gt;Redis 是什么&lt;/h2&gt;&lt;p&gt;Redis</summary>
+    <summary type="html">&lt;p&gt;Redis 是一种高性能、基于内存的开源键值存储数据库系统，它主要用于&lt;code&gt;缓存&lt;/code&gt;、&lt;code&gt;会话管理&lt;/code&gt;和&lt;code&gt;实时分析&lt;/code&gt;等用途。&lt;/p&gt;
+&lt;h2 id=&quot;关键特点&quot;&gt;&lt;a href=&quot;#关键特点&quot;</summary>
         
       
     
@@ -510,31 +536,6 @@
     <category term="SpringCloud" scheme="https://hyxiaoge.github.io/tags/SpringCloud/"/>
     
     <category term="OpenFeign" scheme="https://hyxiaoge.github.io/tags/OpenFeign/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringBoot基础巩固</title>
-    <link href="https://hyxiaoge.github.io/2024/04/10/springboot/"/>
-    <id>https://hyxiaoge.github.io/2024/04/10/springboot/</id>
-    <published>2024-04-10T12:38:03.000Z</published>
-    <updated>2025-05-02T15:37:16.139Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;约定大于配置、自动配置&quot;&gt;&lt;a href=&quot;#约定大于配置、自动配置&quot; class=&quot;headerlink&quot; title=&quot;约定大于配置、自动配置&quot;&gt;&lt;/a&gt;约定大于配置、自动配置&lt;/h2&gt;&lt;h3 id=&quot;约定大于配置&quot;&gt;&lt;a href=&quot;#约定大于配置&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="微服务" scheme="https://hyxiaoge.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
-    
-    
-    <category term="SpringBoot" scheme="https://hyxiaoge.github.io/tags/SpringBoot/"/>
     
   </entry>
   
