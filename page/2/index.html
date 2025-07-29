@@ -557,7 +557,7 @@ sudo systemctl enable do
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                MySQL索引，以及数据结构是什么？由于数据库的索引是保存到磁盘上的，因此当我们通过索引查找某行数据的时候，就需要先从磁盘读取索引到内存，再通过索引从磁盘中找到某行数据，然后读入到内存，也就是说查询过程中会发生多次磁盘 I&#x2F;O，而
+                                MySQL 复习在MySQL中，索引和数据都存储在磁盘中。当我们通过索引进行查询时，首先需要进行磁盘I&#x2F;O，将索引页加载到内存中。通过内存中的索引定位到数据所在的物理位置后，还需要再次进行磁盘I&#x2F;O来读取相应的数据行。由
                             
                         </div>
                         <div class="publish-info">
@@ -912,7 +912,7 @@ Filters：过滤器
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">95.3k</span>
+                        class="white-color">96.2k</span>
             
             
             
