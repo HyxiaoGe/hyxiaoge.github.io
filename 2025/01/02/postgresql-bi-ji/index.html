@@ -1,0 +1,1384 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="PostgreSQL 复习, HyxiaoGe">
+    <meta name="description" content="PostgreSQL 复习索引 (Indexing)除了标准的 B-Tree 索引，你必须了解 PG 的特色索引。
+
+GIN (Generalized Inverted Index): 广义倒排索引。
+用途：专门用于索引“组合”类型的数据，">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>PostgreSQL 复习 | HyxiaoGe</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(http://sv6693ki5.hn-bkt.clouddn.com/background/bg.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="HyxiaoGe" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><script src="/js/prism.js"></script>
+<script src="/js/prism-line-numbers.min.js"></script></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">HyxiaoGe</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">HyxiaoGe</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">PostgreSQL 复习</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/PostgreSQL/">
+                                <span class="chip bg-color">PostgreSQL</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                数据库
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-01-02
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-08-02
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    21 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="PostgreSQL-复习"><a href="#PostgreSQL-复习" class="headerlink" title="PostgreSQL 复习"></a>PostgreSQL 复习</h1><h2 id="索引-Indexing"><a href="#索引-Indexing" class="headerlink" title="索引 (Indexing)"></a>索引 (Indexing)</h2><p>除了标准的 B-Tree 索引，你必须了解 PG 的特色索引。</p>
+<ul>
+<li><strong>GIN (Generalized Inverted Index)</strong>: 广义倒排索引。<ul>
+<li><strong>用途</strong>：专门用于索引“组合”类型的数据，最典型的就是 <code>JSONB</code>、数组 (<code>Array</code>) 和全文搜索 (<code>tsvector</code>)。</li>
+<li><strong>原理</strong>：它为元素集合中的每个元素（例如 JSON 的 key，数组的元素）创建索引条目，类似于倒排索引。</li>
+<li><strong>面试问题</strong>：“如何加速对 JSONB 列中某个 key 的查询？” 答案就是使用 GIN 索引。</li>
+</ul>
+</li>
+<li><strong>GiST (Generalized Search Tree)</strong>: 广义搜索树。<ul>
+<li><strong>用途</strong>：用于索引更复杂的数据结构，如几何图形（二维、三维）和全文搜索。PostGIS 插件就大量使用 GiST 索引。</li>
+<li><strong>面试问题</strong>：“如果要实现‘查找附近5公里内的所有门店’的功能，数据库层面可以做什么优化？” 答案是使用 PostGIS 扩展，并为地理位置列创建 GiST 索引。</li>
+</ul>
+</li>
+<li><strong>BRIN (Block Range Index)</strong>: 块范围索引。<ul>
+<li><strong>用途</strong>：适用于数据在物理存储上具有天然排序性的<strong>超大表</strong>（例如按时间戳排序的日志表）。</li>
+<li><strong>原理</strong>：它只存储每个“块范围”（例如 128 个数据页）的最大值和最小值，因此索引本身非常小，维护成本极低。</li>
+<li><strong>面试问题</strong>：“一张数百亿行的日志表，按时间分区，如何对时间戳列进行高效索引且占用空间尽可能小？” BRIN 索引是标准答案。</li>
+</ul>
+</li>
+</ul>
+<h2 id="JSONB-数据类型"><a href="#JSONB-数据类型" class="headerlink" title="JSONB 数据类型"></a><code>JSONB</code> 数据类型</h2><p>这是 PG 在现代应用开发中的一大亮点。</p>
+<ul>
+<li><strong>为什么用 <code>JSONB</code> 而不是 <code>JSON</code> 或 <code>TEXT</code>？</strong><ul>
+<li><code>vs TEXT</code>: <code>JSONB</code> 会校验 JSON 格式的有效性，且内部二进制结构支持高效的字段提取和查询。</li>
+<li><code>vs JSON</code>: <code>JSONB</code> 存的是解析后的二进制，插入时稍慢，但查询时快得多。更重要的是，<strong><code>JSONB</code> 可以被 GIN 索引高效地支持</strong>。</li>
+</ul>
+</li>
+<li><strong>常用操作符</strong><ul>
+<li><code>&gt;</code>: 按 key 获取字段，返回 <code>jsonb</code>。</li>
+<li><code>&gt;&gt;</code>: 按 key 获取字段，返回 <code>text</code>。</li>
+<li><code>@&gt;</code>: <code>A @&gt; B</code> 表示 A 是否“包含”B。常用于查询 JSON 中是否存在某个键值对。</li>
+<li><code>?</code>: 判断顶层 key 是否存在。</li>
+</ul>
+</li>
+</ul>
+<h2 id="WITH-子句-Common-Table-Expressions-CTEs"><a href="#WITH-子句-Common-Table-Expressions-CTEs" class="headerlink" title="WITH 子句 (Common Table Expressions - CTEs)"></a><code>WITH</code> 子句 (Common Table Expressions - CTEs)</h2><p>虽然现代 MySQL 也支持，但 PG 对 CTE 的支持更早、更完善，并且支持<strong>递归查询</strong>。</p>
+<ul>
+<li><strong>优点</strong>：提高复杂 SQL 的可读性；可以被多次引用；支持递归（如查询组织架构树、物料清单等）。</li>
+<li><strong>面试问题</strong>：“如何查询一个组织架构中某员工的所有下属（包括间接下属）？” 标准答案就是使用 <code>WITH RECURSIVE</code>。</li>
+</ul>
+<h2 id="窗口函数-Window-Functions"><a href="#窗口函数-Window-Functions" class="headerlink" title="窗口函数 (Window Functions)"></a>窗口函数 (Window Functions)</h2><p>同样，现代 MySQL 也支持，但这是衡量 SQL 掌握水平的经典问题。</p>
+<ul>
+<li><strong>核心</strong>：<code>OVER (PARTITION BY ... ORDER BY ...)</code></li>
+<li><strong>常用函数</strong>：<code>ROW_NUMBER()</code>, <code>RANK()</code>, <code>DENSE_RANK()</code>, <code>LAG()</code>, <code>LEAD()</code> 等。</li>
+<li><strong>面试问题</strong>：“如何查询每个部门工资前三名的员工？” 这是窗口函数的经典应用场景。</li>
+</ul>
+<hr>
+<h2 id="运维与性能优化"><a href="#运维与性能优化" class="headerlink" title="运维与性能优化"></a>运维与性能优化</h2><p><strong><code>EXPLAIN ANALYZE</code></strong></p>
+<p>这是 PG 性能分析的利器，比单纯的 <code>EXPLAIN</code> 更强大，因为它会<strong>实际执行</strong>查询。</p>
+<ul>
+<li><strong>关注点</strong>：<ul>
+<li><strong>Scan Type</strong>: 是 <code>Seq Scan</code> (全表扫描) 还是 <code>Index Scan</code> &#x2F; <code>Bitmap Scan</code> (索引扫描)？</li>
+<li><strong>Cost</strong>: 估算成本，<code>startup</code> (启动成本) 和 <code>total</code> (总成本)。</li>
+<li><strong>Rows</strong>: 估算的行数 (<code>rows</code>) 和实际返回的行数 (<code>rows</code>)，如果两者差距巨大，说明统计信息可能已过时。</li>
+<li><strong>Execution Time</strong>: 实际执行时间。</li>
+</ul>
+</li>
+</ul>
+<p><strong><code>VACUUM</code></strong></p>
+<p>这是 PG 最具特色的运维操作，与 MVCC 紧密相关。</p>
+<ul>
+<li><strong>为什么需要 <code>VACUUM</code>？</strong><ul>
+<li>当一行数据被 <code>UPDATE</code> 或 <code>DELETE</code> 时，旧版本的数据并不会立即从物理上删除，只是被标记为“死的”（dead tuple）。这些死元组会占用磁盘空间，导致表膨胀（Bloat）。</li>
+<li><code>VACUUM</code> 的主要作用就是<strong>回收这些死元组占用的空间</strong>，并<strong>更新表的统计信息</strong>供查询优化器使用。</li>
+</ul>
+</li>
+<li><strong><code>VACUUM</code> vs <code>VACUUM FULL</code></strong><ul>
+<li><code>VACUUM</code>: 不会锁表，可以并发执行。它只是将空间标记为可重用，并不会将空间还给操作系统，表文件大小（High Water Mark）不变。</li>
+<li><code>VACUUM FULL</code>: 会<strong>锁住整张表</strong>，将表中的有效数据重新写入一个新的物理文件，然后将空间还给操作系统。这是一个非常重的操作，<strong>线上环境需谨慎使用</strong>。</li>
+</ul>
+</li>
+<li><strong>Autovacuum</strong><ul>
+<li>PG 内置的后台进程，会自动检测并触发 <code>VACUUM</code> 和 <code>ANALYZE</code>。通常情况下，我们依赖它来做日常维护。你需要了解它的基本工作原理和相关配置参数。</li>
+</ul>
+</li>
+</ul>
+<p><strong>连接池 (Connection Pooling)</strong></p>
+<p>由于 PG 的多进程模型，建立连接的成本相对较高。</p>
+<ul>
+<li><strong>为什么必须用连接池？</strong> 在高并发场景下，频繁创建和销毁数据库连接会严重消耗服务器资源，导致性能瓶颈。</li>
+<li><strong>常用工具</strong>：<strong>PgBouncer</strong> 是最常用、最轻量级的外部连接池。面试时能提到它会很加分。</li>
+</ul>
+<p><strong>复制与高可用 (Replication &amp; HA)</strong></p>
+<ul>
+<li><strong>流复制 (Streaming Replication)</strong>: PG 原生的、最主要的复制方式（物理复制）。通过持续传输 WAL (Write-Ahead Logging) 日志来实现主备同步。可以配置为同步或异步。</li>
+<li><strong>逻辑复制 (Logical Replication)</strong>: 基于发布&#x2F;订阅模型的复制方式。可以更灵活地选择只复制某些表，甚至可以在不同 PG 大版本之间进行复制。</li>
+<li><strong>高可用方案</strong>: 提到 <strong>Patroni</strong> + <strong>Etcd&#x2F;Consul</strong> 组合是当前构建 PG 高可用集群的主流和最佳实践方案。</li>
+</ul>
+<hr>
+<h2 id="PostgreSQL-中-CHAR-VARCHAR-TEXT-有什么区别？应该如何选择？"><a href="#PostgreSQL-中-CHAR-VARCHAR-TEXT-有什么区别？应该如何选择？" class="headerlink" title="PostgreSQL 中 CHAR, VARCHAR, TEXT 有什么区别？应该如何选择？"></a>PostgreSQL 中 <code>CHAR</code>, <code>VARCHAR</code>, <code>TEXT</code> 有什么区别？应该如何选择？</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th><code>DELETE</code></th>
+<th><code>TRUNCATE</code></th>
+<th><code>DROP</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>操作对象</strong></td>
+<td>表中的<strong>一行或多行</strong>数据</td>
+<td>表中的<strong>所有行</strong>数据</td>
+<td><strong>整个表对象</strong>（结构+数据）</td>
+</tr>
+<tr>
+<td><strong>SQL类型</strong></td>
+<td>DML (数据操作语言)</td>
+<td>DDL (数据定义语言)</td>
+<td>DDL (数据定义语言)</td>
+</tr>
+<tr>
+<td><strong>WHERE 子句</strong></td>
+<td><strong>可以使用</strong>，指定删除行</td>
+<td><strong>不可以使用</strong></td>
+<td><strong>不可以使用</strong></td>
+</tr>
+<tr>
+<td><strong>事务与回滚</strong></td>
+<td><strong>可回滚</strong> (Rollback)</td>
+<td><strong>不可回滚</strong> (或隐式提交，取决于数据库)</td>
+<td><strong>不可回滚</strong></td>
+</tr>
+<tr>
+<td><strong>执行速度</strong></td>
+<td><strong>慢</strong>（逐行删除，记录日志）</td>
+<td><strong>非常快</strong>（通常是释放数据页）</td>
+<td><strong>非常快</strong>（释放表空间，删除元数据）</td>
+</tr>
+<tr>
+<td><strong>触发器 (Trigger)</strong></td>
+<td><strong>会触发</strong>行级删除触发器</td>
+<td><strong>不会触发</strong>删除触发器</td>
+<td><strong>不会触发</strong>删除触发器</td>
+</tr>
+<tr>
+<td><strong>空间回收</strong></td>
+<td>通常不立即释放磁盘空间</td>
+<td>通常立即释放磁盘空间</td>
+<td>立即释放磁盘空间</td>
+</tr>
+<tr>
+<td><strong>自增ID重置</strong></td>
+<td><strong>不重置</strong></td>
+<td><strong>重置</strong></td>
+<td>表都没了，无从谈起</td>
+</tr>
+</tbody></table>
+<p>这三者<strong>在性能上确实没有差别</strong>。它们的主要区别在于<strong>行为和约束</strong>：</p>
+<ol>
+<li><strong><code>TEXT</code></strong> 是无约束的变长字符串。</li>
+<li><strong><code>VARCHAR(n)</code></strong> 是增加了<strong>长度上限约束</strong>的变长字符串。</li>
+<li><strong><code>CHAR(n)</code></strong> 是会进行<strong>空格填充</strong>的定长字符串。</li>
+</ol>
+<h2 id="PostgreSQL-事务隔离级别"><a href="#PostgreSQL-事务隔离级别" class="headerlink" title="PostgreSQL 事务隔离级别"></a>PostgreSQL 事务隔离级别</h2><ol>
+<li><strong>Read Uncommitted (读未提交)</strong>：<ul>
+<li><strong>现象</strong>：一个事务可以读到另一个事务<strong>尚未提交</strong>的修改。这会导致<strong>脏读 (Dirty Read)</strong>。</li>
+<li><strong>PostgreSQL 实现</strong>：<strong>在 PostgreSQL 中，这个级别实际上和下一个级别‘读已提交’的行为完全一样</strong>，也就是说 PG 不会出现脏读。这是一个重要的面试点。</li>
+</ul>
+</li>
+<li><strong>Read Committed (读已提交)</strong>：<ul>
+<li><strong>现象</strong>：一个事务只能读到其他事务<strong>已经提交</strong>的数据。这是 <strong>PostgreSQL 的默认隔离级别</strong>。</li>
+<li><strong>问题</strong>：它能避免“脏读”，但无法避免“<strong>不可重复读 (Non-Repeatable Read)</strong>”。即在同一个事务内，两次执行相同的查询，可能因为其他事务在此期间提交了更新，而得到不同的结果。</li>
+</ul>
+</li>
+<li><strong>Repeatable Read (可重复读)</strong>：<ul>
+<li><strong>现象</strong>：保证在同一个事务内，多次读取同样的数据，结果总是一致的。它通过在事务开始时创建一个<strong>数据快照 (Snapshot)</strong> 来实现。</li>
+<li><strong>问题</strong>：它能避免“脏读”和“不可重复读”，但在 PostgreSQL 中，它仍然可能出现“<strong>幻读 (Phantom Read)</strong>”的变种问题。虽然你看不到别的事务新插入的行，但如果你尝试 <code>INSERT</code> 或 <code>UPDATE</code> 的数据与另一个并发事务提交的数据冲突，你的事务会失败并回滚，提示 <code>serialization failure</code>。</li>
+</ul>
+</li>
+<li><strong>Serializable (可串行化)</strong>：<ul>
+<li><strong>现象</strong>：最高的隔离级别。它保证并发执行的多个事务，其最终结果与按某种顺序依次执行它们的结果完全相同。</li>
+<li><strong>实现</strong>：它能避免包括脏读、不可重复读、幻读在内的所有并发异常。PostgreSQL 通过一种叫做 <strong>SSI (Serializable Snapshot Isolation)</strong> 的技术来实现，比传统的锁机制性能更好。如果检测到可能破坏串行化执行的依赖关系，其中一个事务会被强制回滚</li>
+</ul>
+</li>
+</ol>
+<h2 id="JSON-和-JSONB-的区别是什么？在什么场景下应该使用-JSONB？"><a href="#JSON-和-JSONB-的区别是什么？在什么场景下应该使用-JSONB？" class="headerlink" title="JSON 和 JSONB 的区别是什么？在什么场景下应该使用 JSONB？"></a>JSON 和 JSONB 的区别是什么？在什么场景下应该使用 JSONB？</h2><p><code>JSON</code> 和 <code>JSONB</code> 的核心区别在于它们的<strong>存储方式</strong>：</p>
+<ol>
+<li><strong><code>JSON</code></strong> 存储的是<strong>纯文本</strong>，它会原封不动地保留你插入的字符串，包括空格、键的顺序和重复的键。</li>
+<li><strong><code>JSONB</code></strong> 存储的是一种<strong>分解后的二进制格式</strong>。它在存入时就已经被解析和优化，会去除不必要的空格，并且不保证键的顺序。</li>
+</ol>
+<p>这个区别导致了它们在性能和功能上的巨大差异：</p>
+<ul>
+<li><strong>性能</strong>：<code>JSONB</code> 的查询性能远超 <code>JSON</code>，因为它不需要在查询时反复解析文本。</li>
+<li><strong>索引</strong>：<code>JSONB</code> 支持强大的 <strong>GIN 索引</strong>，可以高效地对 JSON 内部的键值进行索引和搜索，而 <code>JSON</code> 的索引能力非常有限。</li>
+</ul>
+<h2 id="PostgreSQL-和-MySQL-相比，你认为它最大的优势和劣势分别是什么？"><a href="#PostgreSQL-和-MySQL-相比，你认为它最大的优势和劣势分别是什么？" class="headerlink" title="PostgreSQL 和 MySQL 相比，你认为它最大的优势和劣势分别是什么？"></a>PostgreSQL 和 MySQL 相比，你认为它最大的优势和劣势分别是什么？</h2><p><strong>优势一：它是一个“数据平台”，而不仅仅是数据库 (Extensibility &amp; Advanced Features)</strong></p>
+<p>这是 PostgreSQL 最核心的竞争力。它不满足于只做一个关系型数据库，它的目标是成为处理各种数据的统一平台。</p>
+<ul>
+<li><strong>强大的扩展性</strong>：通过插件（Extensions），PG 可以变身为各种专业的数据库。这是 MySQL 难以比拟的。<ul>
+<li>需要处理地理空间数据？<code>CREATE EXTENSION postgis;</code>，它就成了业界顶级的 GIS 数据库。</li>
+<li>需要处理时序数据？<code>CREATE EXTENSION timescaledb;</code>，它就成了高性能的时序数据库。</li>
+<li>需要处理向量数据以支持 AI 应用？<code>CREATE EXTENSION pgvector;</code> 即可。</li>
+</ul>
+</li>
+<li><strong>内置的“多模态”能力</strong>：原生的 <code>JSONB</code> 类型，让它拥有了媲美 MongoDB 的文档处理能力；原生的数组（Array）、范围（Range）等丰富类型，让数据建模的可能性远超传统关系型数据库。</li>
+<li><strong>外部数据包装器 (FDW)</strong>：这是一个“神器”，允许你直接在 PostgreSQL 内部，用 SQL 查询其他数据源，比如另一个 PostgreSQL、MySQL、Redis 甚至是一个 CSV 文件，就好像它们是本地的表一样。</li>
+</ul>
+<p><strong>这个优势带来的直接好处是：</strong> 极大地简化了技术栈。一个原本需要“MySQL + MongoDB + Elasticsearch + GIS数据库”的复杂系统，现在可能只需要一个高度扩展的 PostgreSQL 就能搞定，显著降低了开发和运维的复杂性。</p>
+<p>优势二：<strong>PostgreSQL</strong> 是一个<strong>强类型</strong>的数据库，而<strong>MySQL</strong> 则会执行<strong>隐式类型转换。</strong></p>
+<ul>
+<li><strong>可预测性高，Bug 更少</strong>：强类型检查能从根源上杜绝很多因类型不匹配而导致的潜在 bug。你不会因为一个地方传了数字，另一个地方传了字符串而得到意想不到的查询结果。代码的行为非常稳定可靠。</li>
+<li><strong>有利于索引优化</strong>：当 WHERE 子句中的常量类型与列类型完全匹配时，查询优化器能更准确、更高效地使用索引。隐式转换有时会导致优化器放弃使用索引，造成性能问题。</li>
+</ul>
+<hr>
+<h2 id="MySQL-换成-PostgreSQL需要考虑的事情"><a href="#MySQL-换成-PostgreSQL需要考虑的事情" class="headerlink" title="MySQL 换成 PostgreSQL需要考虑的事情"></a>MySQL 换成 PostgreSQL需要考虑的事情</h2><h3 id="一、表字段设计思维的转变"><a href="#一、表字段设计思维的转变" class="headerlink" title="一、表字段设计思维的转变"></a>一、表字段设计思维的转变</h3><h3 id="1-告别-“万物皆-VARCHAR”，拥抱丰富的数据类型"><a href="#1-告别-“万物皆-VARCHAR”，拥抱丰富的数据类型" class="headerlink" title="1. 告别 “万物皆 VARCHAR”，拥抱丰富的数据类型"></a>1. 告别 “万物皆 <code>VARCHAR</code>”，拥抱丰富的数据类型</h3><ul>
+<li><strong>MySQL 习惯</strong>：对不确定的文本字段使用 <code>VARCHAR(255)</code>，标签、类别等用字符串或数字存储。</li>
+<li><strong>PostgreSQL 思维转变</strong>：PG 鼓励你使用更精确、更具业务含义的类型，把数据校验工作下沉到数据库层面。<ul>
+<li><strong>场景：用户角色</strong><ul>
+<li><strong>MySQL 设计</strong>：<code>role VARCHAR(20)</code> 或者 <code>role_id INT</code>。</li>
+<li><strong>PostgreSQL 设计</strong>：<code>CREATE TYPE user_role AS ENUM (&#39;admin&#39;, &#39;member&#39;, &#39;guest&#39;);</code> 然后字段类型直接设为 <code>user_role</code>。这样做的好处是，数据库层面就保证了角色字段不可能被插入一个无效的值，数据更干净。</li>
+</ul>
+</li>
+<li><strong>场景：商品标签</strong><ul>
+<li><strong>MySQL 设计</strong>：<code>tags VARCHAR(255)</code>，里面存 <code>&quot;tag1,tag2,tag3&quot;</code> 这样的逗号分隔字符串。</li>
+<li><strong>PostgreSQL 设计</strong>：<code>tags TEXT[]</code> (数组类型)。这样做，你可以直接在数据库层面查询包含某个特定标签的商品，而不需要把字符串取到应用层再拆分处理。</li>
+</ul>
+</li>
+<li><strong>场景：存储配置信息</strong><ul>
+<li><strong>MySQL 设计</strong>：<code>settings TEXT</code>，里面存一个 JSON 字符串。</li>
+<li><strong>PostgreSQL 设计</strong>：<code>settings JSONB</code>。这样做，你可以直接对 JSON 内部的某个键进行查询和索引，性能极高。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-日期-时间设计的“最佳实践”"><a href="#2-日期-时间设计的“最佳实践”" class="headerlink" title="2. 日期&#x2F;时间设计的“最佳实践”"></a>2. 日期&#x2F;时间设计的“最佳实践”</h3><ul>
+<li><strong>MySQL 习惯</strong>：经常使用 <code>DATETIME</code> 或 <code>TIMESTAMP</code>，对时区的处理有时会比较混乱，依赖应用层来保证。</li>
+<li><strong>PostgreSQL 思维转变</strong>：<strong>默认使用 <code>TIMESTAMPTZ</code> (Timestamp with Time Zone)</strong>。这是一个“最佳实践”级别的改变。<code>TIMESTAMPTZ</code> 在存储时会将所有时间统一转换为 UTC，在取出时再根据当前会话的时区转换为本地时间。在一个全球化的、服务器可能部署在不同时区的项目中，使用 <code>TIMESTAMPTZ</code> 可以从根源上杜绝几乎所有的时区混乱问题。</li>
+</ul>
+<hr>
+<h3 id="二、SQL-查询与代码编写的差异"><a href="#二、SQL-查询与代码编写的差异" class="headerlink" title="二、SQL 查询与代码编写的差异"></a>二、SQL 查询与代码编写的差异</h3><p>这是开发过程中最常遇到的“坑”。</p>
+<h3 id="1-严格的类型匹配：“我的代码怎么报错了？”"><a href="#1-严格的类型匹配：“我的代码怎么报错了？”" class="headerlink" title="1. 严格的类型匹配：“我的代码怎么报错了？”"></a>1. 严格的类型匹配：“我的代码怎么报错了？”</h3><ul>
+<li><strong>MySQL 习惯</strong>：<code>WHERE user_id = &#39;123&#39;</code> 这样的查询（数字列 vs 字符串常量）能正常工作，因为 MySQL 会帮你做隐式转换。</li>
+<li><strong>PostgreSQL “坑”</strong>：同样的代码，无论是原生 SQL 还是通过 ORM 执行，都会在 PostgreSQL 中<strong>直接报错</strong> (<code>operator does not exist: integer = character varying</code>)。</li>
+<li><strong>开发者的转变</strong>：你必须养成编写类型安全的代码的习惯。在代码中传递参数时，要确保其类型与数据库字段类型一致。这在一开始可能会觉得“麻烦”，但长期来看，它避免了无数因类型模糊而产生的潜在 Bug。</li>
+</ul>
+<h3 id="2-大小写敏感：“我的表-字段怎么找不到了？”"><a href="#2-大小写敏感：“我的表-字段怎么找不到了？”" class="headerlink" title="2. 大小写敏感：“我的表&#x2F;字段怎么找不到了？”"></a>2. 大小写敏感：“我的表&#x2F;字段怎么找不到了？”</h3><ul>
+<li><strong>MySQL 习惯</strong>：在 Windows 上不区分大小写，在 Linux 上区分，行为不统一，但开发者通常不怎么在意。</li>
+<li><strong>PostgreSQL “坑”</strong>：PostgreSQL 默认会将所有<strong>未用双引号<code>&quot;&quot;</code>包围</strong>的表名、字段名等标识符<strong>自动转换为小写</strong>。<ul>
+<li><strong>场景</strong>：你的 ORM 框架根据你的 Java&#x2F;Python 实体类 <code>MyTable</code> 自动生成了一张带双引号的表 <code>&quot;MyTable&quot;</code>。然后你手动去写一个报表 SQL：<code>SELECT * FROM MyTable;</code>。这个查询会<strong>失败</strong>！因为 PostgreSQL 会去找 <code>mytable</code> 这张表，而不是 <code>&quot;MyTable&quot;</code>。</li>
+</ul>
+</li>
+<li><strong>开发者的转变</strong>：<ol>
+<li><strong>最佳实践</strong>：在团队内建立规范，<strong>所有数据库对象（表、字段）全部使用小写+下划线命名</strong>（例如 <code>my_table</code>, <code>user_name</code>），这样就永远不会踩到大小写的坑。</li>
+<li><strong>被迫的习惯</strong>：如果必须使用大小写混合的命名，那么在所有手写的 SQL 中，都必须用双引号把它们包围起来，例如 <code>SELECT &quot;userName&quot; FROM &quot;MyTable&quot;;</code>。</li>
+</ol>
+</li>
+</ul>
+<h3 id="3-从“应用层计算”到“数据库层计算”"><a href="#3-从“应用层计算”到“数据库层计算”" class="headerlink" title="3. 从“应用层计算”到“数据库层计算”"></a>3. 从“应用层计算”到“数据库层计算”</h3><ul>
+<li><strong>MySQL 习惯</strong>：受限于相对较弱的内置函数和特性，很多逻辑开发者习惯于“把数据先捞出来，再在 Java&#x2F;Python 里循环处理”。</li>
+<li><strong>PostgreSQL 思维转变</strong>：在写业务逻辑前，先问自己一句：<strong>“这个功能数据库能不能直接做？”</strong><ul>
+<li><strong>场景：字符串拼接&#x2F;聚合</strong><ul>
+<li><strong>MySQL 方式</strong>：<code>GROUP_CONCAT()</code> 功能有限。很多时候是把多行结果查出来，在代码里拼接。</li>
+<li><strong>PostgreSQL 方式</strong>：<code>STRING_AGG(name, &#39;,&#39; ORDER BY id)</code>，功能更强大，可以直接在数据库里完成高质量的聚合。</li>
+</ul>
+</li>
+<li><strong>场景：复杂数据分析</strong><ul>
+<li><strong>MySQL 方式</strong>：需要写复杂的子查询，或者把数据导出到其他系统。</li>
+<li><strong>PostgreSQL 方式</strong>：利用强大的窗口函数（Window Functions）、公共表表达式（CTE），可以直接在数据库里完成非常复杂的数据分析和排名。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>从 MySQL 切换到 PostgreSQL，对于后端开发者的核心转变是：</p>
+<p><strong>从把数据库当成一个相对“笨”的“数据仓库”，转变为把它当成一个聪明、严谨、功能强大的“数据处理与计算引擎”。</strong></p>
+<p>这意味着，你需要：</p>
+<ul>
+<li>在<strong>设计时</strong>，更倾向于利用 PG 丰富的类型来保证数据模型的健壮性。</li>
+<li>在<strong>编码时</strong>，编写更严谨、类型更安全的 SQL。</li>
+<li>在<strong>实现复杂功能时</strong>，优先考虑是否能用 PG 的高级特性（JSONB、数组、窗口函数等）在数据库端高效地完成，而不是把大量原始数据拉到应用层进行低效处理。</li>
+</ul>
+<h2 id="场景设定：一个面向开发者的-PostgreSQL-智能知识库"><a href="#场景设定：一个面向开发者的-PostgreSQL-智能知识库" class="headerlink" title="场景设定：一个面向开发者的 PostgreSQL 智能知识库"></a>场景设定：一个面向开发者的 PostgreSQL 智能知识库</h2><ul>
+<li><strong>知识库内容</strong>：包含了 PostgreSQL 官方文档 v16 的所有内容、大量关于性能优化的博客文章、以及知名 PG 专家的演讲稿。</li>
+<li><strong>技术栈</strong>：<ul>
+<li><strong>后端应用</strong>：一个 Java&#x2F;Python&#x2F;Node.js 应用。</li>
+<li><strong>大语言模型 (LLM)</strong>：背后调用了某个强大的 LLM（如 GPT-4, Llama, Claude, Gemini 等）。</li>
+<li><strong>数据库</strong>：<strong>PostgreSQL 16</strong>，并安装了 <strong><code>pgvector</code></strong> 扩展。</li>
+</ul>
+</li>
+<li><strong>目标</strong>：当开发者用自然语言提问时，系统能结合知识库的内容，提供精准、可靠的回答，而不是仅仅依赖 LLM 本身可能过时或不准确的“记忆”。</li>
+</ul>
+<h3 id="第一步：准备工作（知识的向量化存储）"><a href="#第一步：准备工作（知识的向量化存储）" class="headerlink" title="第一步：准备工作（知识的向量化存储）"></a>第一步：准备工作（知识的向量化存储）</h3><p>这个过程是离线的、提前完成的。</p>
+<ol>
+<li><p><strong>数据分块 (Chunking)</strong>：我们将所有文档（HTML, PDF, TXT）切分成有意义的小段落（Chunks），比如每段不超过 500 个字符。</p>
+</li>
+<li><p><strong>向量化 (Embedding)</strong>：调用一个文本嵌入模型（如 OpenAI 的 <code>text-embedding-3-small</code>），将每一个文本块（Chunk）转换成一个向量（比如一个包含 1536 个浮点数的数组）。</p>
+<pre class="line-numbers language-language-sql"><code class="language-language-sql">-- 首先，确保扩展已创建
+CREATE EXTENSION IF NOT EXISTS vector;
+
+-- 创建知识库表
+CREATE TABLE knowledge_chunks (
+    id SERIAL PRIMARY KEY,
+    content TEXT NOT NULL,          -- 原始文本块
+    source TEXT,                    -- 来源，如：'doc_v16/indexing.html'
+    embedding VECTOR(1536)          -- 存储文本对应的向量，维度为1536
+);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>存入 PostgreSQL</strong>：我们在 PostgreSQL 中创建一个表：</p>
+</li>
+<li><p><strong>建立索引</strong>：为了加速向量搜索，我们创建一个 IVFFlat 索引。SQL</p>
+<pre class="line-numbers language-language-sql"><code class="language-language-sql">CREATE INDEX ON knowledge_chunks USING ivfflat (embedding vector_cosine_ops) WITH (lists = 100);
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ol>
+<p>现在，我们的 PostgreSQL 数据库里装满了成千上万条“知识片段”及其对应的“数学表示”（向量）。</p>
+<hr>
+<h3 id="第二步：模拟对话与幕后流程"><a href="#第二步：模拟对话与幕后流程" class="headerlink" title="第二步：模拟对话与幕后流程"></a>第二步：模拟对话与幕后流程</h3><p><strong>时间：</strong> 2025年7月31日，星期四</p>
+<p><strong>用户 (一个开发者，小张)</strong>：打开了公司的内部技术支持聊天机器人。</p>
+<p><strong>小张 输入</strong>：</p>
+<blockquote>
+<p>我的 JSONB 查询很慢，尤其是查内部的嵌套对象，我该怎么优化？B-Tree索引好像没用。</p>
+</blockquote>
+<p><strong>AI 助手 (背后是我们的 PG 知识库系统) 正在思考…</strong></p>
+<h3 id="幕后技术流程拆解-RAG-Retrieval-Augmented-Generation"><a href="#幕后技术流程拆解-RAG-Retrieval-Augmented-Generation" class="headerlink" title="幕后技术流程拆解 (RAG - Retrieval-Augmented Generation)"></a>幕后技术流程拆解 (RAG - Retrieval-Augmented Generation)</h3><ol>
+<li><p><strong>查询向量化</strong>：</p>
+<ul>
+<li>后端应用接收到小张的问题。</li>
+<li>它立刻调用与准备阶段相同的文本嵌入模型，将问题 <strong>“我的 JSONB 查询很慢…”</strong> 这段文本也转换成一个 1536 维的<strong>查询向量 (Query Vector)</strong>。</li>
+</ul>
+</li>
+<li><p><strong>在 PostgreSQL 中进行向量相似度搜索</strong>：</p>
+<ul>
+<li><p>后端应用拿着这个“查询向量”，对 <code>knowledge_chunks</code> 表执行一次 SQL 查询。</p>
+</li>
+<li><p>这个 SQL 查询是 <code>pgvector</code> 的核心功能：</p>
+<pre class="line-numbers language-language-sql"><code class="language-language-sql">-- <=> 是 pgvector 提供的余弦距离操作符
+-- 它会计算查询向量和表中所有向量的相似度
+SELECT content, source
+FROM knowledge_chunks
+ORDER BY embedding <=> '[-0.123, 0.456, ...]' -- 这里是刚生成的查询向量
+LIMIT 5; -- 取回最相似的 5 个知识片段
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>PostgreSQL 利用我们之前创建的 IVFFlat 索引，<strong>毫秒级</strong>就返回了 5 个与问题最相关的文本块。可能包含以下内容：</p>
+<ul>
+<li><strong>[Context 1]</strong>: “For JSONB, the default B-tree operator class only supports equality checks… To index expressions within a JSONB document, the GIN operator class is recommended…” (来源: <code>doc_v16/datatype-json.html</code>)</li>
+<li><strong>[Context 2]</strong>: “GIN indexes are a type of inverted index. For a composite type like JSONB, it creates index entries for each key and value within the document…” (来源: <code>doc_v16/indexes-types.html</code>)</li>
+<li><strong>[Context 3]</strong>: “…a common performance pitfall is using standard indexes on JSONB columns for containment queries. A GIN index can yield orders of magnitude improvement…” (来源: <code>blog/top_10_pg_mistakes.txt</code>)</li>
+<li>… (另外两个相关的片段)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>构建增强提示 (Augmented Prompt)</strong>：</p>
+<ul>
+<li><p>后端应用将上一步检索到的 5 个文本块和用户的原始问题，组合成一个发给大语言模型 (LLM) 的新提示 (Prompt)。这个 Prompt 看上去是这样的：</p>
+<pre class="line-numbers language-language-sql"><code class="language-language-sql">--- CONTEXT ---
+Context 1: For JSONB, the default B-tree operator class only supports equality checks... To index expressions within a JSONB document, the GIN operator class is recommended... (Source: doc_v16/datatype-json.html)
+Context 2: GIN indexes are a type of inverted index. For a composite type like JSONB, it creates index entries for each key and value within the document... (Source: doc_v16/indexes-types.html)
+Context 3: ...a common performance pitfall is using standard indexes on JSONB columns for containment queries. A GIN index can yield orders of magnitude improvement... (Source: blog/top_10_pg_mistakes.txt)
+...
+
+--- QUESTION ---
+我的 `JSONB` 查询很慢，尤其是查内部的嵌套对象，我该怎么优化？B-Tree索引好像没用。
+
+--- INSTRUCTION ---
+Based ONLY on the context provided above, answer the user's question. Cite your sources using the provided source names.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>LLM 生成回答</strong>：</p>
+<ul>
+<li>LLM 接收到这个“有备而来”的提示。它不需要去自己的“记忆”里瞎猜，而是像一个<strong>开卷考试的学生</strong>，根据你给它的“参考资料”来组织答案。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>AI 助手 回复</strong>：</p>
+<blockquote>
+<p>您好！您遇到的问题非常典型。根据 PostgreSQL 的文档和最佳实践，对于 JSONB 内部元素的查询，标准的 B-Tree 索引确实无法有效工作，因为它只支持对整个 JSONB 文档的等值判断。</p>
+<p><strong>核心建议是：使用 GIN 索引。</strong></p>
+<p><strong>原因如下：</strong></p>
+<ul>
+<li><p><strong>工作原理</strong>：GIN (Generalized Inverted Index) 是一种倒排索引，它能深入到 <code>JSONB</code> 文档内部，为其中的每一个键和值都创建索引条目。这使得包含性查询（比如查询某个键是否存在，或某个键的值是否为特定内容）的效率能得到数量级的提升 (来源: <code>blog/top_10_pg_mistakes.txt</code>, <code>doc_v16/indexes-types.html</code>)。</p>
+</li>
+<li><p><strong>如何创建</strong>：您可以像这样为您的 <code>JSONB</code> 字段创建一个 GIN 索引：</p>
+<pre class="line-numbers language-language-sql"><code class="language-language-sql">CREATE INDEX a_descriptive_index_name ON your_table USING GIN (your_jsonb_column);
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+<p>总结来说，将您表上的 B-Tree 索引更换为 GIN 索引，应该能显著解决您 <code>JSONB</code> 查询慢的问题 (来源: <code>doc_v16/datatype-json.html</code>)。</p>
+</blockquote>
+<p>这个回答既准确又可靠，还给出了引用来源，完美解决了小张的问题。这就是 PostgreSQL 在现代 AI 应用中充当高效、可靠的知识库后台的典型工作流程。</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/PostgreSQL/">
+                                    <span class="chip bg-color">PostgreSQL</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2025/02/09/langchain-rag-ying-yong-kai-fa-zu-jian-shen-du-jie-xi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="LangChain RAG 应用开发组件深度解析">
+                        
+                        <span class="card-title">LangChain RAG 应用开发组件深度解析</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-09
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/AI/" class="post-category">
+                                    AI
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Langchain/">
+                        <span class="chip bg-color">Langchain</span>
+                    </a>
+                    
+                    <a href="/tags/RAG/">
+                        <span class="chip bg-color">RAG</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2024/09/18/nginx-bi-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Nginx笔记">
+                        
+                        <span class="card-title">Nginx笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-09-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="post-category">
+                                    中间件
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Nginx/">
+                        <span class="chip bg-color">Nginx</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023-2025</span>
+            
+            <a href="/about" target="_blank">Sean</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">106.9k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2023";
+                        var startMonth = "7";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/HyxiaoGe" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:hyxiao97@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -201,6 +201,31 @@
   </entry>
   
   <entry>
+    <title>PostgreSQL 复习</title>
+    <link href="https://hyxiaoge.github.io/2025/01/02/postgresql-bi-ji/"/>
+    <id>https://hyxiaoge.github.io/2025/01/02/postgresql-bi-ji/</id>
+    <published>2025-01-01T16:44:12.000Z</published>
+    <updated>2025-08-02T14:30:22.694Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;PostgreSQL-复习&quot;&gt;&lt;a href=&quot;#PostgreSQL-复习&quot; class=&quot;headerlink&quot; title=&quot;PostgreSQL 复习&quot;&gt;&lt;/a&gt;PostgreSQL 复习&lt;/h1&gt;&lt;h2 id=&quot;索引-Indexing&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="数据库" scheme="https://hyxiaoge.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+    <category term="PostgreSQL" scheme="https://hyxiaoge.github.io/tags/PostgreSQL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Nginx笔记</title>
     <link href="https://hyxiaoge.github.io/2024/09/18/nginx-bi-ji/"/>
     <id>https://hyxiaoge.github.io/2024/09/18/nginx-bi-ji/</id>
@@ -509,33 +534,6 @@
     <category term="SpringCloud" scheme="https://hyxiaoge.github.io/tags/SpringCloud/"/>
     
     <category term="Gateway" scheme="https://hyxiaoge.github.io/tags/Gateway/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringCloud-OpenFeign</title>
-    <link href="https://hyxiaoge.github.io/2024/04/22/springcloud-openfeign/"/>
-    <id>https://hyxiaoge.github.io/2024/04/22/springcloud-openfeign/</id>
-    <published>2024-04-21T16:33:16.000Z</published>
-    <updated>2025-07-25T08:58:21.726Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;OpenFeign</summary>
-        
-      
-    
-    
-    
-    <category term="微服务" scheme="https://hyxiaoge.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
-    
-    
-    <category term="SpringCloud" scheme="https://hyxiaoge.github.io/tags/SpringCloud/"/>
-    
-    <category term="OpenFeign" scheme="https://hyxiaoge.github.io/tags/OpenFeign/"/>
     
   </entry>
   
