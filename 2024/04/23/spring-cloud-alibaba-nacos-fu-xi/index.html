@@ -4,11 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="SpringCloud-Gateway, HyxiaoGe">
-    <meta name="description" content="Gateway是Spring Cloud的一个组件，用于构建API网关。API网关是微服务架构中的一个关键组件，它负责路由请求转发、负载均衡、断路器、安全、跨域、请求头和响应头的修改等。
-三大特性
-Routes：路由
-Filters：过滤器">
+    <meta name="keywords" content="SpringCloud Alibaba-Nacos, HyxiaoGe">
+    <meta name="description" content="Spring Cloud Alibaba Nacos简要介绍Nacos 是由阿里巴巴开源的一个动态服务发现、配置和服务管理平台，专为微服务架构设计。它帮助开发者实现云原生应用的动态服务发现和配置管理，提供了轻量级的服务注册和发现机制以及动态">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +17,7 @@ Filters：过滤器">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>SpringCloud-Gateway | HyxiaoGe</title>
+    <title>SpringCloud Alibaba-Nacos | HyxiaoGe</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
     <style>
@@ -286,12 +283,12 @@ Filters：过滤器">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">SpringCloud-Gateway</h1>
+                    <h1 class="description center-align post-title">SpringCloud Alibaba-Nacos</h1>
                 </div>
             </div>
         </div>
@@ -315,12 +312,12 @@ Filters：过滤器">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/SpringCloud/">
-                                <span class="chip bg-color">SpringCloud</span>
+                            <a href="/tags/SpringCloud-Alibaba/">
+                                <span class="chip bg-color">SpringCloud Alibaba</span>
                             </a>
                         
-                            <a href="/tags/Gateway/">
-                                <span class="chip bg-color">Gateway</span>
+                            <a href="/tags/Nacos/">
+                                <span class="chip bg-color">Nacos</span>
                             </a>
                         
                     </div>
@@ -344,28 +341,28 @@ Filters：过滤器">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2024-04-22
+                    2024-04-23
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2025-05-02
+                    2025-08-03
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2k
+                    2.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    8 分
                 </div>
                 
 
@@ -388,142 +385,107 @@ Filters：过滤器">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Gateway是Spring Cloud的一个组件，用于构建API网关。API网关是微服务架构中的一个关键组件，它负责<strong>路由请求转发</strong>、<strong>负载均衡</strong>、<strong>断路器</strong>、<strong>安全</strong>、<strong>跨域</strong>、<strong>请求头</strong>和<strong>响应头的修改</strong>等。</p>
-<h3 id="三大特性"><a href="#三大特性" class="headerlink" title="三大特性"></a>三大特性</h3><ul>
-<li><strong>Routes</strong>：路由</li>
-<li><strong>Filters</strong>：过滤器</li>
-<li><strong>Predicates</strong>：断言</li>
+                <h1 id="Spring-Cloud-Alibaba-Nacos"><a href="#Spring-Cloud-Alibaba-Nacos" class="headerlink" title="Spring Cloud Alibaba Nacos"></a>Spring Cloud Alibaba Nacos</h1><h2 id="简要介绍"><a href="#简要介绍" class="headerlink" title="简要介绍"></a>简要介绍</h2><p>Nacos 是由阿里巴巴开源的一个<strong>动态服务发现</strong>、<strong>配置</strong>和<strong>服务管理平台</strong>，专为微服务架构设计。它帮助开发者实现云原生应用的动态服务发现和配置管理，提供了轻量级的服务注册和发现机制以及动态的服务配置功能。</p>
+<h3 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a>核心功能</h3><ol>
+<li>服务发现与注册：<ul>
+<li>Nacos 支持 DNS-based 和 RPC-based 服务发现，提供实时健康检查，确保服务的可用性。服务实例上线或下线时，Nacos 会自动处理服务列表，客户端通过订阅服务列表获取最新的服务实例信息。</li>
 </ul>
-<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><ul>
-<li><p><strong>路由</strong>：客户端向 Spring Cloud Gateway 发出请求后，Gateway Handler Mapping 查找与请求相匹配的路由。</p>
 </li>
-<li><p>过滤器</p>
-<p>：在请求达到实际服务之前，Gateway 可以使用过滤器来修改传入的 HTTP 请求；同理，返回的 HTTP 响应也可以被过滤器处理。</p>
+<li>动态配置管理：<ul>
+<li>Nacos 提供中心化的配置管理服务，允许动态地管理应用配置，而无需重启服务。它支持配置自动更新，服务在运行时可以根据配置变化进行自适应调整。</li>
+</ul>
+</li>
+<li>服务元数据和流量管理：<ul>
+<li>Nacos 支持存储服务的元数据，如权重、负载均衡策略等，这些元数据可以用于服务调度和流量管理。</li>
+</ul>
+</li>
+<li>支持多种配置格式：<ul>
+<li>Nacos 支持多种配置格式，包括但不限于 properties、YAML、JSON等。</li>
+</ul>
+</li>
+<li>支持多种环境：<ul>
+<li>Nacos 支持多环境、多租户的配置管理，助力于微服务的多环境隔离。</li>
+</ul>
+</li>
+</ol>
+<h2 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h2><p>服务注册信息主要存储在服务器的内存中，以便快速响应服务发现的请求。这部分是服务注册的核心存储机制。</p>
+<p>对于配置管理，Nacos 提供了两种存储方式：</p>
 <ul>
-<li>有两种类型的过滤器，<code>pre 过滤器</code>和<code>post 过滤器</code>。pre 过滤器在路由请求之前执行，post 过滤器在路由请求之后执行。</li>
+<li><strong>内存中</strong>：为了快速访问，配置数据也会被缓存于内存中。</li>
+<li><strong>持久化存储</strong>：在持久化模式下，Nacos 支持使用外部数据库来存储配置数据。</li>
+</ul>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><h3 id="1、Nacos-是怎么发现新进来的微服务实例的？"><a href="#1、Nacos-是怎么发现新进来的微服务实例的？" class="headerlink" title="1、Nacos 是怎么发现新进来的微服务实例的？"></a>1、Nacos 是怎么发现新进来的微服务实例的？</h3><p>当一个微服务实例启动时，首先在 yml 文件中配置 Nacos 注册中心的地址，然后在启动类上添加服务发现 @EnableDiscoveryClient 注解。这样它会自动向 Nacos Server 注册当前服务实例。这个过程通常是通过调用 Nacos Server 的 API，将自己的服务名称、实例ID、IP地址、端口号等信息发送给 Nacos Server。注册成功之后，Nacos 并能感知到这个实例的存在。</p>
+<h3 id="2、Nacos-是如何发现一个服务不可用的？"><a href="#2、Nacos-是如何发现一个服务不可用的？" class="headerlink" title="2、Nacos 是如何发现一个服务不可用的？"></a>2、Nacos 是如何发现一个服务不可用的？</h3><p>Nacos Server 会定时发送心跳检查请求到每一个已注册的服务实例，以确认它们是否还存活。如果在一定时间内（默认是30秒）没有收到某个服务实例的心跳响应，Nacos 会认为这个服务实例已经不可用，并将其从服务列表中剔除。</p>
+<h3 id="3、当一个服务要调用另一个服务时，流程是哪样子的？"><a href="#3、当一个服务要调用另一个服务时，流程是哪样子的？" class="headerlink" title="3、当一个服务要调用另一个服务时，流程是哪样子的？"></a>3、当一个服务要调用另一个服务时，流程是哪样子的？</h3><ul>
+<li>当服务 A 想要调用服务 B 时，服务 A 首先会向服务注册中心（Nacos）请求服务 B 的实例信息。</li>
+<li>服务注册中心接收到响应，然后返回服务 B 所有可用实例列表给服务A。</li>
+<li>服务 A 通过集成的客户端负载均衡器（如Ribbon），根据某种负载均衡策略（如轮询、随机、权重等）选择一个服务B的实例。</li>
+<li>服务 A 通过选定的服务 B 实例的网络地址发起对服务 B 的调用。通常通过 HTTP 或其他 RPC 协议实现。</li>
+<li>如果调用失败，服务A可以选择另一个服务B的实例进行重试。</li>
+<li>被调用的服务 B 实例接收请求，处理业务逻辑，并返回响应给服务 A。</li>
+</ul>
+<h3 id="4、灰度发布和蓝绿部署是什么意思？"><a href="#4、灰度发布和蓝绿部署是什么意思？" class="headerlink" title="4、灰度发布和蓝绿部署是什么意思？"></a>4、灰度发布和蓝绿部署是什么意思？</h3><ul>
+<li>灰度发布：是指新版本的服务逐渐替代旧版本的过程，初期只有少部分用户使用新版本，如果新版本稳定，再逐渐扩大到所有用户。这样可以确保新版本的稳定性，并减少因新版本引入的问题对所有用户的影响。</li>
+<li>蓝绿部署：是指同时部署两个版本的服务，蓝色代表旧版本，绿色代表新版本。所有的流量首先路由到蓝色版本，当绿色版本准备好并经过测试后，流量可以切换到绿色版本。这样可以快速回滚到蓝色版本，如果绿色版本有问题。</li>
+</ul>
+<h3 id="5、Nacos-和-Gateway-之间是怎么样的关系？"><a href="#5、Nacos-和-Gateway-之间是怎么样的关系？" class="headerlink" title="5、Nacos 和 Gateway 之间是怎么样的关系？"></a>5、Nacos 和 Gateway 之间是怎么样的关系？</h3><ul>
+<li>Nacos 主要负责<code>服务的注册与发现</code>以及<code>配置管理</code>。而Gateway 是<code>API网关</code>，负责处理外部请求并将其路由到相应的微服务。</li>
+<li>当 Gateway 需要路由请求到某个服务时，它会向服务注册中心查询这个服务的实例列表，然后通过集成的负载均衡器，根据负载均衡策略选择一个实例进行调用。</li>
+</ul>
+<h3 id="6、Nacos-集群之间是怎么同步的？"><a href="#6、Nacos-集群之间是怎么同步的？" class="headerlink" title="6、Nacos 集群之间是怎么同步的？"></a>6、Nacos 集群之间是怎么同步的？</h3><p>Nacos 集群中的数据同步主要依靠 Raft 协议来保证一致性。这是一种分布式计算中用于实现多节点间一致性的协议，常用于多副本数据的一致性保障。</p>
+<ol>
+<li>领导选举（Leader Election）：<ul>
+<li>当 Nacos 集群启动时，或者领导者节点失效时，集群会通过 Raft 协议进行新的领导者选举。</li>
+<li>所有的写操作（比如更新配置信息或服务注册信息）都必须通过领导者来进行。</li>
 </ul>
 </li>
-<li><p><strong>转发</strong>：最后请求将被转发到实际的服务。</p>
+<li>日志复制（Log Replication）：<ul>
+<li>当领导者节点接收到一个更新请求（比如配置更新或服务注册），它首先将这个请求作为一个新的日志条目添加到它的日志中。</li>
+<li>然后，领导者将这个日志条目发送给其他的追随者节点。</li>
+<li>追随者节点将该日志条目添加到它们各自的日志中，并向领导者确认接收成功。</li>
+</ul>
 </li>
+<li>数据提交：<ul>
+<li>一旦领导者节点从大多数追随者那里收到了确认，它就会提交该日志条目，并将更新应用到系统状态上。</li>
+<li>领导者之后会通知追随者已经提交了哪些日志条目，追随者随后也会将这些条目提交并应用到各自的系统状态。</li>
 </ul>
-<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ul>
-<li><strong>路由和负载均衡</strong>：将请求路由到合适的微服务实例。</li>
-<li><strong>安全</strong>：如身份验证和授权。</li>
-<li><strong>限流</strong>：限制请求的速率。</li>
-<li><strong>缓存</strong>：缓存请求的响应。</li>
-<li><strong>断路</strong>：在某个微服务实例出现问题时，快速失败。</li>
-<li><strong>跨域</strong>：处理跨域资源共享（CORS）请求。</li>
-<li><strong>请求和响应的修改</strong>：如添加、删除或修改头信息。</li>
+</li>
+<li>读取操作：<ul>
+<li>对于读操作，可以直接由任何一个节点处理，但为了保证读到的数据是最新的，通过读操作也会通过领导者节点来进行。</li>
 </ul>
-<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul>
-<li><strong>统一入口</strong>：为微服务提供一个统一的访问入口，简化客户端调用。</li>
-<li><strong>安全防护</strong>：提供安全机制，如身份验证、授权和防止恶意攻击。</li>
-<li><strong>性能优化</strong>：如负载均衡、缓存和限流。</li>
-<li><strong>故障隔离</strong>：如断路和重试。</li>
-</ul>
-<h3 id="定义路由规则"><a href="#定义路由规则" class="headerlink" title="定义路由规则"></a>定义路由规则</h3><p>Gateway 使用一组路由规则来确定如何处理传入的 HTTP 请求。每条路由规则定义了一个<strong>目标</strong> URI 、一组<strong>断言</strong>和一组<strong>过滤器</strong>。当断言为真时，请求会被路由到目标 URI ，并在路由之前和之后应用过滤器。</p>
-<p>在 application.yml 中：</p>
-<pre><code>spring:
-  cloud:
-    gateway:
-      routes:
-      ## 路由规则的唯一标识符
-      - id: user-service
-        uri: lb://user-service
-        predicates:
-        - Path=/user/**
-        filters:
-        - AddRequestHeader=X-Request-Foo, Bar
-</code></pre>
-<p>在 Spring Cloud Gateway 的路由定义中：</p>
+</li>
+</ol>
+<h3 id="CAP"><a href="#CAP" class="headerlink" title="CAP"></a>CAP</h3><p>CAP 理论指出，一个分布式系统不可能同时满足以下三点：</p>
 <ul>
-<li><p><strong>id</strong>：这是路由的唯一标识符。它用于区分和标识不同的路由规则。在管理、监控或日志中，这个<code>id</code>可以帮助我们快速识别和引用特定的路由。</p>
-</li>
-<li><p>uri</p>
-<p>：这是路由的目标URI。当</p>
-<p>请求满足某个路由的断言时，它会被转发到这个URI</p>
-<p>。这个</p>
-<pre><code>URI
-</code></pre>
-<p>可以是一个具体的地址，也可以是一个服务的逻辑名称。</p>
+<li><strong>一致性（Consistency）</strong>：每次读取都能得到最新的写入或错误响应。</li>
+<li><strong>可用性（Availability）</strong>：每次请求都能得到响应，无论成功或失败。</li>
+<li><strong>分区容错性（Partition tolerance）</strong>：系统中任何信息的丢失或失败都不会影响系统的继续运行。</li>
+</ul>
+<h3 id="Nacos-的-CAP-配置"><a href="#Nacos-的-CAP-配置" class="headerlink" title="Nacos 的 CAP 配置"></a>Nacos 的 CAP 配置</h3><p>Nacos 提供了两种运行模式，可以根据需要在一致性和可用性之间进行选择，确保系统按需求正确运行：</p>
+<p>在CAP理论中，Nacos可以配置为更偏向于“一致性（C）”和“分区容错性（P）”，也可以配置为更偏向于“可用性（A）”和“分区容错性（P）”，这取决于具体的使用场景和配置。</p>
 <ul>
-<li>当URI的前缀是 <code>lb://&#123;&#123;微服务名称&#125;&#125;</code> 时，表示这是一个逻辑地址，需要使用客户端负载均衡器（如 Ribbon）来解析。在这个例子中，<code>lb://user-service</code> 表示请求会被负载均衡到名为 <code>user-service</code> 的服务实例。</li>
-<li>如果 URI 是一个 HTTP 或 HTTPS 地址，lb:&#x2F;&#x2F;<a target="_blank" rel="noopener" href="https://www.baidu.com,那么请求会被直接转发到这个地/">https://www.baidu.com，那么请求会被直接转发到这个地</a></li>
+<li>不同的运行模式：<ul>
+<li>AP 模式：<ul>
+<li>当运行在 AP 模式下，Nacos 更偏向于高可用性和分区容错性。这在大多数服务发现场景是可取的，因为在这种情况下，即使在网络分区或部分系统故障的情况下，服务仍然需要被发现和消费。</li>
+<li>在 AP 模式下，Nacos 可能会牺牲一致性来保证高可用性。也就是说，服务的注册和发现可能不会立即反映最新状态，但服务的发现和路由功能仍然是可用的。</li>
+<li>作为服务注册中心：<ul>
+<li>当Nacos用作服务注册中心时，它通常运行在AP模式。这是因为在服务发现的场景中，可用性和分区容错性通常被视为更重要。即使在网络分区或部分服务不可用的情况下，服务注册和发现功能仍然可以正常工作，尽管这可能会导致短暂的数据不一致。</li>
 </ul>
 </li>
-<li><p>predicates 路由谓词</p>
-<p>：</p>
-<ul>
-<li><p>谓词用于匹配和过滤HTTP请求。</p>
+</ul>
 </li>
-<li><p>SpringCloud Gateway 提供了多种内置谓词，如：</p>
-<ul>
-<li><p>Path</p>
-<p>：根据请求路径匹配。</p>
-<ul>
-<li><strong>Method</strong>：根据HTTP方法匹配。</li>
-<li><strong>Header</strong>：根据请求头匹配。</li>
-<li><strong>Query</strong>：根据查询参数匹配。</li>
+<li>CP 模式：<ul>
+<li>当运行在 CP 模式下，Nacos 更注重一致性和分区容错性。这适用于配置管理场景，因为配置信息的正确性和一致性是非常重要的。</li>
+<li>在 CP 模式下，Nacos 会确保配置的一致性，即使这可能意味着在网络分区或其他问题发生时，对配置的访问可能会受到影响。</li>
+<li>作为配置中心：<ul>
+<li>当Nacos用作配置中心时，它通常运行在CP模式。在配置管理场景下，一致性是非常关键的，因为配置信息需要在所有服务实例之间保持一致。Nacos 确保即使在网络分区或故障的情况下，所有服务实例也能获取到一致的配置信息。</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>filters 过滤器</p>
-<p>：</p>
-<ul>
-<li>Gateway 提供了多种过滤器，这些过滤器分为全局过滤器和路由过滤器。全局过滤器对所有请求都有效，而路由过滤器只对特定的路由有效。</li>
-<li>过滤器的执行顺序是由其 order 属性决定的。请求首先会经过所有的 pre 类型的过滤器，然后路由到下游服务，最后再经过所有的 post 类型的过滤器。</li>
 </ul>
-</li>
-</ul>
-<p>上述配置定义了一个路由规则，当请求的路径匹配 <code>/user/**</code> 断言时，它会被路由到名为 <code>user-service</code> 的微服务，并在请求头中添加一个名为 X-Request-Foo 的头信息。</p>
-<h3 id="定义过滤器"><a href="#定义过滤器" class="headerlink" title="定义过滤器"></a>定义过滤器</h3><pre class="line-numbers language-language-java"><code class="language-language-java">@Bean
-public RouteLocator customRouteLocator(RouteLocatorBuilder builder) &#123;
-    return builder.routes()
-        .route("path_route", r -> r.path("/get")
-            .filters(f -> f.addRequestHeader("Hello", "World"))
-            .uri("<http://httpbin.org>"))
-        .build();
-&#125;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>上述代码定义了一个路由规则，当请求的路径为 &#x2F;get 时，它会被路由到 <a target="_blank" rel="noopener" href="http://httpbin.org/get">http://httpbin.org/get</a> ，并在请求头中添加一个名为 Hello 的头信息。</p>
-<h3 id="SpringCloud-Gateway的应用"><a href="#SpringCloud-Gateway的应用" class="headerlink" title="SpringCloud Gateway的应用"></a>SpringCloud Gateway的应用</h3><h3 id="1-动态路由"><a href="#1-动态路由" class="headerlink" title="1. 动态路由"></a>1. 动态路由</h3><ul>
-<li>Gateway 支持动态路由，允许您在运行时添加、修改或删除路由规则。</li>
-<li>这是通过与Spring Cloud Config 或其他外部配置源的集成来实现的。</li>
-<li>当路由配置发生变化时，Gateway 可以自动刷新路由规则，而无需重新启动应用。</li>
-</ul>
-<h3 id="2-API聚合"><a href="#2-API聚合" class="headerlink" title="2. API聚合"></a>2. API聚合</h3><p>网关可以用来聚合多个后端服务的API调用结果。例如，客户端可以只发送一个请求到网关，网关则分别向多个服务发请求，然后将结果聚合后返回给客户端。这可以减少客户端与服务间的通信次数，并简化客户端逻辑。</p>
-<h3 id="3-全局过滤器"><a href="#3-全局过滤器" class="headerlink" title="3. 全局过滤器"></a>3. 全局过滤器</h3><p>除了标准的路由过滤器外，Spring Cloud Gateway 还提供全局过滤器，它对所有的路由有效。这些全局过滤器可以用来实现跨服务的逻辑，如权限校验、日志跟踪记录、安全检查等。</p>
-<h3 id="4-断路器集成"><a href="#4-断路器集成" class="headerlink" title="4. 断路器集成"></a>4. 断路器集成</h3><ul>
-<li>Spring Cloud GateWay 支持与 Hystrix 断路器的集成。当某个下游服务出现问题时，断路器可以防止请求继续传递给服务，从而防止系统雪崩。</li>
-<li>通过配置，你可以为特定的路由定义断路器的行为，例如失败的阈值和回退的响应。</li>
-</ul>
-<h3 id="5-重试机制"><a href="#5-重试机制" class="headerlink" title="5. 重试机制"></a>5. 重试机制</h3><ul>
-<li>如果某个微服务实例失败，Gateway 可以配置为自动重试其他实例。</li>
-<li>重试可以基于不同的策略，如固定延迟、指数退避等。</li>
-<li>这增加了系统的弹性和可用性。</li>
-</ul>
-<h3 id="6-请求速率限制"><a href="#6-请求速率限制" class="headerlink" title="6. 请求速率限制"></a>6. 请求速率限制</h3><p>通过与Redis等技术的集成，Spring Cloud Gateway 支持对客户端请求进行速率限制，这有助于防止API滥用并保护后端服务免受过载。</p>
-<ul>
-<li>例如，你可以为特定的用户或IP设置每秒的请求限制。</li>
-<li>限流可以帮助您保护系统免受恶意攻击和意外的流量峰值。</li>
-</ul>
-<h3 id="7-集成与第三方服务发现"><a href="#7-集成与第三方服务发现" class="headerlink" title="7. 集成与第三方服务发现"></a>7. 集成与第三方服务发现</h3><ul>
-<li>Gateway 可以与Eureka、Consul、Zookeeper等服务发现组件集成。</li>
-<li>当使用 <code>lb://&#123;&#123;微服务名称&#125;&#125;</code> 前缀的逻辑地址时，Gateway 会从服务发现组件中自动获取可用的服务实例，并进行负载均衡。</li>
-</ul>
-<h2 id="关于底层的负载均衡器"><a href="#关于底层的负载均衡器" class="headerlink" title="关于底层的负载均衡器"></a>关于底层的负载均衡器</h2><p>在Spring Cloud的较早版本中，<strong>Ribbon</strong>是默认的客户端负载均衡器。但从Spring Cloud Greenwich版本开始，官方推荐使用<strong>Spring Cloud LoadBalancer</strong>，这是一个基于Spring Reactor的新的轻量级、反应式负载均衡器。</p>
-<p>Spring Cloud LoadBalancer的特点：</p>
-<ul>
-<li>它是一个反应式的负载均衡器，并且完全集成在WebFlux环境中。</li>
-<li>提供了一个简单的轮询和随机负载均衡策略的默认实现，也支持自定义策略。</li>
-<li>它使用了Spring Boot 2.x中引入的HttpClient或WebClient来进行实际的服务调用。</li>
-</ul>
-<p>虽然Ribbon项目现在处于维护模式，不再建议用于新的项目，但现有项目可以继续使用Ribbon而无需迁移到Spring Cloud LoadBalancer。</p>
-<p>在实际的Spring Cloud项目中，你应该确保使用的是兼容的Spring Cloud版本，并且对应地选择使用Ribbon还是Spring Cloud LoadBalancer。如果你的Spring Cloud版本较新（比如Hoxton版本及以后），应该使用Spring Cloud LoadBalancer作为客户端负载均衡器。</p>
-<p>总的来说，SpringCloud Gateway 是一个功能强大的API网关，它提供了一系列的工具和特性，使得开发者可以轻松地构建和管理微服务应用的API网关。</p>
 
                 
             </div>
@@ -538,12 +500,12 @@ public RouteLocator customRouteLocator(RouteLocatorBuilder builder) &#123;
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/SpringCloud/">
-                                    <span class="chip bg-color">SpringCloud</span>
+                                <a href="/tags/SpringCloud-Alibaba/">
+                                    <span class="chip bg-color">SpringCloud Alibaba</span>
                                 </a>
                             
-                                <a href="/tags/Gateway/">
-                                    <span class="chip bg-color">Gateway</span>
+                                <a href="/tags/Nacos/">
+                                    <span class="chip bg-color">Nacos</span>
                                 </a>
                             
                         </div>
@@ -590,13 +552,13 @@ public RouteLocator customRouteLocator(RouteLocatorBuilder builder) &#123;
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/04/23/springcloud-alibaba-sentinel/">
+                <a href="/2024/05/03/mysql/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="SpringCloud Alibaba-Sentinel">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="MySQL基础巩固">
                         
-                        <span class="card-title">SpringCloud Alibaba-Sentinel</span>
+                        <span class="card-title">MySQL基础巩固</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -607,14 +569,14 @@ public RouteLocator customRouteLocator(RouteLocatorBuilder builder) &#123;
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-04-23
+                            <i class="far fa-clock fa-fw icon-date"></i>2024-05-03
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" class="post-category">
-                                    微服务
+                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
+                                    数据库
                                 </a>
                             
                             
@@ -624,12 +586,8 @@ public RouteLocator customRouteLocator(RouteLocatorBuilder builder) &#123;
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/SpringCloud-Alibaba/">
-                        <span class="chip bg-color">SpringCloud Alibaba</span>
-                    </a>
-                    
-                    <a href="/tags/Sentinel/">
-                        <span class="chip bg-color">Sentinel</span>
+                    <a href="/tags/MySQL/">
+                        <span class="chip bg-color">MySQL</span>
                     </a>
                     
                 </div>
@@ -643,13 +601,13 @@ public RouteLocator customRouteLocator(RouteLocatorBuilder builder) &#123;
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/04/22/springcloud-openfeign/">
+                <a href="/2024/04/23/springcloud-ribbon/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="SpringCloud-OpenFeign">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="SpringCloud-Ribbon">
                         
-                        <span class="card-title">SpringCloud-OpenFeign</span>
+                        <span class="card-title">SpringCloud-Ribbon</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -660,7 +618,7 @@ public RouteLocator customRouteLocator(RouteLocatorBuilder builder) &#123;
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-04-23
                             </span>
                         <span class="publish-author">
                             
@@ -681,8 +639,8 @@ public RouteLocator customRouteLocator(RouteLocatorBuilder builder) &#123;
                         <span class="chip bg-color">SpringCloud</span>
                     </a>
                     
-                    <a href="/tags/OpenFeign/">
-                        <span class="chip bg-color">OpenFeign</span>
+                    <a href="/tags/Ribbon/">
+                        <span class="chip bg-color">Ribbon</span>
                     </a>
                     
                 </div>
@@ -826,7 +784,7 @@ public RouteLocator customRouteLocator(RouteLocatorBuilder builder) &#123;
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">112.5k</span>
+                        class="white-color">121.1k</span>
             
             
             

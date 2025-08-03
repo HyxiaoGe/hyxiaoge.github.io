@@ -6,7 +6,7 @@
   <link href="https://hyxiaoge.github.io/atom.xml" rel="self"/>
   
   <link href="https://hyxiaoge.github.io/"/>
-  <updated>2025-04-25T17:07:52.324Z</updated>
+  <updated>2025-08-03T18:02:03.332Z</updated>
   <id>https://hyxiaoge.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>微服务架构理论与原则</title>
+    <link href="https://hyxiaoge.github.io/2025/08/04/wei-fu-wu-jia-gou-li-lun-yu-yuan-ze/"/>
+    <id>https://hyxiaoge.github.io/2025/08/04/wei-fu-wu-jia-gou-li-lun-yu-yuan-ze/</id>
+    <published>2025-08-03T18:00:16.000Z</published>
+    <updated>2025-08-03T18:02:03.332Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;微服务架构理论与原则&quot;&gt;&lt;a href=&quot;#微服务架构理论与原则&quot; class=&quot;headerlink&quot; title=&quot;微服务架构理论与原则&quot;&gt;&lt;/a&gt;微服务架构理论与原则&lt;/h1&gt;&lt;h2 id=&quot;何为微服务架构？&quot;&gt;&lt;a href=&quot;#何为微服务架构？&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="微服务" scheme="https://hyxiaoge.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
+    
+    
+    <category term="微服务" scheme="https://hyxiaoge.github.io/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
+    
+    <category term="架构" scheme="https://hyxiaoge.github.io/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+  </entry>
   
   <entry>
     <title>Markdown代码样式测试文件</title>
@@ -431,17 +458,17 @@
   
   <entry>
     <title>SpringCloud Alibaba-Nacos</title>
-    <link href="https://hyxiaoge.github.io/2024/04/23/springcloud-alibaba-nacos/"/>
-    <id>https://hyxiaoge.github.io/2024/04/23/springcloud-alibaba-nacos/</id>
+    <link href="https://hyxiaoge.github.io/2024/04/23/spring-cloud-alibaba-nacos-fu-xi/"/>
+    <id>https://hyxiaoge.github.io/2024/04/23/spring-cloud-alibaba-nacos-fu-xi/</id>
     <published>2024-04-23T15:56:48.000Z</published>
-    <updated>2025-05-02T10:02:24.570Z</updated>
+    <updated>2025-08-03T13:36:33.240Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;简要介绍&quot;&gt;&lt;a href=&quot;#简要介绍&quot; class=&quot;headerlink&quot; title=&quot;简要介绍&quot;&gt;&lt;/a&gt;简要介绍&lt;/h2&gt;&lt;p&gt;Nacos</summary>
+    <summary type="html">&lt;h1 id=&quot;Spring-Cloud-Alibaba-Nacos&quot;&gt;&lt;a href=&quot;#Spring-Cloud-Alibaba-Nacos&quot; class=&quot;headerlink&quot; title=&quot;Spring Cloud Alibaba Nacos&quot;&gt;&lt;/a&gt;Spring</summary>
         
       
     
@@ -507,33 +534,6 @@
     <category term="SpringCloud Alibaba" scheme="https://hyxiaoge.github.io/tags/SpringCloud-Alibaba/"/>
     
     <category term="Sentinel" scheme="https://hyxiaoge.github.io/tags/Sentinel/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringCloud-Gateway</title>
-    <link href="https://hyxiaoge.github.io/2024/04/22/springcloud-gateway/"/>
-    <id>https://hyxiaoge.github.io/2024/04/22/springcloud-gateway/</id>
-    <published>2024-04-22T11:02:12.000Z</published>
-    <updated>2025-05-02T09:59:22.529Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Gateway是Spring</summary>
-        
-      
-    
-    
-    
-    <category term="微服务" scheme="https://hyxiaoge.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
-    
-    
-    <category term="SpringCloud" scheme="https://hyxiaoge.github.io/tags/SpringCloud/"/>
-    
-    <category term="Gateway" scheme="https://hyxiaoge.github.io/tags/Gateway/"/>
     
   </entry>
   
