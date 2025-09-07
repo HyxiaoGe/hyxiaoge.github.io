@@ -6,7 +6,7 @@
   <link href="https://hyxiaoge.github.io/atom.xml" rel="self"/>
   
   <link href="https://hyxiaoge.github.io/"/>
-  <updated>2025-08-03T18:02:03.332Z</updated>
+  <updated>2025-09-07T09:02:01.579Z</updated>
   <id>https://hyxiaoge.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://hyxiaoge.github.io/2025/09/07/da-mo-xing-shi-dai-cong-gai-nian-dao-wei-lai/"/>
+    <id>https://hyxiaoge.github.io/2025/09/07/da-mo-xing-shi-dai-cong-gai-nian-dao-wei-lai/</id>
+    <published>2025-09-07T07:17:59.031Z</published>
+    <updated>2025-09-07T09:02:01.579Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;简单来说，大模型（&lt;strong&gt;Large Language Model,</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>微服务架构理论与原则</title>
@@ -507,33 +528,6 @@
     <category term="SpringCloud" scheme="https://hyxiaoge.github.io/tags/SpringCloud/"/>
     
     <category term="Ribbon" scheme="https://hyxiaoge.github.io/tags/Ribbon/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringCloud Alibaba-Sentinel</title>
-    <link href="https://hyxiaoge.github.io/2024/04/23/springcloud-alibaba-sentinel/"/>
-    <id>https://hyxiaoge.github.io/2024/04/23/springcloud-alibaba-sentinel/</id>
-    <published>2024-04-23T04:08:16.000Z</published>
-    <updated>2025-05-02T09:57:26.802Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Sentinel 是一个开源的流量控制组件，由阿里巴巴开源。它主要用于微服务的&lt;strong&gt;稳定性&lt;/strong&gt;和&lt;strong&gt;可靠性&lt;/strong&gt;保障，提供了丰富的功能来应对各种服务和应用的高可用需求。Sentinel</summary>
-        
-      
-    
-    
-    
-    <category term="微服务" scheme="https://hyxiaoge.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
-    
-    
-    <category term="SpringCloud Alibaba" scheme="https://hyxiaoge.github.io/tags/SpringCloud-Alibaba/"/>
-    
-    <category term="Sentinel" scheme="https://hyxiaoge.github.io/tags/Sentinel/"/>
     
   </entry>
   
