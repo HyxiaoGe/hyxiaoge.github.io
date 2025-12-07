@@ -1,0 +1,1516 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Go 实战入门（一）：从零搭建 Web API 项目, HyxiaoGe">
+    <meta name="description" content="Go 实战入门（一）：从零搭建 Web API 项目一、前言作为一名后端开发者，学习一门新语言最痛苦的莫过于——看完语法教程，依然不知道怎么写项目。
+本系列选择另一条路：直接从实战项目入手，在做项目的过程中学习 Go。不讲语法细节，只关注工">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Go 实战入门（一）：从零搭建 Web API 项目 | HyxiaoGe</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(http://sv6693ki5.hn-bkt.clouddn.com/background/bg.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="HyxiaoGe" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><script src="/js/prism.js"></script>
+<script src="/js/prism-line-numbers.min.js"></script></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">HyxiaoGe</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">HyxiaoGe</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Go 实战入门（一）：从零搭建 Web API 项目</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Go/">
+                                <span class="chip bg-color">Go</span>
+                            </a>
+                        
+                            <a href="/tags/Web/">
+                                <span class="chip bg-color">Web</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Go/" class="post-category">
+                                Go
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-11-12
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-12-07
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    548
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    2 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Go-实战入门（一）：从零搭建-Web-API-项目"><a href="#Go-实战入门（一）：从零搭建-Web-API-项目" class="headerlink" title="Go 实战入门（一）：从零搭建 Web API 项目"></a>Go 实战入门（一）：从零搭建 Web API 项目</h1><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>作为一名后端开发者，学习一门新语言最痛苦的莫过于——看完语法教程，依然不知道怎么写项目。</p>
+<p>本系列选择另一条路：<strong>直接从实战项目入手</strong>，在做项目的过程中学习 Go。不讲语法细节，只关注工程实践。</p>
+<p>本篇是系列第一篇，目标是搭建一个完整的 Web API 项目骨架，包含：配置管理、日志系统、数据库操作、HTTP 路由、JWT 认证等核心模块。</p>
+<p>完整代码见：<a target="_blank" rel="noopener" href="https://github.com/HyxiaoGe/go-practical-roadmap">go-practical-roadmap</a></p>
+<hr>
+<h2 id="二、项目结构"><a href="#二、项目结构" class="headerlink" title="二、项目结构"></a>二、项目结构</h2><p>Go 项目没有强制的目录规范，但社区有一套约定俗成的布局：</p>
+<pre><code>01-web-api-template/
+├── cmd/server/main.go        # 程序入口
+├── internal/                 # 内部包（不对外暴露）
+│   ├── api/                  # HTTP 处理层
+│   ├── service/              # 业务逻辑层
+│   ├── repository/           # 数据访问层
+│   ├── model/                # 数据模型
+│   ├── config/               # 配置定义
+│   ├── middleware/           # 中间件
+│   └── app/                  # 应用组装
+├── pkg/                      # 可复用的公共包
+│   ├── logger/               # 日志封装
+│   └── db/                   # 数据库封装
+├── configs/config.yaml       # 配置文件
+└── Makefile                  # 构建脚本
+</code></pre>
+<p>几个关键点：</p>
+<ul>
+<li><strong>cmd&#x2F;</strong> 放可执行程序入口，每个子目录对应一个二进制文件</li>
+<li><strong>internal&#x2F;</strong> 是 Go 的特殊目录，里面的包无法被外部项目导入</li>
+<li><strong>pkg&#x2F;</strong> 放可以被其他项目复用的代码</li>
+</ul>
+<hr>
+<h2 id="三、程序入口与生命周期"><a href="#三、程序入口与生命周期" class="headerlink" title="三、程序入口与生命周期"></a>三、程序入口与生命周期</h2><h3 id="main-go"><a href="#main-go" class="headerlink" title="main.go"></a>main.go</h3><pre class="line-numbers language-language-go"><code class="language-language-go">package main
+
+import (
+    "fmt"
+    "log"
+    "go-practical-roadmap/01-web-api-template/internal/app"
+)
+
+func main() &#123;
+    // 创建应用实例
+    application, err := app.NewApp()
+    if err != nil &#123;
+        log.Fatalf("Failed to create app: %v", err)
+    &#125;
+
+    // 在 goroutine 中启动应用
+    go func() &#123;
+        if err := application.Run(); err != nil &#123;
+            log.Fatalf("Failed to run app: %v", err)
+        &#125;
+    &#125;()
+
+    fmt.Println("Server is running on :8080")
+
+    // 等待中断信号
+    application.WaitForInterrupt()
+
+    // 停止应用
+    if err := application.Stop(); err != nil &#123;
+        log.Fatalf("Failed to stop app: %v", err)
+    &#125;
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="为什么需要显式阻塞？"><a href="#为什么需要显式阻塞？" class="headerlink" title="为什么需要显式阻塞？"></a>为什么需要显式阻塞？</h3><p>注意 <code>application.WaitForInterrupt()</code> 这行。Go 有个特性：<strong>main 函数结束 &#x3D; 程序退出</strong>，不管还有多少 goroutine 在运行。</p>
+<p>所以必须用某种方式”挡住” main 函数，否则 HTTP 服务器刚启动程序就退出了。</p>
+<p><code>WaitForInterrupt</code> 的实现很简单：</p>
+<pre class="line-numbers language-language-go"><code class="language-language-go">func (a *App) WaitForInterrupt() &#123;
+    quit := make(chan os.Signal, 1)
+    signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+    <-quit  // 阻塞，直到收到 Ctrl+C
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="优雅停机"><a href="#优雅停机" class="headerlink" title="优雅停机"></a>优雅停机</h3><p>收到停止信号后，不能直接退出，要给正在处理的请求一个收尾的机会：</p>
+<pre class="line-numbers language-language-go"><code class="language-language-go">func (a *App) Stop() error &#123;
+    // 创建 30 秒超时的 context
+    ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+    defer cancel()
+
+    // 优雅关闭 HTTP 服务（等待请求处理完）
+    if err := a.server.Shutdown(ctx); err != nil &#123;
+        return err
+    &#125;
+
+    // 关闭数据库连接
+    db.Close()
+
+    // 刷新日志缓冲
+    logger.GlobalLogger.Sync()
+
+    return nil
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>context.WithTimeout</code> 是 Go 的超时控制机制。<code>Shutdown</code> 会等待所有请求处理完毕，但最多等 30 秒，超时就强制关闭。</p>
+<hr>
+<h2 id="四、配置管理（Viper）"><a href="#四、配置管理（Viper）" class="headerlink" title="四、配置管理（Viper）"></a>四、配置管理（Viper）</h2><p>Viper 是 Go 最流行的配置库，支持 YAML、JSON、环境变量等多种来源。</p>
+<h3 id="配置结构体"><a href="#配置结构体" class="headerlink" title="配置结构体"></a>配置结构体</h3><pre class="line-numbers language-language-go"><code class="language-language-go">type Config struct &#123;
+    Server   ServerConfig   `mapstructure:"server"`
+    Database DatabaseConfig `mapstructure:"database"`
+    JWT      JWTConfig      `mapstructure:"jwt"`
+    Logger   LoggerConfig   `mapstructure:"logger"`
+&#125;
+
+type ServerConfig struct &#123;
+    Port int    `mapstructure:"port"`
+    Host string `mapstructure:"host"`
+    Mode string `mapstructure:"mode"`
+&#125;
+
+type DatabaseConfig struct &#123;
+    Driver       string `mapstructure:"driver"`
+    DSN          string `mapstructure:"dsn"`
+    MaxIdleConns int    `mapstructure:"max_idle_conns"`
+    MaxOpenConns int    `mapstructure:"max_open_conns"`
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>mapstructure</code> 标签告诉 Viper 如何将 YAML 字段映射到结构体。</p>
+<h3 id="加载配置"><a href="#加载配置" class="headerlink" title="加载配置"></a>加载配置</h3><pre class="line-numbers language-language-go"><code class="language-language-go">func LoadConfig() (*Config, error) &#123;
+    viper.SetConfigName("config")
+    viper.SetConfigType("yaml")
+    viper.AddConfigPath("./configs")
+
+    // 设置默认值
+    viper.SetDefault("server.port", 8080)
+    viper.SetDefault("database.max_idle_conns", 10)
+
+    // 环境变量自动覆盖（前缀 APP_）
+    viper.SetEnvPrefix("APP")
+    viper.AutomaticEnv()
+    viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+
+    // 读取配置文件
+    if err := viper.ReadInConfig(); err != nil &#123;
+        return nil, err
+    &#125;
+
+    // 反序列化到结构体
+    var config Config
+    if err := viper.Unmarshal(&config); err != nil &#123;
+        return nil, err
+    &#125;
+
+    return &config, nil
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对应的 <code>config.yaml</code>：</p>
+<pre class="line-numbers language-language-yaml"><code class="language-language-yaml">server:
+  port: 8080
+  host: localhost
+  mode: debug
+
+database:
+  driver: sqlite
+  dsn: ./data/app.db
+  max_idle_conns: 10
+  max_open_conns: 100
+
+jwt:
+  secret: your-secret-key
+  access_token_exp: 3600
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>环境变量 <code>APP_DATABASE_DSN</code> 会自动覆盖 <code>database.dsn</code> 的值，方便在不同环境部署。</p>
+<hr>
+<h2 id="五、日志系统（Zap）"><a href="#五、日志系统（Zap）" class="headerlink" title="五、日志系统（Zap）"></a>五、日志系统（Zap）</h2><p>Zap 是 Uber 开源的高性能日志库，特点是零内存分配和结构化日志。</p>
+<h3 id="初始化日志"><a href="#初始化日志" class="headerlink" title="初始化日志"></a>初始化日志</h3><pre class="line-numbers language-language-go"><code class="language-language-go">func NewLogger(level string, format string, outputPath string) (Logger, error) &#123;
+    // 解析日志级别
+    var zapLevel zapcore.Level
+    switch level &#123;
+    case "debug":
+        zapLevel = zap.DebugLevel
+    case "info":
+        zapLevel = zap.InfoLevel
+    case "error":
+        zapLevel = zap.ErrorLevel
+    default:
+        zapLevel = zap.InfoLevel
+    &#125;
+
+    // 配置编码器
+    encoderConfig := zap.NewProductionEncoderConfig()
+    encoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+
+    var encoder zapcore.Encoder
+    if format == "json" &#123;
+        encoder = zapcore.NewJSONEncoder(encoderConfig)
+    &#125; else &#123;
+        encoder = zapcore.NewConsoleEncoder(encoderConfig)
+    &#125;
+
+    // 配置输出（支持日志轮转）
+    var output zapcore.WriteSyncer
+    if outputPath == "stdout" &#123;
+        output = zapcore.AddSync(os.Stdout)
+    &#125; else &#123;
+        output = zapcore.AddSync(&lumberjack.Logger&#123;
+            Filename:   outputPath,
+            MaxSize:    100,  // MB
+            MaxBackups: 10,
+            MaxAge:     30,   // days
+        &#125;)
+    &#125;
+
+    core := zapcore.NewCore(encoder, output, zapLevel)
+    logger := zap.New(core, zap.AddCaller())
+
+    return &zapLogger&#123;logger: logger&#125;, nil
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><pre class="line-numbers language-language-go"><code class="language-language-go">// 结构化日志
+logger.Info("User login",
+    zap.String("username", "sean"),
+    zap.Int("user_id", 123),
+    zap.Duration("latency", time.Millisecond*50))
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出（JSON 格式）：</p>
+<pre class="line-numbers language-language-json"><code class="language-language-json">&#123;"level":"INFO","ts":"2024-01-01T12:00:00Z","caller":"api/routes.go:42","msg":"User login","username":"sean","user_id":123,"latency":"50ms"&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>结构化日志的好处是方便后续用 ELK、Loki 等工具分析检索。</p>
+<hr>
+<h2 id="六、数据库（Gorm）"><a href="#六、数据库（Gorm）" class="headerlink" title="六、数据库（Gorm）"></a>六、数据库（Gorm）</h2><p>Gorm 是 Go 最流行的 ORM，支持 MySQL、PostgreSQL、SQLite 等数据库。</p>
+<h3 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h3><pre class="line-numbers language-language-go"><code class="language-language-go">var globalDB *gorm.DB
+
+func Connect(dsn string, driver string) error &#123;
+    var err error
+
+    switch driver &#123;
+    case "mysql":
+        globalDB, err = gorm.Open(mysql.Open(dsn), &gorm.Config&#123;&#125;)
+    case "postgres":
+        globalDB, err = gorm.Open(postgres.Open(dsn), &gorm.Config&#123;&#125;)
+    case "sqlite":
+        globalDB, err = gorm.Open(sqlite.Open(dsn), &gorm.Config&#123;&#125;)
+    &#125;
+
+    if err != nil &#123;
+        return err
+    &#125;
+
+    // 配置连接池
+    sqlDB, _ := globalDB.DB()
+    sqlDB.SetMaxIdleConns(10)
+    sqlDB.SetMaxOpenConns(100)
+    sqlDB.SetConnMaxLifetime(time.Hour)
+
+    return nil
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Model-定义"><a href="#Model-定义" class="headerlink" title="Model 定义"></a>Model 定义</h3><pre class="line-numbers language-language-go"><code class="language-language-go">type User struct &#123;
+    ID        uint           `gorm:"primaryKey" json:"id"`
+    CreatedAt time.Time      `json:"created_at"`
+    UpdatedAt time.Time      `json:"updated_at"`
+    DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at,omitempty"`
+    Username  string         `gorm:"uniqueIndex;size:50;not null" json:"username"`
+    Email     string         `gorm:"uniqueIndex;size:100;not null" json:"email"`
+    Password  string         `gorm:"size:255;not null" json:"-"`
+    IsActive  bool           `gorm:"default:true" json:"is_active"`
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>几个要点：</p>
+<ul>
+<li><code>gorm</code> 标签定义数据库约束（主键、索引、长度等）</li>
+<li><code>json</code> 标签定义 JSON 序列化行为，<code>json:&quot;-&quot;</code> 表示忽略该字段</li>
+<li><code>gorm.DeletedAt</code> 实现软删除，删除记录时只更新该字段</li>
+</ul>
+<h3 id="Repository-层"><a href="#Repository-层" class="headerlink" title="Repository 层"></a>Repository 层</h3><pre class="line-numbers language-language-go"><code class="language-language-go">type UserRepository interface &#123;
+    Create(user *model.User) error
+    GetByID(id uint) (*model.User, error)
+    GetByUsername(username string) (*model.User, error)
+    Update(user *model.User) error
+    Delete(id uint) error
+&#125;
+
+type userRepository struct &#123;
+    db *gorm.DB
+&#125;
+
+func NewUserRepository(db *gorm.DB) UserRepository &#123;
+    return &userRepository&#123;db: db&#125;
+&#125;
+
+func (r *userRepository) Create(user *model.User) error &#123;
+    return r.db.Create(user).Error
+&#125;
+
+func (r *userRepository) GetByUsername(username string) (*model.User, error) &#123;
+    var user model.User
+    err := r.db.Where("username = ?", username).First(&user).Error
+    if err != nil &#123;
+        return nil, err
+    &#125;
+    return &user, nil
+&#125;
+
+func (r *userRepository) Delete(id uint) error &#123;
+    return r.db.Delete(&model.User&#123;&#125;, id).Error
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>接口 + 实现分离的设计，方便单元测试时 mock。</p>
+<hr>
+<h2 id="七、HTTP-服务（Gin）"><a href="#七、HTTP-服务（Gin）" class="headerlink" title="七、HTTP 服务（Gin）"></a>七、HTTP 服务（Gin）</h2><p>Gin 是 Go 最流行的 Web 框架，性能优异且 API 简洁。</p>
+<h3 id="路由注册"><a href="#路由注册" class="headerlink" title="路由注册"></a>路由注册</h3><pre class="line-numbers language-language-go"><code class="language-language-go">func SetupRoutes(userService service.UserService) *gin.Engine &#123;
+    r := gin.New()
+
+    // 内置中间件
+    r.Use(gin.Logger())
+    r.Use(gin.Recovery())
+
+    // 自定义中间件
+    r.Use(middleware.RequestTracerMiddleware())
+    r.Use(middleware.CORSMiddleware())
+
+    // 公开路由
+    r.GET("/health", healthCheck)
+    r.POST("/api/v1/register", func(c *gin.Context) &#123;
+        registerHandler(c, userService)
+    &#125;)
+    r.POST("/api/v1/login", func(c *gin.Context) &#123;
+        loginHandler(c, userService)
+    &#125;)
+
+    // 需要认证的路由组
+    authorized := r.Group("/")
+    authorized.Use(middleware.JWTAuthMiddleware)
+    &#123;
+        authorized.GET("/api/v1/profile", profileHandler)
+    &#125;
+
+    return r
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="请求处理"><a href="#请求处理" class="headerlink" title="请求处理"></a>请求处理</h3><pre class="line-numbers language-language-go"><code class="language-language-go">func registerHandler(c *gin.Context, userService service.UserService) &#123;
+    var req dto.RegisterRequest
+
+    // 绑定 JSON 请求体到结构体
+    if err := c.ShouldBindJSON(&req); err != nil &#123;
+        c.JSON(http.StatusBadRequest, gin.H&#123;"error": err.Error()&#125;)
+        return
+    &#125;
+
+    // 调用业务层
+    user, err := userService.Register(&req)
+    if err != nil &#123;
+        c.JSON(http.StatusBadRequest, gin.H&#123;"error": err.Error()&#125;)
+        return
+    &#125;
+
+    // 返回响应
+    c.JSON(http.StatusCreated, gin.H&#123;
+        "message": "User registered successfully",
+        "data":    user,
+    &#125;)
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>c.ShouldBindJSON</code> 会自动解析请求体并校验参数（配合 validator 标签），省去大量样板代码。</p>
+<hr>
+<h2 id="八、中间件"><a href="#八、中间件" class="headerlink" title="八、中间件"></a>八、中间件</h2><h3 id="JWT-认证"><a href="#JWT-认证" class="headerlink" title="JWT 认证"></a>JWT 认证</h3><pre class="line-numbers language-language-go"><code class="language-language-go">type Claims struct &#123;
+    UserID   uint   `json:"user_id"`
+    Username string `json:"username"`
+    jwt.RegisteredClaims
+&#125;
+
+// 生成 Token
+func GenerateToken(userID uint, username string) (string, error) &#123;
+    expirationTime := time.Now().Add(time.Duration(config.GlobalConfig.JWT.AccessTokenExp) * time.Second)
+
+    claims := &Claims&#123;
+        UserID:   userID,
+        Username: username,
+        RegisteredClaims: jwt.RegisteredClaims&#123;
+            ExpiresAt: jwt.NewNumericDate(expirationTime),
+            IssuedAt:  jwt.NewNumericDate(time.Now()),
+        &#125;,
+    &#125;
+
+    token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+    return token.SignedString([]byte(config.GlobalConfig.JWT.Secret))
+&#125;
+
+// 认证中间件
+func JWTAuthMiddleware(c *gin.Context) &#123;
+    authHeader := c.GetHeader("Authorization")
+    if authHeader == "" &#123;
+        c.JSON(http.StatusUnauthorized, gin.H&#123;"error": "Missing Authorization header"&#125;)
+        c.Abort()
+        return
+    &#125;
+
+    if !strings.HasPrefix(authHeader, "Bearer ") &#123;
+        c.JSON(http.StatusUnauthorized, gin.H&#123;"error": "Invalid Authorization format"&#125;)
+        c.Abort()
+        return
+    &#125;
+
+    tokenString := strings.TrimPrefix(authHeader, "Bearer ")
+
+    claims, err := ValidateToken(tokenString)
+    if err != nil &#123;
+        c.JSON(http.StatusUnauthorized, gin.H&#123;"error": "Invalid token"&#125;)
+        c.Abort()
+        return
+    &#125;
+
+    // 将用户信息存入 context，后续 handler 可以取用
+    c.Set("user_id", claims.UserID)
+    c.Set("username", claims.Username)
+
+    c.Next()
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>c.Abort()</code> 会终止后续中间件和 handler 的执行，直接返回响应。</p>
+<hr>
+<h2 id="九、业务分层"><a href="#九、业务分层" class="headerlink" title="九、业务分层"></a>九、业务分层</h2><h3 id="Service-层"><a href="#Service-层" class="headerlink" title="Service 层"></a>Service 层</h3><pre class="line-numbers language-language-go"><code class="language-language-go">type UserService interface &#123;
+    Register(req *dto.RegisterRequest) (*dto.UserProfileResponse, error)
+    Login(req *dto.LoginRequest) (string, error)
+&#125;
+
+type userService struct &#123;
+    userRepo repository.UserRepository
+&#125;
+
+func NewUserService(userRepo repository.UserRepository) UserService &#123;
+    return &userService&#123;userRepo: userRepo&#125;
+&#125;
+
+func (s *userService) Register(req *dto.RegisterRequest) (*dto.UserProfileResponse, error) &#123;
+    // 检查用户名是否已存在
+    if _, err := s.userRepo.GetByUsername(req.Username); err == nil &#123;
+        return nil, errors.New("username already exists")
+    &#125;
+
+    // 密码加密
+    hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
+    if err != nil &#123;
+        return nil, err
+    &#125;
+
+    // 创建用户
+    user := &model.User&#123;
+        Username: req.Username,
+        Email:    req.Email,
+        Password: string(hashedPassword),
+    &#125;
+
+    if err := s.userRepo.Create(user); err != nil &#123;
+        return nil, err
+    &#125;
+
+    // 返回 DTO（不含密码）
+    return &dto.UserProfileResponse&#123;
+        ID:       user.ID,
+        Username: user.Username,
+        Email:    user.Email,
+    &#125;, nil
+&#125;
+
+func (s *userService) Login(req *dto.LoginRequest) (string, error) &#123;
+    user, err := s.userRepo.GetByUsername(req.Username)
+    if err != nil &#123;
+        return "", errors.New("invalid username or password")
+    &#125;
+
+    if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(req.Password)); err != nil &#123;
+        return "", errors.New("invalid username or password")
+    &#125;
+
+    return middleware.GenerateToken(user.ID, user.Username)
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="分层职责"><a href="#分层职责" class="headerlink" title="分层职责"></a>分层职责</h3><table>
+<thead>
+<tr>
+<th>层</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>API&#x2F;Handler</td>
+<td>处理 HTTP 请求响应，参数校验</td>
+</tr>
+<tr>
+<td>Service</td>
+<td>业务逻辑，事务控制</td>
+</tr>
+<tr>
+<td>Repository</td>
+<td>数据访问，SQL 操作</td>
+</tr>
+<tr>
+<td>Model</td>
+<td>数据库实体</td>
+</tr>
+<tr>
+<td>DTO</td>
+<td>接口传输对象，与 Model 分离</td>
+</tr>
+</tbody></table>
+<p>DTO 和 Model 分离的好处：</p>
+<ul>
+<li>接口返回的字段可以灵活控制，不暴露敏感信息（如密码）</li>
+<li>数据库结构变化不影响 API 契约</li>
+</ul>
+<hr>
+<h2 id="十、小结"><a href="#十、小结" class="headerlink" title="十、小结"></a>十、小结</h2><p>本篇完成了一个 Web API 项目的基础骨架：</p>
+<ul>
+<li><strong>程序入口</strong>：理解 Go 的启动机制和优雅停机</li>
+<li><strong>配置管理</strong>：使用 Viper 加载 YAML 配置和环境变量</li>
+<li><strong>日志系统</strong>：使用 Zap 输出结构化日志</li>
+<li><strong>数据库</strong>：使用 Gorm 定义 Model 和 Repository</li>
+<li><strong>HTTP 服务</strong>：使用 Gin 注册路由和处理请求</li>
+<li><strong>中间件</strong>：实现 JWT 认证</li>
+<li><strong>业务分层</strong>：Service 层处理业务逻辑</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Go/">
+                                    <span class="chip bg-color">Go</span>
+                                </a>
+                            
+                                <a href="/tags/Web/">
+                                    <span class="chip bg-color">Web</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2025/11/12/go-shi-zhan-ru-men-yi-cong-ling-da-jian-web-api-xiang-mu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Go 实战入门（一）：从零搭建 Web API 项目">
+                        
+                        <span class="card-title">Go 实战入门（一）：从零搭建 Web API 项目</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-11-12
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Go/" class="post-category">
+                                    Go
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Go/">
+                        <span class="chip bg-color">Go</span>
+                    </a>
+                    
+                    <a href="/tags/Web/">
+                        <span class="chip bg-color">Web</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2025/09/07/da-mo-xing-shi-dai-cong-gai-nian-dao-wei-lai/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="大模型时代：从概念到未来">
+                        
+                        <span class="card-title">大模型时代：从概念到未来</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-09-07
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/AI/" class="post-category">
+                                    AI
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/">
+                        <span class="chip bg-color">大模型</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023-2025</span>
+            
+            <a href="/about" target="_blank">Sean</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">125.3k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2023";
+                        var startMonth = "7";
+                        var startDate = "28";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/HyxiaoGe" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:hyxiao97@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+     
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/snow.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

@@ -6,7 +6,7 @@
   <link href="https://hyxiaoge.github.io/atom.xml" rel="self"/>
   
   <link href="https://hyxiaoge.github.io/"/>
-  <updated>2025-09-07T09:05:22.729Z</updated>
+  <updated>2025-12-07T06:09:43.947Z</updated>
   <id>https://hyxiaoge.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Go 实战入门（一）：从零搭建 Web API 项目</title>
+    <link href="https://hyxiaoge.github.io/2025/11/12/go-shi-zhan-ru-men-yi-cong-ling-da-jian-web-api-xiang-mu/"/>
+    <id>https://hyxiaoge.github.io/2025/11/12/go-shi-zhan-ru-men-yi-cong-ling-da-jian-web-api-xiang-mu/</id>
+    <published>2025-11-12T05:01:12.000Z</published>
+    <updated>2025-12-07T06:09:43.947Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Go-实战入门（一）：从零搭建-Web-API-项目&quot;&gt;&lt;a href=&quot;#Go-实战入门（一）：从零搭建-Web-API-项目&quot; class=&quot;headerlink&quot; title=&quot;Go 实战入门（一）：从零搭建 Web API 项目&quot;&gt;&lt;/a&gt;Go</summary>
+        
+      
+    
+    
+    
+    <category term="Go" scheme="https://hyxiaoge.github.io/categories/Go/"/>
+    
+    
+    <category term="Go" scheme="https://hyxiaoge.github.io/tags/Go/"/>
+    
+    <category term="Web" scheme="https://hyxiaoge.github.io/tags/Web/"/>
+    
+  </entry>
   
   <entry>
     <title>大模型时代：从概念到未来</title>
@@ -505,33 +532,6 @@
     <category term="SpringCloud Alibaba" scheme="https://hyxiaoge.github.io/tags/SpringCloud-Alibaba/"/>
     
     <category term="Nacos" scheme="https://hyxiaoge.github.io/tags/Nacos/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SpringCloud-Ribbon</title>
-    <link href="https://hyxiaoge.github.io/2024/04/23/springcloud-ribbon/"/>
-    <id>https://hyxiaoge.github.io/2024/04/23/springcloud-ribbon/</id>
-    <published>2024-04-23T14:15:15.000Z</published>
-    <updated>2025-05-02T09:54:33.714Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Ribbon 是一个客户端负载均衡器，它可以在调用微服务时提供&lt;strong&gt;负载均衡&lt;/strong&gt;的功能。在Spring Cloud 中，Ribbon 通常与 Eureka、Nacos</summary>
-        
-      
-    
-    
-    
-    <category term="微服务" scheme="https://hyxiaoge.github.io/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
-    
-    
-    <category term="SpringCloud" scheme="https://hyxiaoge.github.io/tags/SpringCloud/"/>
-    
-    <category term="Ribbon" scheme="https://hyxiaoge.github.io/tags/Ribbon/"/>
     
   </entry>
   
